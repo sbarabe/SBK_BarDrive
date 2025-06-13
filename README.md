@@ -41,7 +41,7 @@ For more information, schematics, and PCB files, visit: [https://github.com/sbar
 1. Download or clone the library into your Arduino `libraries` folder:
 
    ```bash
-   git clone https://github.com/smartbuilds/SBK_BarDrive.git
+   git clone https://github.com/sbarabe/SBK_BarDrive.git
    ```
 2. In your Arduino sketch, enable features as needed:
 
@@ -244,7 +244,7 @@ Library by **Samuel Barabé** (Smart Builds & Kits).
 ## 🛠️ Support
 
 * GitHub: [https://github.com/sbarabe/SBK-BarDrive](https://github.com/sbarabe/SBK-BarDrive)
-* PCB files: [SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK_BarMeter_PCBs)
+* PCB files: [SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK_PCBs)
 * Contact: [smartbuildskits@gmail.com](mailto:smartbuildskits@gmail.com)
 
 ---
