@@ -236,9 +236,6 @@ You are free to share and adapt the material, provided you give appropriate cred
 
 Library by **Samuel Barabé** (Smart Builds & Kits).
 
-* MAX7219 driver inspired by [Eberhard Fahle](https://github.com/wayoda/LedControl)
-* HT16K33 base adapted from [MikeS11's ProtonPack](https://github.com/MikeS11/ProtonPack)
-
 ---
 
 ## 🛠️ Support
