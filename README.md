@@ -32,9 +32,35 @@ This library is designed to work with the following hardware combinations:
 * 🟣 **SBK BarDrive 64 PCB**   + **SBK BarMeter 24 PCB**  + **3x B8x type (8seg com. cathode Bar Meter)**
 * 🟠 **SBK BarDrive 64 PCB**   + **SBK BarMeter 40 PCB**  + **5x B8x type (8seg com. cathode Bar Meter)**
 
-For more information, schematics, and PCB files, visit: [https://github.com/sbarabe/SBK_PCBs](https://github.com/sbarabe/SBK_PCBs)
+For more information, schematics, and PCB files, visit: [https://github.com/sbarabe/SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK-BarDrive-BarMeter-PCBs)
 
 ---
+
+
+## 📦 Dependencies
+
+The `SBK_BarDrive` library **depends on one of the following display driver libraries** to function:
+
+| Dependency         | Description                                                              | Required For                     |
+|--------------------|---------------------------------------------------------------------------|----------------------------------|
+| [`SBK_MAX72xx`](https://github.com/sbarabe/SBK_MAX72xx) | Software SPI driver for MAX7219/MAX7221 LED drivers               | MAX72xx-based displays           |
+| [`SBK_HT16K33`](https://github.com/sbarabe/SBK_HT16K33) | I²C driver for HT16K33 LED driver (8x16 matrices or bar displays) | HT16K33-based displays           |
+
+You **must install at least one** of these drivers depending on your hardware.
+
+> If using PlatformIO or Arduino Library Manager, these will be installed automatically as dependencies.
+
+To manually install:
+```bash
+# For MAX72xx (SPI)
+git clone https://github.com/sbarabe/SBK_MAX72xx.git
+
+# For HT16K33 (I2C)
+git clone https://github.com/sbarabe/SBK_HT16K33.git
+```
+
+Then place them in your Arduino `libraries` folder.
+
 
 ## ⬇️ Installation
 
@@ -236,11 +262,14 @@ You are free to share and adapt the material, provided you give appropriate cred
 
 Library by **Samuel Barabé** (Smart Builds & Kits).
 
+* MAX7219 driver inspired by [Eberhard Fahle](https://github.com/wayoda/LedControl)
+* HT16K33 base adapted from [MikeS11's ProtonPack](https://github.com/MikeS11/ProtonPack)
+
 ---
 
 ## 🛠️ Support
 
-* GitHub: [https://github.com/sbarabe/SBK_BarDrive](https://github.com/sbarabe/SBK_BarDrive)
+* GitHub: [https://github.com/sbarabe/SBK-BarDrive](https://github.com/sbarabe/SBK-BarDrive)
 * PCB files: [SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK_PCBs)
 * Contact: [smartbuildskits@gmail.com](mailto:smartbuildskits@gmail.com)
 
