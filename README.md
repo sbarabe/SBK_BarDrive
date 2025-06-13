@@ -32,7 +32,7 @@ This library is designed to work with the following hardware combinations:
 * 🟣 **SBK BarDrive 64 PCB**   + **SBK BarMeter 24 PCB**  + **3x B8x type (8seg com. cathode Bar Meter)**
 * 🟠 **SBK BarDrive 64 PCB**   + **SBK BarMeter 40 PCB**  + **5x B8x type (8seg com. cathode Bar Meter)**
 
-For more information, schematics, and PCB files, visit: [https://github.com/sbarabe/SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK-BarDrive-BarMeter-PCBs)
+For more information, schematics, and PCB files, visit: [https://github.com/sbarabe/SBK_PCBs](https://github.com/sbarabe/SBK_PCBs)
 
 ---
 
@@ -236,14 +236,11 @@ You are free to share and adapt the material, provided you give appropriate cred
 
 Library by **Samuel Barabé** (Smart Builds & Kits).
 
-* MAX7219 driver inspired by [Eberhard Fahle](https://github.com/wayoda/LedControl)
-* HT16K33 base adapted from [MikeS11's ProtonPack](https://github.com/MikeS11/ProtonPack)
-
 ---
 
 ## 🛠️ Support
 
-* GitHub: [https://github.com/sbarabe/SBK-BarDrive](https://github.com/sbarabe/SBK-BarDrive)
+* GitHub: [https://github.com/sbarabe/SBK_BarDrive](https://github.com/sbarabe/SBK_BarDrive)
 * PCB files: [SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK_PCBs)
 * Contact: [smartbuildskits@gmail.com](mailto:smartbuildskits@gmail.com)
 
