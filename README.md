@@ -270,7 +270,7 @@ Library by **Samuel Barabé** (Smart Builds & Kits).
 ## 🛠️ Support
 
 * GitHub: [https://github.com/sbarabe/SBK-BarDrive](https://github.com/sbarabe/SBK-BarDrive)
-* PCB files: [SBK-BarDrive-BarMeter-PCBs](https://github.com/sbarabe/SBK_PCBs)
+* PCB files: [SBK_PCBs](https://github.com/sbarabe/SBK_PCBs)
 * Contact: [smartbuildskits@gmail.com](mailto:smartbuildskits@gmail.com)
 
 ---
