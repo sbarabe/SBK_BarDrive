@@ -23,7 +23,17 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ## ⚙️ Supported Hardware Combinations
 
-This library is compatible with **any LED matrix or bar display** using `MAX7219`, `MAX7221`, or `HT16K33` drivers — as long as a valid `[row, col]` segment mapping is provided or configured using a built-in preset.
+This library is compatible with **any LED matrix or bar display** using `MAX7219`, `MAX7221`, or `HT16K33` drivers — as long as a valid `[row, col]`, aka `[anode,cathode]`, segment mapping is provided or configured using a built-in preset.
+
+When using custom segment mappings with SBK_BarDrive, each segment is defined as a {row, col} pair — representing the physical LED connection: 
+{row, col} = {anode, cathode}
+
+This matches the wiring convention of common LED driver ICs:
+| Driver  | Row (Anode / V+)    | Column (Cathode / GND) |
+| ------- | ------------------- | ---------------------- |
+| MAX72xx | `SEGx` (source, V+) | `DIGx` (sink, GND)     |
+| HT16K33 | `Rx`  (source, V+)  | `Cx`   (sink, GND)     |
+
 
 This library is designed to work with the following hardware combinations:
 
