@@ -1,8 +1,22 @@
 var searchData=
 [
-  ['clear_0',['clear',['../class_s_b_k___bar_meter.html#a31b15ae15388332de25d3a1beb340c6e',1,'SBK_BarMeter']]],
-  ['collidingblocks_1',['collidingBlocks',['../class_s_b_k___bar_meter_animations.html#aa434ba6f3a3588bf4075bb5d4963b304',1,'SBK_BarMeterAnimations']]],
-  ['currentlevel_2',['currentLevel',['../_s_b_k___bar_meter_animations_8h.html#aa5d8c6f56cd90f4fb010a33eeee3afd7',1,'SBK_BarMeterAnimations.h']]],
-  ['cursor_3',['cursor',['../_s_b_k___bar_meter_animations_8h.html#ac7592dfe42c9845b48666f4548944691',1,'SBK_BarMeterAnimations.h']]],
-  ['custom_4',['CUSTOM',['../_s_b_k___bar_drive_8h.html#a196498cf360ddf3ece219dfb4d55182ea72baef04098f035e8a320b03ad197818',1,'SBK_BarDrive.h']]]
+  ['bardirection_0',['BarDirection',['../_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4',1,'SBK_BarDrive.h']]],
+  ['barmeter_1',['barmeter',['../class_s_b_k___bar_drive.html#ae43e16026e53f1de4a7e233135e96711',1,'SBK_BarDrive']]],
+  ['based_20animations_2',['Block-Based Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md18',1,'']]],
+  ['beat_3',['Random &amp;amp; Beat',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md20',1,'']]],
+  ['beatpulse_4',['beatPulse',['../class_s_b_k___bar_meter_animations.html#a2c82fe02704348fa2afe805f974b16a5',1,'SBK_BarMeterAnimations::beatPulse(uint8_t *bpmPtr)'],['../class_s_b_k___bar_meter_animations.html#a08c8b019938f03a6dd341f04c1ae005e',1,'SBK_BarMeterAnimations::beatPulse(uint8_t bpm=116)']]],
+  ['bl28_5f3005sa_5',['BL28_3005SA',['../_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2ac4cc35c174cfd3332e9a831895d5734c',1,'SBK_BarDrive.h']]],
+  ['bl28_5f3005sk_6',['BL28_3005SK',['../_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2a8d9b41d7f21b6b50cb7b693c848738b2',1,'SBK_BarDrive.h']]],
+  ['block_7',['Block',['../struct_s_b_k___bar_meter_animations_1_1_block.html',1,'SBK_BarMeterAnimations']]],
+  ['block_20based_20animations_8',['Block-Based Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md18',1,'']]],
+  ['bounce_20effects_9',['Bounce Effects',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md17',1,'']]],
+  ['bouncefilldowndur_10',['bounceFillDownDur',['../class_s_b_k___bar_meter_animations.html#a4ce9b2301edbffa36b6b55ceaef69b65',1,'SBK_BarMeterAnimations']]],
+  ['bouncefilldownintv_11',['bounceFillDownIntv',['../class_s_b_k___bar_meter_animations.html#acaff4fd1da16053dfe47f1c2d128d417',1,'SBK_BarMeterAnimations::bounceFillDownIntv(uint16_t fillIntv, uint16_t emptyIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#ac3666e6fdd1628a86619a5e5d451beef',1,'SBK_BarMeterAnimations::bounceFillDownIntv(uint16_t fillIntv=10, uint16_t emptyIntv=10, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
+  ['bouncefillfromcenterdur_12',['bounceFillFromCenterDur',['../class_s_b_k___bar_meter_animations.html#acf660fb96a676b622cec0ff3a50dfcbd',1,'SBK_BarMeterAnimations']]],
+  ['bouncefillfromcenterintv_13',['bounceFillFromCenterIntv',['../class_s_b_k___bar_meter_animations.html#a987f53e4f6d704fb4fe907c8e9cd88f2',1,'SBK_BarMeterAnimations::bounceFillFromCenterIntv(uint16_t fillIntv, uint16_t emptyIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#a94da0b5f160bac0ca1991d7b20a8ae83',1,'SBK_BarMeterAnimations::bounceFillFromCenterIntv(uint16_t fillIntv=25, uint16_t emptyIntv=25, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
+  ['bouncefillfromedgesdur_14',['bounceFillFromEdgesDur',['../class_s_b_k___bar_meter_animations.html#a20b30b2b84175677b116711e1283a400',1,'SBK_BarMeterAnimations']]],
+  ['bouncefillfromedgesintv_15',['bounceFillFromEdgesIntv',['../class_s_b_k___bar_meter_animations.html#ae6bcf982ba29e073eefd2e1b851fa1d1',1,'SBK_BarMeterAnimations::bounceFillFromEdgesIntv(uint16_t fillIntv, uint16_t emptyIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#afda05efc2625db0c24683d1e143d5782',1,'SBK_BarMeterAnimations::bounceFillFromEdgesIntv(uint16_t fillIntv=25, uint16_t emptyIntv=25, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
+  ['bouncefillupdur_16',['bounceFillUpDur',['../class_s_b_k___bar_meter_animations.html#a2b071d0603938a69af483e04276778ab',1,'SBK_BarMeterAnimations']]],
+  ['bouncefillupintv_17',['bounceFillUpIntv',['../class_s_b_k___bar_meter_animations.html#a0d57cb2de96513e0421d1fa276126868',1,'SBK_BarMeterAnimations::bounceFillUpIntv(uint16_t fillIntv, uint16_t emptyIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#ae34f988d3456ddc31fe251ac1f76a3f5',1,'SBK_BarMeterAnimations::bounceFillUpIntv(uint16_t fillIntv=10, uint16_t emptyIntv=10, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
+  ['built_20in_20animations_18',['🎞️ Built-In Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md15',1,'']]]
 ];

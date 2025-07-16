@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SBK_BarDrive Library: C:/Users/sbara/OneDrive/Samuel - personnel/Electronics/Arduino/Sketches/libraries/SBK_BarDrive/src/SBK_BarDrive.h File Reference</title>
+<title>SBK_BarDrive Library: C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/src/SBK_BarDrive.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.0.0</span>
    </div>
    <div id="projectbrief">Modular animation and control library for bar meter LEDs</div>
   </td>
@@ -102,25 +102,22 @@ $(function(){initNavTree('_s_b_k___bar_drive_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:SBK_5FBarMeter_3C_20DriverT_20_3E" id="r_SBK_5FBarMeter_3C_20DriverT_20_3E"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_k___bar_meter.html">SBK_BarMeter&lt; DriverT &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class for segment-based bar meter control using row/column LED mappings.  <a href="class_s_b_k___bar_meter.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template class for controlling segment-based LED bar meters using row/column mappings.  <a href="class_s_b_k___bar_meter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SBK_5FBarDrive_3C_20DriverT_20_3E" id="r_SBK_5FBarDrive_3C_20DriverT_20_3E"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive&lt; DriverT &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> and optional animation support.  <a href="class_s_b_k___bar_drive.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> logic with optional built-in animation support.  <a href="class_s_b_k___bar_drive.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a196498cf360ddf3ece219dfb4d55182e" id="r_a196498cf360ddf3ece219dfb4d55182e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a196498cf360ddf3ece219dfb4d55182e">BarMeterType</a> { <br />
-&#160;&#160;<a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea9e9c57472890e3df36452df284872453">DEFAULT_BarMeter</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea977ab8e9c6d35929f025423f4062ebe0">SBK_BarMeter_SK28</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea35c4f0b621225b0932cdd9fe519a8809">SBK_BarMeter_SA28</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea39f4e9ce3756c85dd0a2a571dc1cfc06">SBK_BarMeter_24</a>
+<tr class="memitem:abbf5a7f612ccf2f7edcb82af857a1ef2" id="r_abbf5a7f612ccf2f7edcb82af857a1ef2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2">MatrixPreset</a> { <br />
+&#160;&#160;<a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2ab50339a10e1de285ac99d4c3990b8693">NONE</a>
+, <a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2a977ab8e9c6d35929f025423f4062ebe0">SBK_BarMeter_SK28</a>
+, <a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2a35c4f0b621225b0932cdd9fe519a8809">SBK_BarMeter_SA28</a>
+, <a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2a8d9b41d7f21b6b50cb7b693c848738b2">BL28_3005SK</a>
 , <br />
-&#160;&#160;<a class="el" href="#a196498cf360ddf3ece219dfb4d55182eab9c7d62071cfab8096c972b6e261e9e7">SBK_BarMeter_40</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea8d9b41d7f21b6b50cb7b693c848738b2">BL28_3005SK</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182eac4cc35c174cfd3332e9a831895d5734c">BL28_3005SA</a>
-, <a class="el" href="#a196498cf360ddf3ece219dfb4d55182ea72baef04098f035e8a320b03ad197818">CUSTOM</a> = 255
+&#160;&#160;<a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2ac4cc35c174cfd3332e9a831895d5734c">BL28_3005SA</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a196498cf360ddf3ece219dfb4d55182e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preset types for common SBK BarMeter hardware configurations.  <a href="#a196498cf360ddf3ece219dfb4d55182e">More...</a><br /></td></tr>
+<tr class="memdesc:abbf5a7f612ccf2f7edcb82af857a1ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preset types for common matrix-style bar meter hardware configurations.  <a href="#abbf5a7f612ccf2f7edcb82af857a1ef2">More...</a><br /></td></tr>
 <tr class="memitem:ac25d9f2f3108feb7ae2b45892b12d8c4" id="r_ac25d9f2f3108feb7ae2b45892b12d8c4"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> : uint8_t { <a class="el" href="#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">FORWARD</a> = 0
 , <a class="el" href="#ac25d9f2f3108feb7ae2b45892b12d8c4a642e0b6684e6165e142c074f1cd8d55c">REVERSE</a> = 1
  }</td></tr>
@@ -131,7 +128,7 @@ Enumerations</h2></td></tr>
 <dl class="section author"><dt>Author</dt><dd>Samuel Barabé (Smart Builds &amp; Kits)</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2025 Samuel Barabé</dd></dl>
 <p>Part of the SBK BarDrive Arduino Library <a href="https://github.com/smartbuilds/SBK_BarDrive">https://github.com/smartbuilds/SBK_BarDrive</a></p>
-<dl class="section version"><dt>Version</dt><dd>1.0.0 @license MIT</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>2.0.0 @license MIT</dd></dl>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. </p>
@@ -170,8 +167,8 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a id="a196498cf360ddf3ece219dfb4d55182e" name="a196498cf360ddf3ece219dfb4d55182e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a196498cf360ddf3ece219dfb4d55182e">&#9670;&#160;</a></span>BarMeterType</h2>
+<a id="abbf5a7f612ccf2f7edcb82af857a1ef2" name="abbf5a7f612ccf2f7edcb82af857a1ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbf5a7f612ccf2f7edcb82af857a1ef2">&#9670;&#160;</a></span>MatrixPreset</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +177,7 @@ Enumerations</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum class <a class="el" href="#a196498cf360ddf3ece219dfb4d55182e">BarMeterType</a></td>
+          <td class="memname">enum class <a class="el" href="#abbf5a7f612ccf2f7edcb82af857a1ef2">MatrixPreset</a></td>
         </tr>
       </table>
   </td>
@@ -190,24 +187,18 @@ Enumerations</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Preset types for common SBK BarMeter hardware configurations. </p>
-<p>Defines built-in mapping presets for different SBK bar meter PCBs. These are used to simplify initialization of the <span class="tt"><a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a></span> class without manually specifying segment mappings. </p>
+<p>Preset types for common matrix-style bar meter hardware configurations. </p>
+<p>Defines built-in mapping presets for SBK matrix-type bar meters. These presets simplify the initialization of the <span class="tt"><a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a></span> class by providing predefined segment-to-row/column mappings, avoiding the need for manual setup. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea9e9c57472890e3df36452df284872453" name="a196498cf360ddf3ece219dfb4d55182ea9e9c57472890e3df36452df284872453"></a>DEFAULT_BarMeter&#160;</td><td class="fielddoc"><p>Generic fallback layout (8×8 grid). </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abbf5a7f612ccf2f7edcb82af857a1ef2ab50339a10e1de285ac99d4c3990b8693" name="abbf5a7f612ccf2f7edcb82af857a1ef2ab50339a10e1de285ac99d4c3990b8693"></a>NONE&#160;</td><td class="fielddoc"><p>No preset selected; manual segment mapping is required. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea977ab8e9c6d35929f025423f4062ebe0" name="a196498cf360ddf3ece219dfb4d55182ea977ab8e9c6d35929f025423f4062ebe0"></a>SBK_BarMeter_SK28&#160;</td><td class="fielddoc"><p>Alias for <b>SBK BarMeter SK28</b> PCB using BL28_3005SK <a class="el" href="#a196498cf360ddf3ece219dfb4d55182e" title="Preset types for common SBK BarMeter hardware configurations.">BarMeterType</a>. </p>
+<tr><td class="fieldname"><a id="abbf5a7f612ccf2f7edcb82af857a1ef2a977ab8e9c6d35929f025423f4062ebe0" name="abbf5a7f612ccf2f7edcb82af857a1ef2a977ab8e9c6d35929f025423f4062ebe0"></a>SBK_BarMeter_SK28&#160;</td><td class="fielddoc"><p>Alias for SBK BarMeter SK28, uses the BL28_3005SK preset internally. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea35c4f0b621225b0932cdd9fe519a8809" name="a196498cf360ddf3ece219dfb4d55182ea35c4f0b621225b0932cdd9fe519a8809"></a>SBK_BarMeter_SA28&#160;</td><td class="fielddoc"><p>Alias for <b>SBK BarMeter SA28</b> PCB using BL28_3005SA <a class="el" href="#a196498cf360ddf3ece219dfb4d55182e" title="Preset types for common SBK BarMeter hardware configurations.">BarMeterType</a>. </p>
+<tr><td class="fieldname"><a id="abbf5a7f612ccf2f7edcb82af857a1ef2a35c4f0b621225b0932cdd9fe519a8809" name="abbf5a7f612ccf2f7edcb82af857a1ef2a35c4f0b621225b0932cdd9fe519a8809"></a>SBK_BarMeter_SA28&#160;</td><td class="fielddoc"><p>Alias for SBK BarMeter SA28, uses the BL28_3005SA preset internally. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea39f4e9ce3756c85dd0a2a571dc1cfc06" name="a196498cf360ddf3ece219dfb4d55182ea39f4e9ce3756c85dd0a2a571dc1cfc06"></a>SBK_BarMeter_24&#160;</td><td class="fielddoc"><p>Alias for <b>SBK BarMeter 24</b> PCB 3×8 layout for 24-segment bar. </p>
+<tr><td class="fieldname"><a id="abbf5a7f612ccf2f7edcb82af857a1ef2a8d9b41d7f21b6b50cb7b693c848738b2" name="abbf5a7f612ccf2f7edcb82af857a1ef2a8d9b41d7f21b6b50cb7b693c848738b2"></a>BL28_3005SK&#160;</td><td class="fielddoc"><p>Native mapping for BL28-3005SK (4 anodes × 7 cathodes), common cathode. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182eab9c7d62071cfab8096c972b6e261e9e7" name="a196498cf360ddf3ece219dfb4d55182eab9c7d62071cfab8096c972b6e261e9e7"></a>SBK_BarMeter_40&#160;</td><td class="fielddoc"><p>Alias for <b>SBK BarMeter 40</b> PCB 5×8 layout for 40-segment bar. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea8d9b41d7f21b6b50cb7b693c848738b2" name="a196498cf360ddf3ece219dfb4d55182ea8d9b41d7f21b6b50cb7b693c848738b2"></a>BL28_3005SK&#160;</td><td class="fielddoc"><p>Native mapping for BL28(Z)-3005SK bar meter (7×4 layout, common cathode). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182eac4cc35c174cfd3332e9a831895d5734c" name="a196498cf360ddf3ece219dfb4d55182eac4cc35c174cfd3332e9a831895d5734c"></a>BL28_3005SA&#160;</td><td class="fielddoc"><p>Native mapping for BL28(Z)-3005SA bar meter (4×7 layout, common anode). </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a196498cf360ddf3ece219dfb4d55182ea72baef04098f035e8a320b03ad197818" name="a196498cf360ddf3ece219dfb4d55182ea72baef04098f035e8a320b03ad197818"></a>CUSTOM&#160;</td><td class="fielddoc"><p>User-supplied mapping (via row/col array). </p>
+<tr><td class="fieldname"><a id="abbf5a7f612ccf2f7edcb82af857a1ef2ac4cc35c174cfd3332e9a831895d5734c" name="abbf5a7f612ccf2f7edcb82af857a1ef2ac4cc35c174cfd3332e9a831895d5734c"></a>BL28_3005SA&#160;</td><td class="fielddoc"><p>Native mapping for BL28-3005SA (7 anodes × 4 cathodes), common anode. </p>
 </td></tr>
 </table>
 
@@ -226,7 +217,7 @@ Enumerations</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_a991eec27578c865874ede3d8ec657c2.html">Arduino</a></li><li class="navelem"><a href="dir_c569aaee7bffd2d915d730f8ed69303c.html">Sketches</a></li><li class="navelem"><a href="dir_b2e85a73eca9987d52c9ff6ee3ebfc19.html">libraries</a></li><li class="navelem"><a href="dir_df8250afdf7ffc590c21fb36bb468ab5.html">SBK_BarDrive</a></li><li class="navelem"><a href="dir_550f8802a9b1fe6f0762ad53754c1265.html">src</a></li><li class="navelem"><a href="_s_b_k___bar_drive_8h.html">SBK_BarDrive.h</a></li>
+    <li class="navelem"><a href="dir_f396504afdc959660871b003fa10164d.html">Documents</a></li><li class="navelem"><a href="dir_7e17ac9cf8fba2cb04bc248c85b0ceb7.html">GitHub</a></li><li class="navelem"><a href="dir_725d53cd479a6fb4c0a956016b509212.html">SBK_BarDrive</a></li><li class="navelem"><a href="dir_a80a06dddb073c75b6d32fdfc6618ad7.html">src</a></li><li class="navelem"><a href="_s_b_k___bar_drive_8h.html">SBK_BarDrive.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
   </ul>
 </div>

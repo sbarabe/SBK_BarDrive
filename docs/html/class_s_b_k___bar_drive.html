@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.0.0</span>
    </div>
    <div id="projectbrief">Modular animation and control library for bar meter LEDs</div>
   </td>
@@ -93,42 +93,55 @@ $(function(){initNavTree('class_s_b_k___bar_drive.html','','class_s_b_k___bar_dr
 </div><!--header-->
 <div class="contents">
 
-<p>Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> and optional animation support.  
+<p>Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> logic with optional built-in animation support.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_s_b_k___bar_drive_8h_source.html">SBK_BarDrive.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af21ebc812218e176a22eac2c9517e23c" id="r_af21ebc812218e176a22eac2c9517e23c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af21ebc812218e176a22eac2c9517e23c">SBK_BarDrive</a> (DriverT *driver, uint8_t deviceIndex, <a class="el" href="_s_b_k___bar_drive_8h.html#a196498cf360ddf3ece219dfb4d55182e">BarMeterType</a> type, <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>)</td></tr>
-<tr class="memdesc:af21ebc812218e176a22eac2c9517e23c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a preset bar meter type.  <br /></td></tr>
-<tr class="memitem:a08bf3075c0ad4a8d758bd700666e05f9" id="r_a08bf3075c0ad4a8d758bd700666e05f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08bf3075c0ad4a8d758bd700666e05f9">SBK_BarDrive</a> (DriverT *driver, uint8_t deviceIndex, uint8_t numSegments, <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>)</td></tr>
-<tr class="memdesc:a08bf3075c0ad4a8d758bd700666e05f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a given number of vertical segments.  <br /></td></tr>
-<tr class="memitem:adc846890decc2c891863964764ad66ae" id="r_adc846890decc2c891863964764ad66ae"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
-<tr class="memitem:adc846890decc2c891863964764ad66ae template"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc846890decc2c891863964764ad66ae">SBK_BarDrive</a> (DriverT *driver, uint8_t deviceIndex, const uint8_t(&amp;mapping)[N][2], <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>, bool progmem=false)</td></tr>
-<tr class="memdesc:adc846890decc2c891863964764ad66ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a custom pixel [row, col] mapping.  <br /></td></tr>
+<tr class="memitem:a95900c1d027e18ceff92b5c7c8f395e8" id="r_a95900c1d027e18ceff92b5c7c8f395e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95900c1d027e18ceff92b5c7c8f395e8">SBK_BarDrive</a> (DriverT *driver, uint8_t devIdx, <a class="el" href="_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2">MatrixPreset</a> matrixPreset, <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>, uint8_t rowOffset=0, uint8_t colOffset=0)</td></tr>
+<tr class="memdesc:a95900c1d027e18ceff92b5c7c8f395e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> using a predefined matrix-style layout.  <br /></td></tr>
+<tr class="memitem:ac4f6b17dffa71e95a4d90d8783ca4372" id="r_ac4f6b17dffa71e95a4d90d8783ca4372"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4f6b17dffa71e95a4d90d8783ca4372">SBK_BarDrive</a> (DriverT *driver, uint8_t devIdx, uint8_t rowsNum, uint8_t colsNum, <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>, uint8_t rowOffset=0, uint8_t colOffset=0)</td></tr>
+<tr class="memdesc:ac4f6b17dffa71e95a4d90d8783ca4372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> with a custom matrix size (rows × columns layout).  <br /></td></tr>
+<tr class="memitem:aaf6231088b9a7a17260db4fc21a42ba6" id="r_aaf6231088b9a7a17260db4fc21a42ba6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf6231088b9a7a17260db4fc21a42ba6">SBK_BarDrive</a> (DriverT *driver, uint8_t devIdx, uint8_t segsNum, <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>, uint8_t segOffset=0)</td></tr>
+<tr class="memdesc:aaf6231088b9a7a17260db4fc21a42ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> with a fixed number of vertical segments (non-matrix layout).  <br /></td></tr>
+<tr class="memitem:a14611d702ad70843a7ea152649978fea" id="r_a14611d702ad70843a7ea152649978fea"><td class="memTemplParams" colspan="2">template&lt;size_t N&gt; </td></tr>
+<tr class="memitem:a14611d702ad70843a7ea152649978fea template"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14611d702ad70843a7ea152649978fea">SBK_BarDrive</a> (DriverT *driver, uint8_t devIdx, const uint8_t(&amp;mapping)[N][3], <a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> direction=<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a>, bool progmem=false, uint8_t rowOffset=0, uint8_t colOffset=0)</td></tr>
+<tr class="memdesc:a14611d702ad70843a7ea152649978fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> using a custom pixel mapping array.  <br /></td></tr>
 <tr class="memitem:ae43e16026e53f1de4a7e233135e96711" id="r_ae43e16026e53f1de4a7e233135e96711"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_k___bar_meter.html">SBK_BarMeter</a>&lt; DriverT &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae43e16026e53f1de4a7e233135e96711">barmeter</a> ()</td></tr>
-<tr class="memdesc:ae43e16026e53f1de4a7e233135e96711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the underlying <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> instance.  <br /></td></tr>
+<tr class="memdesc:ae43e16026e53f1de4a7e233135e96711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the underlying <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> instance.  <br /></td></tr>
 <tr class="memitem:a8d4538b64eb910c8104d511c10970f6d" id="r_a8d4538b64eb910c8104d511c10970f6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d4538b64eb910c8104d511c10970f6d">show</a> ()</td></tr>
-<tr class="memdesc:a8d4538b64eb910c8104d511c10970f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push LED buffer to display.  <br /></td></tr>
-<tr class="memitem:ac4340003ed1ab79d106dcb61006f2354" id="r_ac4340003ed1ab79d106dcb61006f2354"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4340003ed1ab79d106dcb61006f2354">getSegNum</a> ()</td></tr>
-<tr class="memdesc:ac4340003ed1ab79d106dcb61006f2354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get number of bar segments.  <br /></td></tr>
-<tr class="memitem:adda1d78fb1b0078acdbe58f029d6d61a" id="r_adda1d78fb1b0078acdbe58f029d6d61a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adda1d78fb1b0078acdbe58f029d6d61a">setDirection</a> (<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> newDirection)</td></tr>
-<tr class="memdesc:adda1d78fb1b0078acdbe58f029d6d61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set direction of bar fill.  <br /></td></tr>
+<tr class="memdesc:a8d4538b64eb910c8104d511c10970f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push the current LED state buffer to the physical display.  <br /></td></tr>
+<tr class="memitem:a498e2cf55780a4a348eb7b76ce07e445" id="r_a498e2cf55780a4a348eb7b76ce07e445"><td class="memItemLeft" align="right" valign="top"><a id="a498e2cf55780a4a348eb7b76ce07e445" name="a498e2cf55780a4a348eb7b76ce07e445"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
+<tr class="memdesc:a498e2cf55780a4a348eb7b76ce07e445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear all bar segments. <br /></td></tr>
+<tr class="memitem:a90064e5a24ab3ca7d3c9cb66a2b891e1" id="r_a90064e5a24ab3ca7d3c9cb66a2b891e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90064e5a24ab3ca7d3c9cb66a2b891e1">setDirection</a> (<a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a> dir)</td></tr>
+<tr class="memdesc:a90064e5a24ab3ca7d3c9cb66a2b891e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the bar fill direction.  <br /></td></tr>
 <tr class="memitem:adc00305ecd16c71a0d654b838738c7ee" id="r_adc00305ecd16c71a0d654b838738c7ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc00305ecd16c71a0d654b838738c7ee">getDirection</a> ()</td></tr>
-<tr class="memdesc:adc00305ecd16c71a0d654b838738c7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get current direction.  <br /></td></tr>
+<tr class="memdesc:adc00305ecd16c71a0d654b838738c7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current bar fill direction.  <br /></td></tr>
+<tr class="memitem:a6f5b89102d0cf5d3860c07ae1178d97c" id="r_a6f5b89102d0cf5d3860c07ae1178d97c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f5b89102d0cf5d3860c07ae1178d97c">getSegsNum</a> ()</td></tr>
+<tr class="memdesc:a6f5b89102d0cf5d3860c07ae1178d97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the total number of segments in the bar.  <br /></td></tr>
+<tr class="memitem:ab831c47f5240d89dd93c14e7bf2e4823" id="r_ab831c47f5240d89dd93c14e7bf2e4823"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab831c47f5240d89dd93c14e7bf2e4823">debugSegmentMapping</a> (Stream &amp;stream=Serial)</td></tr>
+<tr class="memdesc:ab831c47f5240d89dd93c14e7bf2e4823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print the segment-to-device mapping for debugging purposes.  <br /></td></tr>
 <tr class="memitem:a9782fb50a40fe038ebc3cce45d471440" id="r_a9782fb50a40fe038ebc3cce45d471440"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9782fb50a40fe038ebc3cce45d471440">setPixel</a> (uint8_t segment, uint8_t state)</td></tr>
-<tr class="memdesc:a9782fb50a40fe038ebc3cce45d471440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a segment's LED on/off.  <br /></td></tr>
+<tr class="memdesc:a9782fb50a40fe038ebc3cce45d471440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the on/off state of a logical segment (LED).  <br /></td></tr>
 <tr class="memitem:a660462af74d60fd2edfd588e462b5eef" id="r_a660462af74d60fd2edfd588e462b5eef"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a660462af74d60fd2edfd588e462b5eef">getPixelState</a> (uint8_t segment)</td></tr>
-<tr class="memdesc:a660462af74d60fd2edfd588e462b5eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get pixel state (cached queried).  <br /></td></tr>
+<tr class="memdesc:a660462af74d60fd2edfd588e462b5eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current state of a bar segment (pixel).  <br /></td></tr>
+<tr class="memitem:a9964f74bf72657f6a807b995b1e31a75" id="r_a9964f74bf72657f6a807b995b1e31a75"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9964f74bf72657f6a807b995b1e31a75">setSegmentOffset</a> (uint8_t offset)</td></tr>
+<tr class="memdesc:a9964f74bf72657f6a807b995b1e31a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a segment-wise offset (shifts segment index before mapping to row/col).  <br /></td></tr>
+<tr class="memitem:aa46b5b8ff41890faac57f77e528013db" id="r_aa46b5b8ff41890faac57f77e528013db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa46b5b8ff41890faac57f77e528013db">setMatrixOffset</a> (uint8_t rowOffset, uint8_t colOffset)</td></tr>
+<tr class="memdesc:aa46b5b8ff41890faac57f77e528013db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a matrix-style physical offset for row/column positioning.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename DriverT&gt;<br />
-class SBK_BarDrive&lt; DriverT &gt;</div><p>Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> and optional animation support. </p>
-<p>Provides a simplified high-level interface to manipulate LED bar meters and trigger predefined animations, including fills, pulses, signal tracking, and block effects. Requires <span class="tt">SBK_BARDRIVE_WITH_ANIM</span> to enable animation support. </p>
+class SBK_BarDrive&lt; DriverT &gt;</div><p>Unified interface combining <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> logic with optional built-in animation support. </p>
+<p><a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> provides a simplified, high-level interface for controlling LED bar meters, including segment fills, signal-driven displays, pulse effects, and block-based animations.</p>
+<p>Internally wraps an instance of <span class="tt"><a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a></span> and, if enabled, provides access to animation utilities via <span class="tt"><a class="el" href="class_s_b_k___bar_meter_animations.html" title="Templated animation controller for SBK_BarMeter&lt;T&gt;.">SBK_BarMeterAnimations</a></span>.</p>
+<dl class="section note"><dt>Note</dt><dd>To enable animation features, define <span class="tt">SBK_BARDRIVE_WITH_ANIM</span> <b>before</b> including <span class="tt"><a class="el" href="_s_b_k___bar_drive_8h.html" title="High-level controller for animated bar meters and LED displays compatible with external SBK_MAX72xx o...">SBK_BarDrive.h</a></span>. If not defined, animation methods like <span class="tt">.animations()</span> will be excluded to save memory. </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af21ebc812218e176a22eac2c9517e23c" name="af21ebc812218e176a22eac2c9517e23c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af21ebc812218e176a22eac2c9517e23c">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[1/3]</span></h2>
+<a id="a95900c1d027e18ceff92b5c7c8f395e8" name="a95900c1d027e18ceff92b5c7c8f395e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95900c1d027e18ceff92b5c7c8f395e8">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,17 +159,27 @@ template&lt;typename DriverT&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>deviceIndex</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>devIdx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#a196498cf360ddf3ece219dfb4d55182e">BarMeterType</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
+          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2">MatrixPreset</a></td>          <td class="paramname"><span class="paramname"><em>matrixPreset</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>rowOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>colOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -166,21 +189,24 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a preset bar meter type. </p>
+<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> using a predefined matrix-style layout. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">driver</td><td>Pointer to the LED driver. </td></tr>
-    <tr><td class="paramname">deviceIndex</td><td>Index of the LED driver chip. </td></tr>
-    <tr><td class="paramname">type</td><td>Preset type of bar layout. </td></tr>
-    <tr><td class="paramname">direction</td><td>Display fill direction. </td></tr>
+    <tr><td class="paramname">driver</td><td>Pointer to the LED driver (e.g., SBK_MAX72xx or SBK_HT16K33). </td></tr>
+    <tr><td class="paramname">devIdx</td><td>Index of the first device in the chain (0–7). </td></tr>
+    <tr><td class="paramname">matrixPreset</td><td>Preset mapping type from the <a class="el" href="_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2" title="Preset types for common matrix-style bar meter hardware configurations.">MatrixPreset</a> enum. </td></tr>
+    <tr><td class="paramname">direction</td><td>Bar fill direction (FORWARD or REVERSE). Default is FORWARD. </td></tr>
+    <tr><td class="paramname">rowOffset</td><td>Optional row offset (if the matrix is not wired to the first row). Default is 0. </td></tr>
+    <tr><td class="paramname">colOffset</td><td>Optional column offset (if the matrix is not wired to the first column). Default is 0.</td></tr>
   </table>
   </dd>
 </dl>
+<p>This constructor simplifies setup by using a predefined segment-to-row/column mapping, useful for SBK matrix-type bar meters such as SK28 or SA28 models. </p>
 
 </div>
 </div>
-<a id="a08bf3075c0ad4a8d758bd700666e05f9" name="a08bf3075c0ad4a8d758bd700666e05f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08bf3075c0ad4a8d758bd700666e05f9">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[2/3]</span></h2>
+<a id="ac4f6b17dffa71e95a4d90d8783ca4372" name="ac4f6b17dffa71e95a4d90d8783ca4372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f6b17dffa71e95a4d90d8783ca4372">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,17 +224,32 @@ template&lt;typename DriverT&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>deviceIndex</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>devIdx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>numSegments</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>rowsNum</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a></span>&#160;)</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>colsNum</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>rowOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>colOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -218,21 +259,88 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a given number of vertical segments. </p>
+<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> with a custom matrix size (rows × columns layout). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">driver</td><td>Pointer to the LED driver. </td></tr>
-    <tr><td class="paramname">deviceIndex</td><td>Index of the device in the chain. </td></tr>
-    <tr><td class="paramname">numSegments</td><td>Number of segments in the bar meter. </td></tr>
-    <tr><td class="paramname">direction</td><td>Optional direction (FORWARD or REVERSE). </td></tr>
+    <tr><td class="paramname">driver</td><td>Pointer to the LED driver (e.g., SBK_MAX72xx or SBK_HT16K33). </td></tr>
+    <tr><td class="paramname">devIdx</td><td>Index of the first device in the chain (0–7). </td></tr>
+    <tr><td class="paramname">rowsNum</td><td>Number of matrix rows (anodes). May span multiple devices vertically. </td></tr>
+    <tr><td class="paramname">colsNum</td><td>Number of matrix columns (cathodes). Limited to the column capacity of a single device. </td></tr>
+    <tr><td class="paramname">direction</td><td>Optional bar fill direction (FORWARD or REVERSE). Default is FORWARD. </td></tr>
+    <tr><td class="paramname">rowOffset</td><td>Optional row offset, if the matrix does not begin on the first driver row. Default is 0. </td></tr>
+    <tr><td class="paramname">colOffset</td><td>Optional column offset, if the matrix does not begin on the first driver column. Default is 0.</td></tr>
   </table>
   </dd>
 </dl>
+<p>This constructor allows you to define a matrix-style bar layout with a custom size and origin, without using a predefined <a class="el" href="_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2" title="Preset types for common matrix-style bar meter hardware configurations.">MatrixPreset</a>.</p>
+<p>⚠️ Note: Columns cannot be split across devices. Only rows may be extended vertically over multiple devices. Attempting to configure more columns than the driver hardware supports will result in clamping.</p>
+<p>Useful for adapting custom matrix layouts or hardware not covered by presets. </p>
 
 </div>
 </div>
-<a id="adc846890decc2c891863964764ad66ae" name="adc846890decc2c891863964764ad66ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc846890decc2c891863964764ad66ae">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[3/3]</span></h2>
+<a id="aaf6231088b9a7a17260db4fc21a42ba6" name="aaf6231088b9a7a17260db4fc21a42ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf6231088b9a7a17260db4fc21a42ba6">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DriverT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;<a class="el" href="class_s_b_k___bar_drive.html">::SBK_BarDrive</a> </td>
+          <td>(</td>
+          <td class="paramtype">DriverT *</td>          <td class="paramname"><span class="paramname"><em>driver</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>devIdx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>segsNum</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4abfec72bb37910c61f36b6c29a1f7ec31">BarDirection::FORWARD</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>segOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> with a fixed number of vertical segments (non-matrix layout). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">driver</td><td>Pointer to the LED driver (e.g., SBK_MAX72xx or SBK_HT16K33). </td></tr>
+    <tr><td class="paramname">devIdx</td><td>Index of the device in the chain (0–7). </td></tr>
+    <tr><td class="paramname">segsNum</td><td>Number of logical segments (LEDs) in the bar meter. </td></tr>
+    <tr><td class="paramname">direction</td><td>Optional bar fill direction (FORWARD or REVERSE). Default is FORWARD. </td></tr>
+    <tr><td class="paramname">segOffset</td><td>Optional segment offset if the bar does not start at the first LED output. Default is 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This constructor is intended for 1D segment-based bar displays, such as linear bars where each segment is addressed sequentially (not via a 2D matrix).</p>
+<p>The <span class="tt">segOffset</span> allows you to skip physical outputs if the display is not connected to the first pin of the device. This is useful when sharing a device across multiple bar segments or skipping unused lines.</p>
+<p>⚠️ If the specified device index exceeds the available device count, the bar meter is initialized as empty. </p>
+
+</div>
+</div>
+<a id="a14611d702ad70843a7ea152649978fea" name="a14611d702ad70843a7ea152649978fea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14611d702ad70843a7ea152649978fea">&#9670;&#160;</a></span>SBK_BarDrive() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,12 +360,12 @@ template&lt;size_t N&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>deviceIndex</em></span>, </td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>devIdx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const uint8_t(&amp;)</td>          <td class="paramname"><span class="paramname"><em>mapping</em></span>[N][2], </td>
+          <td class="paramtype">const uint8_t(&amp;)</td>          <td class="paramname"><span class="paramname"><em>mapping</em></span>[N][3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -267,7 +375,17 @@ template&lt;size_t N&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>progmem</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>progmem</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>rowOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>colOffset</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -277,23 +395,31 @@ template&lt;size_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter and optional animation support.">SBK_BarDrive</a> using a custom pixel [row, col] mapping. </p>
+<p>Construct a <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> using a custom pixel mapping array. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">N</td><td>Number of segments (inferred from array size). </td></tr>
+    <tr><td class="paramname">N</td><td>Number of segments (inferred automatically from array size). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">driver</td><td>Pointer to the LED driver. </td></tr>
-    <tr><td class="paramname">deviceIndex</td><td>Index of the device. </td></tr>
-    <tr><td class="paramname">mapping</td><td>Array of [row, col] pairs for segment mapping. </td></tr>
-    <tr><td class="paramname">direction</td><td>Bar animation direction. </td></tr>
-    <tr><td class="paramname">progmem</td><td>Whether mapping is stored in PROGMEM. </td></tr>
+    <tr><td class="paramname">driver</td><td>Pointer to the LED driver (e.g., SBK_MAX72xx or SBK_HT16K33). </td></tr>
+    <tr><td class="paramname">devIdx</td><td>Index of the first device in the chain (0–7). </td></tr>
+    <tr><td class="paramname">mapping</td><td>Array of [device, row, col] tuples defining the physical LED position for each segment. </td></tr>
+    <tr><td class="paramname">direction</td><td>Optional bar fill direction (FORWARD or REVERSE). Default is FORWARD. </td></tr>
+    <tr><td class="paramname">progmem</td><td>Set to <span class="tt">true</span> if the mapping array is stored in PROGMEM (Flash memory). Default is <span class="tt">false</span>. </td></tr>
+    <tr><td class="paramname">rowOffset</td><td>Optional offset to apply to all mapped row indices. Default is 0. </td></tr>
+    <tr><td class="paramname">colOffset</td><td>Optional offset to apply to all mapped column indices. Default is 0.</td></tr>
   </table>
   </dd>
 </dl>
+<p>This constructor gives you full control over how each logical segment maps to a specific LED location on a matrix or linear display, across one or more devices. It is ideal for:</p><ul>
+<li>Non-standard matrix layouts</li>
+<li>Discontinuous or irregular bar patterns</li>
+<li>Hybrid/multi-device configurations</li>
+</ul>
+<p>⚠️ If the specified <span class="tt">devIdx</span> is invalid (beyond the available devices), the bar is initialized as empty. </p>
 
 </div>
 </div>
@@ -323,8 +449,45 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get the underlying <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> instance. </p>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for segment-based bar meter control using row/column LED mappings.">SBK_BarMeter</a> object. </dd></dl>
+<p>Get the underlying <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> instance. </p>
+<dl class="section return"><dt>Returns</dt><dd>Reference to the <a class="el" href="class_s_b_k___bar_meter.html" title="Template class for controlling segment-based LED bar meters using row/column mappings.">SBK_BarMeter</a> object. </dd></dl>
+
+</div>
+</div>
+<a id="ab831c47f5240d89dd93c14e7bf2e4823" name="ab831c47f5240d89dd93c14e7bf2e4823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab831c47f5240d89dd93c14e7bf2e4823">&#9670;&#160;</a></span>debugSegmentMapping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DriverT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::debugSegmentMapping </td>
+          <td>(</td>
+          <td class="paramtype">Stream &amp;</td>          <td class="paramname"><span class="paramname"><em>stream</em></span><span class="paramdefsep"> = </span><span class="paramdefval">Serial</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Print the segment-to-device mapping for debugging purposes. </p>
+<p>This function outputs the resolved mapping of each logical segment index to its corresponding [device, row, column] LED coordinates, based on the internal configuration (preset, custom map, or auto-mapped layout).</p>
+<p>Useful for verifying how segments are translated into physical driver outputs, especially when using segment offsets, matrix presets, or split-device configurations.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>Reference to a <span class="tt">Stream</span> object (e.g., <span class="tt">Serial</span>) for printing output. Defaults to <span class="tt">Serial</span> if not specified. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -353,7 +516,8 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get current direction. </p>
+<p>Get the current bar fill direction. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4" title="Direction of bar fill or animation progression.">BarDirection</a> enum. </dd></dl>
 
 </div>
 </div>
@@ -382,20 +546,21 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get pixel state (cached queried). </p>
-<dl class="section warning"><dt>Warning</dt><dd>This method may return unpredictable or stale values unless <span class="tt">SBK_TRACK_STATE_IN_RAM</span> is defined in your sketch to enable internal pixel state buffering.</dd></dl>
+<p>Get the current state of a bar segment (pixel). </p>
+<p>This function returns the last known ON/OFF state of a segment. It queries the driver’s internal buffer (not the physical IC).</p>
+<p>Direction and segment mapping are handled internally, so the returned value always corresponds to the logical segment number.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">segment</td><td>Index of the segment to query. </td></tr>
+    <tr><td class="paramname">segment</td><td>Index of the segment to query (0 to _segsNum - 1). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 if lit, 0 if off, false if disabled or invalid. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the segment is ON, 0 if OFF, or 0 if invalid or driver unavailable. </dd></dl>
 
 </div>
 </div>
-<a id="ac4340003ed1ab79d106dcb61006f2354" name="ac4340003ed1ab79d106dcb61006f2354"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4340003ed1ab79d106dcb61006f2354">&#9670;&#160;</a></span>getSegNum()</h2>
+<a id="a6f5b89102d0cf5d3860c07ae1178d97c" name="a6f5b89102d0cf5d3860c07ae1178d97c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f5b89102d0cf5d3860c07ae1178d97c">&#9670;&#160;</a></span>getSegsNum()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -406,7 +571,7 @@ template&lt;typename DriverT&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::getSegNum </td>
+          <td class="memname">uint8_t <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::getSegsNum </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -419,12 +584,13 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Get number of bar segments. </p>
+<p>Get the total number of segments in the bar. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of segments. </dd></dl>
 
 </div>
 </div>
-<a id="adda1d78fb1b0078acdbe58f029d6d61a" name="adda1d78fb1b0078acdbe58f029d6d61a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adda1d78fb1b0078acdbe58f029d6d61a">&#9670;&#160;</a></span>setDirection()</h2>
+<a id="a90064e5a24ab3ca7d3c9cb66a2b891e1" name="a90064e5a24ab3ca7d3c9cb66a2b891e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90064e5a24ab3ca7d3c9cb66a2b891e1">&#9670;&#160;</a></span>setDirection()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,7 +603,7 @@ template&lt;typename DriverT&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::setDirection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>newDirection</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="_s_b_k___bar_drive_8h.html#ac25d9f2f3108feb7ae2b45892b12d8c4">BarDirection</a></td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -448,7 +614,55 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Set direction of bar fill. </p>
+<p>Set the bar fill direction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>New direction (FORWARD or REVERSE). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa46b5b8ff41890faac57f77e528013db" name="aa46b5b8ff41890faac57f77e528013db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa46b5b8ff41890faac57f77e528013db">&#9670;&#160;</a></span>setMatrixOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DriverT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a> &amp; <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::setMatrixOffset </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>rowOffset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>colOffset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply a matrix-style physical offset for row/column positioning. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rowOffset</td><td>Number of rows to shift downward. </td></tr>
+    <tr><td class="paramname">colOffset</td><td>Number of columns to shift rightward. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to this instance.</dd></dl>
+<p>Those offsets are better used with matrix led display matrixPreset, like BL28 matrixPreset where the matrix is not connected to the firsts IC row/column. </p>
 
 </div>
 </div>
@@ -481,7 +695,52 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Set a segment's LED on/off. </p>
+<p>Set the on/off state of a logical segment (LED). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">segment</td><td>Index of the logical segment to control (0 to <span class="tt">getSegNum() - 1</span>). </td></tr>
+    <tr><td class="paramname">state</td><td>true to turn the LED on, false to turn it off.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This function resolves the segment index to its corresponding [device, row, col] location and updates the internal buffer of the underlying driver. The change will not be visible until <span class="tt"><a class="el" href="#a8d4538b64eb910c8104d511c10970f6d" title="Push the current LED state buffer to the physical display.">show()</a></span> is called. </p>
+
+</div>
+</div>
+<a id="a9964f74bf72657f6a807b995b1e31a75" name="a9964f74bf72657f6a807b995b1e31a75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9964f74bf72657f6a807b995b1e31a75">&#9670;&#160;</a></span>setSegmentOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DriverT&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a> &amp; <a class="el" href="class_s_b_k___bar_drive.html">SBK_BarDrive</a>&lt; DriverT &gt;::setSegmentOffset </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Apply a segment-wise offset (shifts segment index before mapping to row/col). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>Number of segments to skip. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to this instance.</dd></dl>
+<p>This offset is better used with a 1 to 1 ICs output to led display where the display do not start on the first IC output. </p>
 
 </div>
 </div>
@@ -510,12 +769,14 @@ template&lt;typename DriverT&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Push LED buffer to display. </p>
+<p>Push the current LED state buffer to the physical display. </p>
+<p>This flushes the internal buffer of the underlying driver to all connected devices — not just the one associated with this bar meter instance — making any recent changes (e.g., via <span class="tt"><a class="el" href="#a9782fb50a40fe038ebc3cce45d471440" title="Set the on/off state of a logical segment (LED).">setPixel()</a></span> or <span class="tt"><a class="el" href="#a498e2cf55780a4a348eb7b76ce07e445" title="Clear all bar segments.">clear()</a></span>) visible on the actual hardware.</p>
+<p>Internally calls <span class="tt">_driver-&gt;<a class="el" href="#a8d4538b64eb910c8104d511c10970f6d" title="Push the current LED state buffer to the physical display.">show()</a></span> to update the display. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/sbara/OneDrive/Samuel - personnel/Electronics/Arduino/Sketches/libraries/SBK_BarDrive/src/<a class="el" href="_s_b_k___bar_drive_8h_source.html">SBK_BarDrive.h</a></li>
+<li>C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/src/<a class="el" href="_s_b_k___bar_drive_8h_source.html">SBK_BarDrive.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

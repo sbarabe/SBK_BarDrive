@@ -1,15 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "_abcdefghilmnprstu~",
+  0: "0:abcdefghilmnopqrstuvw~⚙✨⬇🆕🎞📘📦🔊🛠🧠🧰🪪",
   1: "bs",
   2: "s",
-  3: "_abcdefgilnprstu~",
-  4: "_ap",
-  5: "a",
-  6: "b",
-  7: "bcdfrs",
-  8: "bcelmprs",
-  9: "h"
+  3: "abcdefgilnprstu~",
+  4: "bm",
+  5: "bfnrs",
+  6: "0:abcdefhilmnoqrsuvw⚙✨⬇🆕🎞📘📦🔊🛠🧠🧰🪪"
 };
 
 var indexSectionNames =
@@ -18,12 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "variables",
-  5: "typedefs",
-  6: "enums",
-  7: "enumvalues",
-  8: "defines",
-  9: "pages"
+  4: "enums",
+  5: "enumvalues",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -32,11 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Files",
   3: "Functions",
-  4: "Variables",
-  5: "Typedefs",
-  6: "Enumerations",
-  7: "Enumerator",
-  8: "Macros",
-  9: "Pages"
+  4: "Enumerations",
+  5: "Enumerator",
+  6: "Pages"
 };
 

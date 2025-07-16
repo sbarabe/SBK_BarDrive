@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['noloop_0',['noLoop',['../class_s_b_k___bar_meter_animations.html#a8c9edd2f54bbfce124dcac2578c014d9',1,'SBK_BarMeterAnimations']]]
+  ['mapping_20_3a_0',['Using a custom mapping :',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md13',1,'']]],
+  ['matrixpreset_1',['MatrixPreset',['../_s_b_k___bar_drive_8h.html#abbf5a7f612ccf2f7edcb82af857a1ef2',1,'SBK_BarDrive.h']]],
+  ['max7219_3a_2',['Using MAX7219:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md11',1,'']]]
 ];

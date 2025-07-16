@@ -4,6 +4,25 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
+## 🆕 What's New in v2.0.0
+
+Version 2.0.0 introduces major architectural and feature improvements. Previous versions (1.x) are deprecated due to internal changes in how offset positioning and multi-device spanning are handled.
+🔧 Core Enhancements
+
+    * Block-based animations — upwardUnstackingBlocks() and downwardUnstackingBlocks()
+
+    * Signal-driven modes — followSignalFloatingPeak()
+
+    * Offset support — bar meters can now start from arbitrary row/column or segment positions
+
+    * Multi-device mapping — segments can span across multiple driver devices (via auto-mapping, matrix presets or custom mappings)
+
+    * Full custom segment mapping — define precise {device, row, col} mappings for advanced layouts
+
+⚠️ Deprecation Notice
+
+Previous versions (1.x) are no longer compatible due to architectural changes. Please migrate existing projects by updating segment mappings and constructor parameters to match the v2.0+ format.
+
 ## ✨ Features
 
 * Unified API for both **SPI** (MAX72xx) and **I2C** (HT16K33) LED drivers
@@ -94,11 +113,12 @@ Then place them in your Arduino `libraries` folder.
 ### Using MAX7219:
 
 ```cpp
-#include <SBK_MAX72xx.h>
 #define SBK_BARDRIVE_WITH_ANIM
-#include <SBK_BarDrive.h>
 
+#include <SBK_MAX72xx.h>
 SBK_MAX72xx max72xx(DATA_PIN, CLK_PIN, CS_PIN, 1);
+
+#include <SBK_BarDrive.h>
 SBK_BarDrive<SBK_MAX72xx> bar(&max72xx, 0, BarMeterType::BL28_3005SK);
 
 void setup() {
@@ -115,14 +135,18 @@ void loop() {
 ### Using HT16K33:
 
 ```cpp
-#include <SBK_HT16K33.h>
-#define SBK_BARDRIVE_WITH_ANIM
-#include <SBK_BarDrive.h>
 
-SBK_HT16K33 ht(0x70);
+#define SBK_BARDRIVE_WITH_ANIM
+
+#include <SBK_HT16K33.h>
+SBK_HT16K33 ht(1);
+
+#include <SBK_BarDrive.h>
 SBK_BarDrive<SBK_HT16K33> bar(&ht, 0, 28);
 
 void setup() {
+    ht.setAddress(0,0x70);  // Set device I2C address
+    ht..setDriverRows(0,8); // Set HT16K33 device rows (anodes) outputs number : 20-SOP = 8, 24-SOP = 12, 28-SOP = 16
     ht.begin();
     bar.animations().animInit().scrollingUpBlocks(60, 2, 1).loop();
 }
@@ -130,6 +154,39 @@ void setup() {
 void loop() {
     bar.animations().update();
     bar.show();
+}
+```
+### Using a custom mapping :
+If you want full control over how segments map to physical LED positions, you can supply a custom [device, row, col] mapping array. This is ideal for irregular layouts or displays spanning multiple devices.
+
+```cpp
+
+#define SBK_BARDRIVE_WITH_ANIM
+
+// Define a custom segment-to-pixel mapping
+const uint8_t mapping[5][3] = {
+  {0, 0, 0},  // Segment 0 → Device 0, Row 0, Col 0
+  {0, 0, 1},  // Segment 1 → Device 0, Row 0, Col 1
+  {0, 0, 2},
+  {1, 0, 0},  // Segment 3 → Device 1, Row 0, Col 0 (spans devices)
+  {1, 0, 1}
+};
+
+// Instantiate driver and bar
+#include <SBK_MAX72xx.h>
+SBK_MAX72xx max72xx(DATA_PIN, CLK_PIN, CS_PIN, 2); // 2 devices
+
+#include <SBK_BarDrive.h>
+SBK_BarDrive<SBK_MAX72xx> bar(&max72xx, 0, mapping);
+
+void setup() {
+  max72xx.begin();
+  bar.animations().animInit().fillUpIntv(60).loop();
+}
+
+void loop() {
+  bar.animations().update();
+  bar.show();
 }
 ```
 
@@ -174,6 +231,8 @@ upwardStackingBlocks();     // Launch blocks bottom to top and stack
 downwardStackingBlocks();   // Drop blocks from top and stack bottom
 upwardUnstackingBlocks();   // Launch blocks up and remove top stack
 downwardUnstackingBlocks(); // Drop blocks down and unstack from bottom
+upwardUnstackingBlocks();    // Launch blocks upward and unstack from top
+downwardUnstackingBlocks();  // Drop blocks downward and unstack from bottom
 ```
 
 ### Signal-Driven
@@ -182,6 +241,7 @@ followSignalSmooth();          // Smooth fill from signal
 followSignalWithPointer();     // Fill + signal pointer
 followDualSignalFromCenter();  // Mirror fill from center using 1 (mirrored) or 2 signals
 followDualSignalFromEdges();   // Mirror fill from edges inward using 1 (mirrored) or 2 signals
+followSignalFloatingPeak();     // Signal smoothing + floating peak indicator
 ```
 
 ### Random & Beat

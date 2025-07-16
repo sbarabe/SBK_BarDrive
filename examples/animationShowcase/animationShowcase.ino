@@ -9,10 +9,14 @@
  * - Scrolling blocks
  * - Signal-following animations
  *
- * Requires: SBK_BarDrive library + compatible MAX72xx/HT16K33 bar meter hardware.
+ * Requirements:
+ *      - Supported driver with complatible library (SBK_MAX72xx or SBK_HT16K33 libraries)
+ *      - Bar meter display or leds array wired to driver
  *
- * @author Samuel Barabé
- * @date 2025
+ * @author
+ * Samuel Barabé (Smart Builds & Kits)
+ *
+ * @version 2.0.0
  * @license MIT
  */
 
@@ -22,9 +26,7 @@
 // ──────────────────────────────────────────────
 // SBK BarDrive Configuration Flags
 // ──────────────────────────────────────────────
-
 #define SBK_BARDRIVE_WITH_ANIM // Give access to preset animations and controls.
-#include <SBK_BarDrive.h>
 
 // ──────────────────────────────────────────────
 // SELECT YOUR DRIVER SETUP
@@ -32,29 +34,35 @@
 // ──────────────────────────────────────────────
 
 /* === [A] Using MAX7219/MAX7221 via SOFTWARE SPI (any 3 digital pins) === */
-#define DIN_PIN A4 // Define software SPI Data In pin
-#define CLK_PIN A5 // Define software SPI Clock pin
-#define CS_PIN A3  // Define SPI Chip Select pin
-#include <SBK_MAX72xxSoft.h>
-SBK_MAX72xxSoft driver(DIN_PIN, CLK_PIN, CS_PIN);
-SBK_BarDrive<SBK_MAX72xxSoft> bar(&driver, 0, 12); // Construct using segment count (auto-mapped layout) : (driver, device index, number of bar segments)
+// #define DIN_PIN A4 // Define software SPI Data In pin
+// #define CLK_PIN A5 // Define software SPI Clock pin
+// #define CS_PIN A3  // Define SPI Chip Select pin
+// #include <SBK_MAX72xxSoft.h>
+// SBK_MAX72xxSoft driver(DIN_PIN, CLK_PIN, CS_PIN, 1); // Construct MAX72xx software SPI driver instance for 1 device : (DataIn pin, Clock pin, Chip Select pin, devices number)
+// #include <SBK_BarDrive.h>
+// SBK_BarDrive<SBK_MAX72xxSoft> bar(&driver, 0, MatrixPreset::BL28_3005SK); // Construct using matrix type bar meter preset (auto-mapped layout) : (driver, device index, MatrixPreset type)
 
 /* === [B] Using MAX7219/MAX7221 via HARDWARE SPI (dedicated MCU SPI pins) === */
 // #define CS_PIN A3
 // #include <SBK_MAX72xxHard.h>
-// SBK_MAX72xxHard driver(CS_PIN);
-// SBK_BarDrive<SBK_MAX72xxHard> bar(&driver, 0, 12); // Construct using segment count (auto-mapped layout) : (driver, device index, number of bar segments)
+// SBK_MAX72xxHard driver(CS_PIN, 1); // Construct MAX72xx hardware SPI driver instance for 1 device : (Chip Select pin, devices number)
+// #include <SBK_BarDrive.h>
+// SBK_BarDrive<SBK_MAX72xxHard> bar(&driver, 0, MatrixPreset::BL28_3005SK); // Construct using matrix type bar meter preset (auto-mapped layout) : (driver, device index, MatrixPreset type)
 
 /* === [C] Using HT16K33 via I2C === */
-// #include <SBK_HT16K33.h>
-// const uint8_t ADDRESS = 0x70; // I2C Address (typically 0x70–0x77)
-// SBK_HT16K33 driver(ADDRESS);
-// SBK_BarDrive<SBK_HT16K33> bar(&driver, 0, 12); // Construct using segment count (auto-mapped layout) : (driver, device index, number of bar segments)
+#include <SBK_HT16K33.h>
+const uint8_t NUM_DEV = 1;       // Only one device : DEV0
+const uint8_t DEV0_IDX = 0;      // Device DEV0 index
+const uint8_t DEV0_ADD = 0x70;   // I2C Address (typically 0x70–0x77)
+const uint8_t DEV0_NUM_ROWS = 8; // 20-SOP HT16K33 with only 8 rows, 24-SOP has 12 rows, 28-SOP has 16 rows
+SBK_HT16K33 driver(NUM_DEV);
+#include <SBK_BarDrive.h>
+SBK_BarDrive<SBK_HT16K33> bar(&driver, 0, MatrixPreset::BL28_3005SK); // Construct using matrix type bar meter preset (auto-mapped layout) : (driver, device index, MatrixPreset type)
 
 /*
- * 💡 Default example assumes a BL(Z)28_3005SK 28-segment bar meter.
- * You may change the BarMeterType or constructor method to match your specific hardware.
- * See README and other examples for custom mapping options.
+ * 💡 Default example assumes a BL28_3005SK 28-segment matrix type bar meter.
+ * You may change the MatrixPreset or constructor method to match your specific hardware.
+ * See README and other examples for linear 1D (non matrix) type or custom mapping options.
  */
 
 uint8_t demoMode = 0;
@@ -75,12 +83,17 @@ void setup()
 
     Serial.print(F("Animations showcase setup..."));
 
-    driver.begin();              // Initiate bar meter driver
-    driver.setBrightness(0, 10); // Set brigthness (0-15)
+#ifdef SBK_HT16K33_IS_DEFINED
+    // HT16K33 driver instance setup (demo uses a single device)
+    driver.setAddress(DEV0_IDX, DEV0_ADD);         // Set I2C address for device 0
+    driver.setDriverRows(DEV0_IDX, DEV0_NUM_ROWS); // Set number of active anode outputs (rows)
+#endif
+    driver.begin();              // Initialize the driver
+    driver.setBrightness(0, 10); // Set brightness level (0 = dim, 15 = bright)
 
-    bar.setDirection(BarDirection::FORWARD);
+    bar.setDirection(BarDirection::FORWARD); // Set initial bar fill direction
 
-    demoMode = 11; // Setup demoMode index to show demoMode 0 at fisrt itération;
+    demoMode = 12; // Setup demoMode index to show demoMode 0 at fisrt itération;
     Serial.println(F("done! Showcase begin!"));
 }
 
@@ -250,8 +263,8 @@ void loop()
     case 8:
         if (!bar.animations().isRunning())
         {
-            bar.animations().animInit().beatPulse(116);
-            Serial.println(F("Demo 8 : Simulate audio beat style filling at BPM rate."));
+            bar.animations().animInit().followSignalFloatingPeak(&fakeSignal1);
+            Serial.println(F("Demo 8 : Bar fill at smoothed signal level with floating peak pixel."));
         }
         // When logic is inverted nothing change : it's a non inverting logic animation.
         // A reverseDir() or toggleDir() could be use to change the animation direction pulse from top...

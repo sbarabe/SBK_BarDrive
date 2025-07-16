@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['maxblocks_0',['maxBlocks',['../_s_b_k___bar_meter_animations_8h.html#a8cc2b9aedce46b4d58cc86e04d360db9',1,'SBK_BarMeterAnimations.h']]],
-  ['min_5fbase_5flevel_1',['MIN_BASE_LEVEL',['../_s_b_k___bar_meter_animations_8h.html#a165729538d6d2cbf2a62bc9ba7bd43dc',1,'SBK_BarMeterAnimations.h']]],
-  ['min_5fpeak_5flevel_2',['MIN_PEAK_LEVEL',['../_s_b_k___bar_meter_animations_8h.html#afe001e4793e3d24690fa48fcfd710398',1,'SBK_BarMeterAnimations.h']]]
+  ['library_0',['SBK\_BarDrive Library',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md0',1,'']]],
+  ['license_1',['LICENSE',['../md__c_1_2_users_2sbara_2_one_drive_2_documents_2_git_hub_2_s_b_k___bar_drive_2_l_i_c_e_n_s_e.html',1,'']]],
+  ['license_2',['🪪 License',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md27',1,'']]],
+  ['loop_3',['loop',['../class_s_b_k___bar_meter_animations.html#a20732251b4d0a011f7961e00c6286039',1,'SBK_BarMeterAnimations']]]
 ];
