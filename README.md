@@ -55,7 +55,7 @@ This matches the wiring convention of common LED driver ICs:
 | HT16K33 | `Rx`  (source, V+)  | `Cx`   (sink, GND)     |
 
 
-This library is designed to work with the following hardware combinations:
+This library is designed to work with the following SBK hardware combinations:
 
 * 🟢 **SBK BarDrive *SK*28 PCB** + **SBK BarMeter 28 PCB**  + **BL28-3005SKxx type (28seg *com. cathode* Bar Meter)**
 * 🔵 **SBK BarDrive *SA*28 PCB** + **SBK BarMeter 28 PCB**  + **BL28-3005SAxx type (28seg *com. anode* Bar Meter)**
