@@ -44,7 +44,8 @@ Previous versions (1.x) are no longer compatible due to architectural changes. P
 
 This library is compatible with **any LED matrix or bar display** using `MAX7219`, `MAX7221`, or `HT16K33` drivers — as long as a valid `[row, col]`, aka `[anode,cathode]`, segment mapping is provided or configured using a built-in preset.
 
-When using custom segment mappings with SBK_BarDrive, each segment is defined as a {row, col} pair — representing the physical LED connection: 
+When using custom segment mappings with SBK_BarDrive, each segment is defined as a {row, col} pair — representing the physical LED connection:
+
 {row, col} = {anode, cathode}
 
 This matches the wiring convention of common LED driver ICs:
