@@ -277,15 +277,6 @@ bar.animations().invertLogic();
 bar.animations().resetLogic();
 bar.animations().stopBlockEmission();
 bar.animations().resumeBlockEmission();
-```cpp
-bar.animations().pause();
-bar.animations().resume();
-bar.animations().stop();
-bar.animations().loop();
-bar.animations().noLoop();
-bar.animations().toggleLogic();
-bar.animations().invertLogic();
-bar.animations().resetLogic();
 ````
 
 All helper functions return a reference to the `SBK_BarMeterAnimations` object, allowing chainable expressions like:
