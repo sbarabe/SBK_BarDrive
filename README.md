@@ -103,7 +103,6 @@ Then place them in your Arduino `libraries` folder.
 
    ```cpp
    #define SBK_BARDRIVE_WITH_ANIM
-   #define SBK_TRACK_PIXEL_STATE
    #include <SBK_BarDrive.h>
    ```
 
