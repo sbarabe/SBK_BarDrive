@@ -23,7 +23,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.0
+ * @version 2.0.1
  * @license MIT
  *
  * @copyright
