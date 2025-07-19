@@ -4,24 +4,34 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
-## 🆕 What's New in v2.0.0
+## 🆕 What's New in v2.0.1
 
-Version 2.0.0 introduces major architectural and feature improvements. Previous versions (1.x) are deprecated due to internal changes in how offset positioning and multi-device spanning are handled.
-🔧 Core Enhancements
+Version 2.0.0 introduces major architectural and feature improvements.  
+⚠️ All previous versions (1.x) are **deprecated** due to internal changes in offset handling and multi-device support.
 
-    * Block-based animations — upwardUnstackingBlocks() and downwardUnstackingBlocks()
+### 🚧 Core Enhancements
+- **Unified row/column architecture** — enforced across all bar meter types: `{row = anode, col = cathode}`
+- **Offset support** — segments can now start from arbitrary row, column, or segment indices
+- **Multi-device mapping** — segment layouts can span across multiple driver chips using 3D mapping: `[device, row, column]`
+- **Custom mapping support** — fully user-defined mappings with optional PROGMEM support
 
-    * Signal-driven modes — followSignalFloatingPeak()
+### 🎞️ Animation Upgrades
+- **New block-based effects**:
+  - `upwardUnstackingBlocks()` — launches blocks upward and removes from stack
+  - `downwardUnstackingBlocks()` — drops blocks and removes bottom stack
+- **New signal-driven mode**:
+  - `followSignalFloatingPeak()` — signal follower with floating peak indicator (great for VU meters)
 
-    * Offset support — bar meters can now start from arbitrary row/column or segment positions
+### 🧱 Compatibility
+- Backward compatibility with older mapping styles is removed
+- All bar meters must now use either:
+  - a preset (`MatrixPreset`)
+  - a matrix rows count, columns count (2D mode)
+  - a segment count (1D mode)
+  - a `[device, row, col]` custom map
 
-    * Multi-device mapping — segments can span across multiple driver devices (via auto-mapping, matrix presets or custom mappings)
+---
 
-    * Full custom segment mapping — define precise {device, row, col} mappings for advanced layouts
-
-⚠️ Deprecation Notice
-
-Previous versions (1.x) are no longer compatible due to architectural changes. Please migrate existing projects by updating segment mappings and constructor parameters to match the v2.0+ format.
 
 ## ✨ Features
 
@@ -30,8 +40,7 @@ Previous versions (1.x) are no longer compatible due to architectural changes. P
 * Support for **custom \[row, col] segment mappings** or preset types
 * Compile-time options to optimize for memory:
 
-  * `SBK_BARDRIVE_WITH_ANIM` to include animations
-  * `SBK_TRACK_PIXEL_STATE` to enable pixel state caching
+  * `SBK_BARDRIVE_WITH_ANIM` to include animations only if desired
 * Designed for **SBK BarMeter** and **SBK BarDrive** PCBs
 * Reverse display modes and flexible mapping
 * Internal buffer with batch `.show()` updates
@@ -42,11 +51,11 @@ Previous versions (1.x) are no longer compatible due to architectural changes. P
 
 ## ⚙️ Supported Hardware Combinations
 
-This library is compatible with **any LED matrix or bar display** using `MAX7219`, `MAX7221`, or `HT16K33` drivers — as long as a valid `[row, col]`, aka `[anode,cathode]`, segment mapping is provided or configured using a built-in preset.
+This library is compatible with **any LED matrix or bar display** using `MAX7219`, `MAX7221`, or `HT16K33` drivers — as long as a valid `[dev, row, col]`, aka `[device index, anode,cathode]`, segment mapping is provided or configured using a built-in preset.
 
-When using custom segment mappings with SBK_BarDrive, each segment is defined as a {row, col} pair — representing the physical LED connection:
+When using custom segment mappings with SBK_BarDrive, each segment is defined as a {dev, row, col} — representing the physical LED connection:
 
-{row, col} = {anode, cathode}
+{dev, row, col} = {device index, anode, cathode}
 
 This matches the wiring convention of common LED driver ICs:
 | Driver  | Row (Anode / V+)    | Column (Cathode / GND) |
@@ -55,14 +64,17 @@ This matches the wiring convention of common LED driver ICs:
 | HT16K33 | `Rx`  (source, V+)  | `Cx`   (sink, GND)     |
 
 
-This library is designed to work with the following SBK hardware combinations:
+### 🧩 SBK Bar Meter Boards & Accessories
 
-* 🟢 **SBK BarDrive *SK*28 PCB** + **SBK BarMeter 28 PCB**  + **BL28-3005SKxx type (28seg *com. cathode* Bar Meter)**
-* 🔵 **SBK BarDrive *SA*28 PCB** + **SBK BarMeter 28 PCB**  + **BL28-3005SAxx type (28seg *com. anode* Bar Meter)**
-* 🟣 **SBK BarDrive 64 PCB**   + **SBK BarMeter 24 PCB**  + **3x B8x type (8seg com. cathode Bar Meter)**
-* 🟠 **SBK BarDrive 64 PCB**   + **SBK BarMeter 40 PCB**  + **5x B8x type (8seg com. cathode Bar Meter)**
+SBK offers purpose-built PCBs to simplify bar meter wiring, driver integration, and display control. These include:
 
-For more information, schematics, and PCB files, visit: [https://github.com/sbarabe/SBK_PCBs](https://github.com/sbarabe/SBK_PCBs)
+- **Bar meter carriers** with preset mappings for 28-segment and modular bar displays
+- **Driver interface boards** for MAX7219/MAX7221 (SPI) and HT16K33 (I²C)
+
+Some models are available via the [**SBK Tindie Store**](https://www.tindie.com/stores/smartbuildskits/) or upon request by emailing [SmartBuildsKits@gmail.com](mailto:SmartBuildsKits@gmail.com).
+
+📁 For schematics, 3D models, and PCB source files, visit:  
+🔗 [https://github.com/sbarabe/SBK_PCBs](https://github.com/sbarabe/SBK_PCBs)
 
 ---
 
