@@ -1,6 +1,6 @@
 {
   "name": "SBK_BarDrive",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Unified LED bar meter control for MAX7219, MAX7221 and HT16K33.",
   "keywords": [
     "bar meter",
@@ -48,7 +48,7 @@
     },
     {
       "name": "SBK_MAX72xx",
-      "version": ">=2.0.1"
+      "version": ">=2.0.2"
     }
   ]
 }

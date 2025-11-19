@@ -1,7 +1,7 @@
 var searchData=
 [
   ['in_20animations_0',['🎞️ Built-In Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md15',1,'']]],
-  ['in_20v2_200_200_1',['🆕 What&apos;s New in v2.0.2',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]],
+  ['in_20v2_200_200_1',['🆕 What&apos;s New in v2.0.3',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]],
   ['installation_2',['⬇️ Installation',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md8',1,'']]],
   ['invertlogic_3',['invertLogic',['../class_s_b_k___bar_meter_animations.html#ac5baf05fcaf7b4b0d17f8ea38b9c0d5a',1,'SBK_BarMeterAnimations']]],
   ['isblockemissionenabled_4',['isBlockEmissionEnabled',['../class_s_b_k___bar_meter_animations.html#a8c76bb5bd8bfa95b3ac63330b84196be',1,'SBK_BarMeterAnimations']]],
