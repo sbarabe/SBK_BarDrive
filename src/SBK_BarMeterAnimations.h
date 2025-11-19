@@ -23,7 +23,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.1
+ * @version 2.0.2
  * @license MIT
  *
  * @copyright
@@ -973,7 +973,7 @@ public:
         _sigPtr1 = bpmPtr;
         _param2 = min(35 * (_segsNum - 1) / 100, 255); // MIN_BASE_LEVEL
         _param2 = min(67 * (_segsNum - 1) / 100, 255); // MIN_PEAK_LEVEL
-        _param4 = 150;                                     // PEAK_HOLD_TIME
+        _param4 = 150;                                 // PEAK_HOLD_TIME
         _usePtr = true;
         _isNonInvertingLogicAnim = true;
         _AnimInitLogicIsInverted = false;
@@ -995,7 +995,7 @@ public:
         _param1 = max(1, bpm);
         _param2 = min(35 * (_segsNum - 1) / 100, 255); // MIN_BASE_LEVEL
         _param3 = min(67 * (_segsNum - 1) / 100, 255); // MIN_PEAK_LEVEL
-        _param4 = 150;                                     // PEAK_HOLD_TIME
+        _param4 = 150;                                 // PEAK_HOLD_TIME
         _sigPtr1 = nullptr;
         _usePtr = false;
         _isNonInvertingLogicAnim = true;
@@ -1477,7 +1477,7 @@ protected:
                 minP--;
         }
     }
-    inline void _mapMinMaxTrackerFromPtr(uint16_t *minPercPtr, uint16_t *maxPercPtr, int8_t minR, uint8_t maxR)
+    inline void _mapMinMaxTrackerFromPtr(const uint16_t *minPercPtr, const uint16_t *maxPercPtr, int8_t minR, uint8_t maxR)
     {
         if (!_usePtr)
             return;
@@ -1514,10 +1514,16 @@ protected:
             minVal = temp;
         }
         if (minVal == maxVal) // avoid division by zero in map()
+        {
             if (maxVal < 65, 535)
+            {
                 maxVal = minVal + 1;
+            }
             else
+            {
                 minVal--;
+            }
+        }
     }
     static inline uint8_t _getMappedSignal(uint16_t sig, uint16_t minM, uint16_t maxM, uint8_t minR, uint8_t maxR)
     {
@@ -1978,7 +1984,7 @@ protected:
         if (_prevAnimRenderLogic != _animRenderLogicIsInverted)
         {
             emitCooldown = _calculateSwitchedEmitTickCounter(_segsNum / 2);
-            emittedBlocksCount = requestedNumBlocks ;
+            emittedBlocksCount = requestedNumBlocks;
             _prevAnimRenderLogic = _animRenderLogicIsInverted;
         }
 
@@ -2075,9 +2081,8 @@ protected:
         if (_prevAnimRenderLogic != _animRenderLogicIsInverted)
         {
             emitCooldown = _calculateSwitchedEmitTickCounter(_segsNum);
-            emittedBlocksCount = requestedNumBlocks ;
+            emittedBlocksCount = requestedNumBlocks;
             _prevAnimRenderLogic = _animRenderLogicIsInverted;
-
         }
 
         if (_currentTime - _lastUpdate1 >= _updateIntv1)

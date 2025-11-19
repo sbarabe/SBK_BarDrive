@@ -11,7 +11,7 @@
  * Part of the SBK BarDrive Arduino Library
  * https://github.com/smartbuilds/SBK_BarDrive
  *
- * @version 2.0.1
+ * @version 2.0.2
  * @license MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -558,13 +558,13 @@ private:
     DriverT *_driver;
     const uint8_t _devIdx;
     MatrixPreset _matrixPreset = MatrixPreset::NONE;
+    const uint8_t (*_customMapping)[3] = nullptr;
     BarDirection _direction;
     uint8_t _segOffset = 0;       // existing logic
     uint8_t _rowOffset = 0;       // for matrix displays
     uint8_t _colOffset = 0;       // for matrix displays
     bool _isMatrixMapped = false; // whether to apply row/col offset
     uint8_t _segsNum;
-    const uint8_t (*_customMapping)[3] = nullptr;
     uint8_t _rowsNum = 0;
     uint8_t _colsNum = 0;
     bool _userMappingIsProgmem = false;

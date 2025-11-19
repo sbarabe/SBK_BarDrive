@@ -4,31 +4,10 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
-## 🆕 What's New in 2.0.1
+## 🆕 What's New in 2.0.2
 
-Version 2.0.1 introduces major architectural and feature improvements.  
+Version 2.0.2 correct minors code structures.  
 ⚠️ All versions **prior to 2.0.0** are **deprecated** due to internal changes in offset handling and multi-device support.
-
-### Core Enhancements
-- **Unified row/column architecture** — enforced across all bar meter types: `{row = anode, col = cathode}`
-- **Offset support** — segments can now start from arbitrary row, column, or segment indices
-- **Multi-device mapping** — segment layouts can span across multiple driver chips using 3D mapping: `[device, row, column]`
-- **Custom mapping support** — fully user-defined mappings with optional PROGMEM support
-
-### Animation Upgrades
-- **New block-based effects**:
-  - `upwardUnstackingBlocks()` — launches blocks upward and removes from stack
-  - `downwardUnstackingBlocks()` — drops blocks and removes bottom stack
-- **New signal-driven mode**:
-  - `followSignalFloatingPeak()` — signal follower with floating peak indicator (great for VU meters)
-
-### Compatibility
-- Backward compatibility with older mapping styles is removed
-- All bar meters must now use either:
-  - a preset (`MatrixPreset`)
-  - a matrix rows count, columns count (2D mode)
-  - a segment count (1D mode)
-  - a `[device, row, col]` custom map
 
 ---
 
