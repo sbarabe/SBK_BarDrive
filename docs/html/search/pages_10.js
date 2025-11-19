@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['s_20new_20in_20v2_200_200_0',['🆕 What&apos;s New in v2.0.3',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]],
+  ['s_20new_20in_20v2_200_200_0',['🆕 What&apos;s New in v2.0.4',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]],
   ['sbk_20library_1',['SBK\_BarDrive Library',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md0',1,'']]],
   ['setters_2',['Static Setters',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md21',1,'']]],
   ['signal_20driven_3',['Signal-Driven',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md19',1,'']]],

@@ -4,9 +4,9 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
-## 🆕 What's New in 2.0.3
+## 🆕 What's New in 2.0.4
 
-Version 2.0.3 correct minors code structures.  
+Version 2.0.4 correct minors code structures.  
 ⚠️ All versions **prior to 2.0.0** are **deprecated** due to internal changes in offset handling and multi-device support.
 
 ---
