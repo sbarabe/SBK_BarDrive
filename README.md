@@ -396,5 +396,3 @@ Library by **Samuel Barabé** (Smart Builds & Kits).
 * Contact: [smartbuildskits@gmail.com](mailto:smartbuildskits@gmail.com)
 
 ---
-
-> ✏️ Feel free to customize any URLs or email addresses before publishing!
