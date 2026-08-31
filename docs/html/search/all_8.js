@@ -11,10 +11,11 @@ var searchData=
   ['combinations_8',['⚙️ Supported Hardware Combinations',['../index.html#autotoc_md6',1,'']]],
   ['compact_20flag_20storage_9',['Compact flag storage',['../md__r_o_a_d_m_a_p.html#autotoc_md53',1,'']]],
   ['compact_20queue_20descriptors_10',['Compact queue descriptors',['../md__r_o_a_d_m_a_p.html#autotoc_md51',1,'']]],
-  ['configuration_20runtime_20and_20progress_11',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md50',1,'']]],
-  ['credits_12',['🧠 Credits',['../index.html#autotoc_md35',1,'']]],
-  ['currentlevel_13',['currentLevel',['../_s_b_k___bar_meter_animations_8h.html#aa5d8c6f56cd90f4fb010a33eeee3afd7',1,'currentLevel:&#160;SBK_BarMeterAnimations.h'],['../_s_b_k___bar_meter_animations_8h.html#a775e363ff48ec264927801a772ffd5ca',1,'currentLevel:&#160;SBK_BarMeterAnimations.h']]],
-  ['currentqueueindex_14',['currentQueueIndex',['../class_s_b_k___bar_meter_animations.html#a2092152d24d2a96cbcaba538ca4f9866',1,'SBK_BarMeterAnimations']]],
-  ['custom_20mapping_20_3a_15',['Using a custom mapping :',['../index.html#autotoc_md16',1,'']]],
-  ['custommappingdemo_2eino_16',['customMappingDemo.ino',['../custom_mapping_demo_8ino.html',1,'']]]
+  ['compatibility_11',['IS31FL3733 driver compatibility',['../md__r_o_a_d_m_a_p.html#autotoc_md57',1,'']]],
+  ['configuration_20runtime_20and_20progress_12',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md50',1,'']]],
+  ['credits_13',['🧠 Credits',['../index.html#autotoc_md35',1,'']]],
+  ['currentlevel_14',['currentLevel',['../_s_b_k___bar_meter_animations_8h.html#aa5d8c6f56cd90f4fb010a33eeee3afd7',1,'currentLevel:&#160;SBK_BarMeterAnimations.h'],['../_s_b_k___bar_meter_animations_8h.html#a775e363ff48ec264927801a772ffd5ca',1,'currentLevel:&#160;SBK_BarMeterAnimations.h']]],
+  ['currentqueueindex_15',['currentQueueIndex',['../class_s_b_k___bar_meter_animations.html#a2092152d24d2a96cbcaba538ca4f9866',1,'SBK_BarMeterAnimations']]],
+  ['custom_20mapping_20_3a_16',['Using a custom mapping :',['../index.html#autotoc_md16',1,'']]],
+  ['custommappingdemo_2eino_17',['customMappingDemo.ino',['../custom_mapping_demo_8ino.html',1,'']]]
 ];

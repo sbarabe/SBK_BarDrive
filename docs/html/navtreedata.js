@@ -75,9 +75,11 @@ var NAVTREE =
         [ "Explicit animation types and dispatch", "md__r_o_a_d_m_a_p.html#autotoc_md52", null ],
         [ "Compact flag storage", "md__r_o_a_d_m_a_p.html#autotoc_md53", null ],
         [ "Internal file organization", "md__r_o_a_d_m_a_p.html#autotoc_md54", null ],
-        [ "Workspace ownership options", "md__r_o_a_d_m_a_p.html#autotoc_md55", null ]
+        [ "Workspace ownership options", "md__r_o_a_d_m_a_p.html#autotoc_md55", null ],
+        [ "Fading effects", "md__r_o_a_d_m_a_p.html#autotoc_md56", null ],
+        [ "IS31FL3733 driver compatibility", "md__r_o_a_d_m_a_p.html#autotoc_md57", null ]
       ] ],
-      [ "Evaluation requirements for 3.0.0", "md__r_o_a_d_m_a_p.html#autotoc_md56", null ]
+      [ "Evaluation requirements for 3.0.0", "md__r_o_a_d_m_a_p.html#autotoc_md58", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],

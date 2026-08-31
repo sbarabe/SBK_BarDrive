@@ -177,7 +177,30 @@ Workspace ownership options</h2>
 <li>A capacity template parameter or build macro.</li>
 </ul>
 <p>Any alternative should preserve universal display sizes and avoid heap activity during operation.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+Fading effects</h2>
+<p>Explore brightness-based transitions and animations, including fade-in, fade-out, cross-fade, and pulsing effects. The public API should remain non-blocking and compatible with animation queues.</p>
+<p>Driver capabilities differ, so fading should be designed around an explicit brightness capability rather than assuming that every output supports PWM:</p>
+<ul>
+<li>Use native per-segment brightness where the driver provides it.</li>
+<li>Define a predictable fallback or clearly report unsupported effects for binary-only drivers.</li>
+<li>Avoid software PWM strategies that introduce visible flicker or excessive CPU and bus traffic on AVR targets.</li>
+<li>Determine how logic inversion, direction changes, looping, <span class="tt">pause()</span>, <span class="tt">stop()</span>, and queued transitions affect an active fade.</li>
+<li>Measure the additional queue-entry, runtime-state, flash, and SRAM costs before adopting the feature.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
+IS31FL3733 driver compatibility</h2>
+<p>Add and validate a BarDrive adapter for the IS31FL3733 LED matrix driver. The integration should preserve the existing mapping constructors and animation API while taking advantage of the driver's per-LED brightness support where appropriate.</p>
+<p>The work should include:</p>
+<ul>
+<li>A clear driver capability interface for binary pixel control and optional per-pixel brightness.</li>
+<li>Row/column and custom-mapping tests for bar meters spanning the matrix.</li>
+<li>Device initialization, brightness, update, and shutdown behavior consistent with existing BarDrive drivers.</li>
+<li>Queue and animation compatibility tests, including the proposed fading effects.</li>
+<li>Examples and Doxygen documentation for a representative IS31FL3733 setup.</li>
+<li>Flash, SRAM, bus-traffic, and refresh-rate measurements on constrained targets.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 Evaluation requirements for 3.0.0</h1>
 <p>Architectural changes should be accepted only after comparison with 2.1.x:</p>
 <ul>
@@ -186,7 +209,8 @@ Evaluation requirements for 3.0.0</h1>
 <li>Queue-entry size and controller-object size.</li>
 <li>No heap allocation after construction.</li>
 <li>Visual equivalence of existing animations.</li>
-<li>Compatibility tests for MAX72xx software SPI, MAX72xx hardware SPI, and HT16K33.</li>
+<li>Compatibility tests for MAX72xx software SPI, MAX72xx hardware SPI, and HT16K33, with IS31FL3733 added when its adapter is implemented.</li>
+<li>Visual and timing validation of brightness and fading effects on drivers with different brightness capabilities.</li>
 <li>Example-sketch compilation for all supported configurations.</li>
 </ul>
 <p>Readability improvements are important, but they must not silently make the library unsuitable for constrained AVR targets. </p>
