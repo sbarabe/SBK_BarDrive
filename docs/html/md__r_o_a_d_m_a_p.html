@@ -211,8 +211,10 @@ SoloDrive individual indicators</h2>
 <li>Configurable active-high/active-low logic and initial state.</li>
 <li><span class="tt">pause()</span>, <span class="tt">resume()</span>, and <span class="tt">stop()</span> behavior consistent with BarDrive.</li>
 <li>Optional finite repetition, continuous looping, and completion-state inspection.</li>
+<li>Synchronization groups allowing multiple indicators to blink, pulse, or fade from the same clock and phase.</li>
 </ul>
-<p>The design should determine whether each <span class="tt">SoloDrive</span> instance owns its timing state or whether multiple indicators can share a compact scheduler. It should also evaluate an optional fixed-storage queue without forcing queue memory on simple indicators that only need on/off or blinking behavior.</p>
+<p>Multiple indicators should be able to share a compact scheduler. Indicators assigned to the same synchronization group should start together and remain phase-aligned even when their physical pixels, drivers, logic polarity, or brightness ranges differ. The design should define predictable behavior when an indicator joins, leaves, pauses, or resumes a running group, and should support an explicit phase reset for restarting a group in synchronization.</p>
+<p>Independent indicators should remain possible without requiring separate hardware timers. The design should also evaluate an optional fixed-storage queue without forcing queue memory on simple indicators that only need on/off or synchronized blinking behavior.</p>
 <p>On binary-only drivers, unsupported brightness effects should have an explicit and predictable policy. Software PWM should only be considered when its CPU, bus-traffic, and flicker costs are acceptable for the target platform.</p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
 Evaluation requirements for 3.0.0</h1>
@@ -226,6 +228,7 @@ Evaluation requirements for 3.0.0</h1>
 <li>Compatibility tests for MAX72xx software SPI, MAX72xx hardware SPI, and HT16K33, with IS31FL3733 added when its adapter is implemented.</li>
 <li>Visual and timing validation of brightness and fading effects on drivers with different brightness capabilities.</li>
 <li>Object-size and scheduler-cost measurements for multiple simultaneous <span class="tt">SoloDrive</span> indicators.</li>
+<li>Timing-drift and phase-alignment tests for synchronized indicator groups, including indicators located on different supported driver devices.</li>
 <li>Example-sketch compilation for all supported configurations.</li>
 </ul>
 <p>Readability improvements are important, but they must not silently make the library unsuitable for constrained AVR targets. </p>
