@@ -156,11 +156,20 @@ Candidate indicator controls and animations include:
 - `pause()`, `resume()`, and `stop()` behavior consistent with BarDrive.
 - Optional finite repetition, continuous looping, and completion-state
   inspection.
+- Synchronization groups allowing multiple indicators to blink, pulse, or
+  fade from the same clock and phase.
 
-The design should determine whether each `SoloDrive` instance owns its timing
-state or whether multiple indicators can share a compact scheduler. It should
-also evaluate an optional fixed-storage queue without forcing queue memory on
-simple indicators that only need on/off or blinking behavior.
+Multiple indicators should be able to share a compact scheduler. Indicators
+assigned to the same synchronization group should start together and remain
+phase-aligned even when their physical pixels, drivers, logic polarity, or
+brightness ranges differ. The design should define predictable behavior when
+an indicator joins, leaves, pauses, or resumes a running group, and should
+support an explicit phase reset for restarting a group in synchronization.
+
+Independent indicators should remain possible without requiring separate
+hardware timers. The design should also evaluate an optional fixed-storage
+queue without forcing queue memory on simple indicators that only need on/off
+or synchronized blinking behavior.
 
 On binary-only drivers, unsupported brightness effects should have an explicit
 and predictable policy. Software PWM should only be considered when its CPU,
@@ -181,6 +190,8 @@ Architectural changes should be accepted only after comparison with 2.1.x:
   with different brightness capabilities.
 - Object-size and scheduler-cost measurements for multiple simultaneous
   `SoloDrive` indicators.
+- Timing-drift and phase-alignment tests for synchronized indicator groups,
+  including indicators located on different supported driver devices.
 - Example-sketch compilation for all supported configurations.
 
 Readability improvements are important, but they must not silently make the
