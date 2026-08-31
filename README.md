@@ -4,6 +4,12 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
+## What's New in 2.1.1
+
+Version 2.1.1 fixes the generic rows-by-columns matrix constructor so it
+initializes the logical segment count. Generic matrix displays now work with
+pixel operations and animations as documented.
+
 ## What's New in 2.1.0
 
 Version 2.1.0 adds configurable, fixed-storage animation queues, queue index

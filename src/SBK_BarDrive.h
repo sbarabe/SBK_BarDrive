@@ -11,7 +11,7 @@
  * Part of the SBK BarDrive Arduino Library
  * https://github.com/smartbuilds/SBK_BarDrive
  *
- * @version 2.1.0
+ * @version 2.1.1
  * @license MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -210,6 +210,7 @@ public:
         {
             _rowsNum = constrain(rowsNum, 1, 255);
             _colsNum = constrain(colsNum, 1, driver->maxColumns());
+            _segsNum = _rowsNum * _colsNum;
             _rowOffset = constrain(rowOffset, 0, _driver->maxRows(_devIdx) - 1);
             _colOffset = constrain(colOffset, 0, _driver->maxColumns() - 1);
         }

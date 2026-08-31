@@ -7,8 +7,20 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-Use this section for changes made after the 2.1.0 development baseline.
+Use this section for changes made after the 2.1.1 release.
 Future architectural ideas are tracked separately in [ROADMAP.md](ROADMAP.md).
+
+## [2.1.1] - 2026-08-31
+
+### Fixed
+
+- Initialize the logical segment count in the generic rows-by-columns matrix
+  constructor. Generic matrix bars now accept pixel updates and animations
+  instead of behaving as zero-segment displays.
+
+### Added
+
+- `genericMatrixDemo` example covering the generic rows-by-columns constructor.
 
 ## [2.1.0] - 2026-08-31
 
