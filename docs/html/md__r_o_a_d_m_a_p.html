@@ -200,7 +200,21 @@ IS31FL3733 driver compatibility</h2>
 <li>Examples and Doxygen documentation for a representative IS31FL3733 setup.</li>
 <li>Flash, SRAM, bus-traffic, and refresh-rate measurements on constrained targets.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
+SoloDrive individual indicators</h2>
+<p>Explore a <span class="tt">SoloDrive</span> class for treating one driver pixel as an independent indicator instead of as part of a bar meter. It should reuse the same driver and pixel-addressing abstractions without requiring a one-segment <span class="tt"><a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a></span> object.</p>
+<p>Candidate indicator controls and animations include:</p>
+<ul>
+<li>Immediate <span class="tt">on()</span>, <span class="tt">off()</span>, and <span class="tt">toggle()</span> control.</li>
+<li>Non-blocking <span class="tt">blink()</span> with fixed or independent on/off intervals.</li>
+<li><span class="tt">pulse()</span>, <span class="tt">fadeIn()</span>, and <span class="tt">fadeOut()</span> on drivers that support brightness.</li>
+<li>Configurable active-high/active-low logic and initial state.</li>
+<li><span class="tt">pause()</span>, <span class="tt">resume()</span>, and <span class="tt">stop()</span> behavior consistent with BarDrive.</li>
+<li>Optional finite repetition, continuous looping, and completion-state inspection.</li>
+</ul>
+<p>The design should determine whether each <span class="tt">SoloDrive</span> instance owns its timing state or whether multiple indicators can share a compact scheduler. It should also evaluate an optional fixed-storage queue without forcing queue memory on simple indicators that only need on/off or blinking behavior.</p>
+<p>On binary-only drivers, unsupported brightness effects should have an explicit and predictable policy. Software PWM should only be considered when its CPU, bus-traffic, and flicker costs are acceptable for the target platform.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
 Evaluation requirements for 3.0.0</h1>
 <p>Architectural changes should be accepted only after comparison with 2.1.x:</p>
 <ul>
@@ -211,6 +225,7 @@ Evaluation requirements for 3.0.0</h1>
 <li>Visual equivalence of existing animations.</li>
 <li>Compatibility tests for MAX72xx software SPI, MAX72xx hardware SPI, and HT16K33, with IS31FL3733 added when its adapter is implemented.</li>
 <li>Visual and timing validation of brightness and fading effects on drivers with different brightness capabilities.</li>
+<li>Object-size and scheduler-cost measurements for multiple simultaneous <span class="tt">SoloDrive</span> indicators.</li>
 <li>Example-sketch compilation for all supported configurations.</li>
 </ul>
 <p>Readability improvements are important, but they must not silently make the library unsuitable for constrained AVR targets. </p>

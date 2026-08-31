@@ -140,6 +140,32 @@ The work should include:
 - Flash, SRAM, bus-traffic, and refresh-rate measurements on constrained
   targets.
 
+### SoloDrive individual indicators
+
+Explore a `SoloDrive` class for treating one driver pixel as an independent
+indicator instead of as part of a bar meter. It should reuse the same driver
+and pixel-addressing abstractions without requiring a one-segment
+`SBK_BarDrive` object.
+
+Candidate indicator controls and animations include:
+
+- Immediate `on()`, `off()`, and `toggle()` control.
+- Non-blocking `blink()` with fixed or independent on/off intervals.
+- `pulse()`, `fadeIn()`, and `fadeOut()` on drivers that support brightness.
+- Configurable active-high/active-low logic and initial state.
+- `pause()`, `resume()`, and `stop()` behavior consistent with BarDrive.
+- Optional finite repetition, continuous looping, and completion-state
+  inspection.
+
+The design should determine whether each `SoloDrive` instance owns its timing
+state or whether multiple indicators can share a compact scheduler. It should
+also evaluate an optional fixed-storage queue without forcing queue memory on
+simple indicators that only need on/off or blinking behavior.
+
+On binary-only drivers, unsupported brightness effects should have an explicit
+and predictable policy. Software PWM should only be considered when its CPU,
+bus-traffic, and flicker costs are acceptable for the target platform.
+
 ## Evaluation requirements for 3.0.0
 
 Architectural changes should be accepted only after comparison with 2.1.x:
@@ -153,6 +179,8 @@ Architectural changes should be accepted only after comparison with 2.1.x:
   HT16K33, with IS31FL3733 added when its adapter is implemented.
 - Visual and timing validation of brightness and fading effects on drivers
   with different brightness capabilities.
+- Object-size and scheduler-cost measurements for multiple simultaneous
+  `SoloDrive` indicators.
 - Example-sketch compilation for all supported configurations.
 
 Readability improvements are important, but they must not silently make the

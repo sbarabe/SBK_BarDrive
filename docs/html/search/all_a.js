@@ -12,7 +12,7 @@ var searchData=
   ['emptyupdur_9',['emptyUpDur',['../class_s_b_k___bar_meter_animations.html#aacaaaba678960226e13d2731a9e648cf',1,'SBK_BarMeterAnimations']]],
   ['emptyupintv_10',['emptyUpIntv',['../class_s_b_k___bar_meter_animations.html#a16bb122ea2ce7ae1fd77be37fa4b477c',1,'SBK_BarMeterAnimations::emptyUpIntv(uint16_t updateIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#acaa6bc654633c31a0de72328bbe5ab65',1,'SBK_BarMeterAnimations::emptyUpIntv(uint16_t updateIntv, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
   ['enqueue_11',['enqueue',['../class_s_b_k___bar_meter_animations.html#a823b9d91076a0209f3c4187682492c07',1,'SBK_BarMeterAnimations']]],
-  ['evaluation_20requirements_20for_203_200_200_12',['Evaluation requirements for 3.0.0',['../md__r_o_a_d_m_a_p.html#autotoc_md58',1,'']]],
+  ['evaluation_20requirements_20for_203_200_200_12',['Evaluation requirements for 3.0.0',['../md__r_o_a_d_m_a_p.html#autotoc_md59',1,'']]],
   ['examples_13',['🔊 Quick Start Examples',['../index.html#autotoc_md13',1,'']]],
   ['explicit_20animation_20types_20and_20dispatch_14',['Explicit animation types and dispatch',['../md__r_o_a_d_m_a_p.html#autotoc_md52',1,'']]],
   ['explodingblocks_15',['explodingBlocks',['../class_s_b_k___bar_meter_animations.html#a859efc3fd373ab8f504bd104a1254ca3',1,'SBK_BarMeterAnimations']]]
