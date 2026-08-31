@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['✨_20features_0',['✨ Features',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md3',1,'']]]
+  ['typed_20active_20animation_20state_0',['Typed active animation state',['../md__r_o_a_d_m_a_p.html#autotoc_md49',1,'']]],
+  ['types_20and_20dispatch_1',['Explicit animation types and dispatch',['../md__r_o_a_d_m_a_p.html#autotoc_md52',1,'']]]
 ];

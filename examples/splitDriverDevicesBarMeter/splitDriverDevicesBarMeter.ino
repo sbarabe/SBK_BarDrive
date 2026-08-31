@@ -9,7 +9,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.4
+ * @version 2.1.0
  * @license MIT
  */
 
@@ -60,7 +60,6 @@ SBK_BarDrive<SBK_HT16K33> bar1(&driver, 0, 24, BarDirection::FORWARD, 0);       
 SBK_BarDrive<SBK_HT16K33> bar2(&driver, 0, 24, BarDirection::FORWARD, 24);                       ///< 24-segment bar on device 0, starting at segment 24 (offset)
 SBK_BarDrive<SBK_HT16K33> bar3(&driver, 0, MatrixPreset::BL28_3005SK, BarDirection::FORWARD, 6); ///< BL28-3005SK preset, starts at row offset 6
 
-/**
 /**
  * @brief In this example, three bar meters are created using SBK_BarDrive across 2 devices with 8 rows (anodes) outputs :
  *

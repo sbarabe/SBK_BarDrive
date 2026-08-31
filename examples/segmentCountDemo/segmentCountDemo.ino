@@ -21,7 +21,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.4
+ * @version 2.1.0
  * @license MIT
  */
 
@@ -105,7 +105,7 @@ SBK_BarDrive<SBK_HT16K33> bar(&driver, 0, 24); ///< Construct using segment coun
  *   ...
  *   SEG 23  ---SEG_G----|>|--- DIG_2
  *
- * ✅ Use a preset BarMeterType or custom mapping array if your wiring does not
+ * ✅ Use a MatrixPreset or custom mapping array if your wiring does not
  * follow this column-first convention.
  */
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🪪_20license_0',['🪪 License',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md27',1,'']]]
+  ['📦_20dependencies_0',['📦 Dependencies',['../index.html#autotoc_md9',1,'']]]
 ];

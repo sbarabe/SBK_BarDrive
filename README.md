@@ -4,10 +4,16 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
-## 🆕 What's New in 2.0.4
+## What's New in 2.1.0
 
-Version 2.0.4 correct minors code structures.  
-⚠️ All versions **prior to 2.0.0** are **deprecated** due to internal changes in offset handling and multi-device support.
+Version 2.1.0 adds configurable, fixed-storage animation queues, queue index
+inspection and skipping, non-blocking `wait()`, single-pixel blinking, safer
+animation workspace allocation, and AVR-focused RAM and flash optimizations.
+See [CHANGELOG.md](CHANGELOG.md) for the complete development history.
+Potential future architecture work is recorded in [ROADMAP.md](ROADMAP.md).
+
+Versions prior to 2.0.0 remain deprecated because of internal changes to
+offset handling and multi-device support.
 
 ---
 
@@ -16,10 +22,12 @@ Version 2.0.4 correct minors code structures.
 
 * Unified API for both **SPI** (MAX72xx) and **I2C** (HT16K33) LED drivers
 * Built-in **bar meter animations** (e.g., filling, bouncing, signal-following, block effects)
+* Fixed-storage, non-blocking **animation queues**, configurable at compile time
 * Support for **custom \[row, col] segment mappings** or preset types
 * Compile-time options to optimize for memory:
 
   * `SBK_BARDRIVE_WITH_ANIM` to include animations only if desired
+  * `SBK_BARDRIVE_QUEUE_CAPACITY` to select the queue capacity (default: `4`)
 * Designed for **SBK BarMeter** and **SBK BarDrive** PCBs
 * Reverse display modes and flexible mapping
 * Internal buffer with batch `.show()` updates
@@ -94,23 +102,37 @@ Then place them in your Arduino `libraries` folder.
 
    ```cpp
    #define SBK_BARDRIVE_WITH_ANIM
+   // Optional: defaults to 4. Must be defined before SBK_BarDrive.h.
+   #define SBK_BARDRIVE_QUEUE_CAPACITY 2
    #include <SBK_BarDrive.h>
    ```
+
+### Animation working memory
+
+Each `SBK_BarDrive` animation controller sizes its working buffers from the
+actual number of segments and allocates them once during construction. The
+same buffers are reused by every animation, so changing animations does not
+allocate or free heap memory. Block storage scales with the bar size and keeps
+the existing maximum of 64 simultaneous blocks.
 
 ---
 
 ## 🔊 Quick Start Examples
+
+See [`animationQueueDemo`](examples/animationQueueDemo/animationQueueDemo.ino)
+for a four-entry queue, live logic inversion without restarting the active
+animation, graceful block-emission shutdown, and a non-blocking `wait()` entry.
 
 ### Using MAX7219:
 
 ```cpp
 #define SBK_BARDRIVE_WITH_ANIM
 
-#include <SBK_MAX72xx.h>
-SBK_MAX72xx max72xx(DATA_PIN, CLK_PIN, CS_PIN, 1);
+#include <SBK_MAX72xxSoft.h>
+SBK_MAX72xxSoft max72xx(DATA_PIN, CLK_PIN, CS_PIN, 1);
 
 #include <SBK_BarDrive.h>
-SBK_BarDrive<SBK_MAX72xx> bar(&max72xx, 0, BarMeterType::BL28_3005SK);
+SBK_BarDrive<SBK_MAX72xxSoft> bar(&max72xx, 0, MatrixPreset::BL28_3005SK);
 
 void setup() {
     max72xx.begin();
@@ -137,7 +159,7 @@ SBK_BarDrive<SBK_HT16K33> bar(&ht, 0, 28);
 
 void setup() {
     ht.setAddress(0,0x70);  // Set device I2C address
-    ht..setDriverRows(0,8); // Set HT16K33 device rows (anodes) outputs number : 20-SOP = 8, 24-SOP = 12, 28-SOP = 16
+    ht.setDriverRows(0,8); // 20-SOP = 8 rows, 24-SOP = 12, 28-SOP = 16
     ht.begin();
     bar.animations().animInit().scrollingUpBlocks(60, 2, 1).loop();
 }
@@ -164,11 +186,11 @@ const uint8_t mapping[5][3] = {
 };
 
 // Instantiate driver and bar
-#include <SBK_MAX72xx.h>
-SBK_MAX72xx max72xx(DATA_PIN, CLK_PIN, CS_PIN, 2); // 2 devices
+#include <SBK_MAX72xxSoft.h>
+SBK_MAX72xxSoft max72xx(DATA_PIN, CLK_PIN, CS_PIN, 2); // 2 devices
 
 #include <SBK_BarDrive.h>
-SBK_BarDrive<SBK_MAX72xx> bar(&max72xx, 0, mapping);
+SBK_BarDrive<SBK_MAX72xxSoft> bar(&max72xx, 0, mapping);
 
 void setup() {
   max72xx.begin();
@@ -247,6 +269,9 @@ beatPulse();      // BPM-based pulse effect
 setAllOn();       // Turn on all pixels
 setAllOff();      // Turn off all pixels
 setAll(bool);     // Conditionally turn all on/off
+blinkPixel(0);                 // Blink pixel 0 continuously at 500 ms
+blinkPixel(0, 250, 3);         // Blink pixel 0 three times at 250 ms
+blinkPixel(0, 100, 400, 3);    // Three blinks with separate ON/OFF times
 ```
 
 ---
@@ -270,17 +295,62 @@ bar.animations().stopBlockEmission();
 bar.animations().resumeBlockEmission();
 ````
 
+`pause()` freezes the current animation and preserves both its state and the
+visible pixels so that `resume()` can continue it. `stop()` fully terminates the
+current animation, disables looping, clears the pending queue, and clears the
+mapped pixels in the driver's buffer. Call `bar.show()` afterward when the
+cleared buffer must be sent to the display immediately.
+
 All helper functions return a reference to the `SBK_BarMeterAnimations` object, allowing chainable expressions like:
 
 ````cpp
 bar.animations().pause().setLogic(true).resume().stopBlockEmission();
-```cpp
+
 bar.animations()
     .pause()
     .setLogic(true)
     .resume()
     .stopBlockEmission();
 ````
+
+### Animation queue
+
+Up to `SBK_BARDRIVE_QUEUE_CAPACITY` configured animations can be queued without
+dynamic allocation. The default capacity is four.
+Configure an animation, apply any modifiers, and capture it with `enqueue()`:
+
+```cpp
+bar.animations()
+    .clearQueue()
+    .fillUpDur(500).enqueue()
+    .emptyDownDur(750).enqueue()
+    .fillDownDur(500).reverseDir().enqueue()
+    .startQueue();
+```
+
+Calling `update()` automatically starts the next entry when the current one
+finishes. `queuedAnimations()` reports the number still waiting,
+`isQueueRunning()` reports whether a queue is active, and
+`queueOverflowed()` reports an attempt to exceed the configured capacity.
+`currentQueueIndex()` returns the physical queue slot currently playing, or
+`NO_QUEUE_INDEX` when none is active. `isQueueIndexPlaying(index)` provides a
+direct test, for example:
+
+```cpp
+if (animations.isQueueIndexPlaying(2))
+    animations.skipCurrent();
+```
+
+Use `wait(duration)` to add a non-blocking delay that preserves the current
+pixel states:
+
+```cpp
+animations.wait(1000).enqueue();
+```
+An individually looped or continuous animation intentionally prevents later
+entries from starting automatically. Call `skipCurrent()` to abandon it and
+immediately continue with the next queued animation. Unlike `stop()`, skipping
+does not clear pending entries.
 
 ---
 

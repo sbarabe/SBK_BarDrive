@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📦_20dependencies_0',['📦 Dependencies',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md7',1,'']]]
+  ['⚙️_20supported_20hardware_20combinations_0',['⚙️ Supported Hardware Combinations',['../index.html#autotoc_md6',1,'']]]
 ];

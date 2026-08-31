@@ -11,7 +11,7 @@
  * Part of the SBK BarDrive Arduino Library
  * https://github.com/smartbuilds/SBK_BarDrive
  *
- * @version 2.0.5
+ * @version 2.1.0
  * @license MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -53,7 +53,6 @@
 #pragma once
 
 /**
- * @def SBK_BARDRIVE_WITH_ANIM
  * @brief Enables built-in animation support for SBK_BarDrive.
  *
  * Define this macro **before including** `SBK_BarDrive.h` to activate the `SBK_BarMeterAnimations` system.
@@ -67,7 +66,7 @@
 // IMPORTANT: Include the appropriate driver before SBK_BarDrive.h
 // e.g., #include <SBK_MAX72xxSoft.h>, <SBK_MAX72xxHard.h> or <SBK_HT16K33.h>
 #if !defined(SBK_MAX72xx_IS_DEFINED) && !defined(SBK_HT16K33_IS_DEFINED)
-#pragma message(" ⚠️ SBK BarDrive library note : Neither SBK_MAX72xx.h or SBK_HT16K33.h are included in the code. You need to include the file for your driver matrixPreset and declare a driver before any bar meter instance can be created.")
+#pragma message(" ⚠️ SBK BarDrive library note: Include an SBK_MAX72xx or SBK_HT16K33 driver header and declare a driver before creating a bar meter instance.")
 #endif
 
 #include <Arduino.h>
@@ -240,8 +239,8 @@ public:
                  uint8_t segOffset = 0)
         : _driver(driver),
           _devIdx(constrain(devIdx, 0, 7)),
-          _segsNum(segsNum),
-          _direction(direction)
+          _direction(direction),
+          _segsNum(segsNum)
     {
         _isMatrixMapped = false;
         if (_devIdx > (driver->devsNum() - 1))

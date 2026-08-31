@@ -23,7 +23,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.5
+ * @version 2.1.0
  * @license MIT
  *
  * @copyright
@@ -33,6 +33,16 @@
 #pragma once
 
 #include <Arduino.h>
+
+// Maximum number of animations stored by each animation controller.
+// Define before including SBK_BarDrive.h to select a smaller or larger queue.
+#ifndef SBK_BARDRIVE_QUEUE_CAPACITY
+#define SBK_BARDRIVE_QUEUE_CAPACITY 4
+#endif
+
+#if SBK_BARDRIVE_QUEUE_CAPACITY < 1 || SBK_BARDRIVE_QUEUE_CAPACITY > 255
+#error "SBK_BARDRIVE_QUEUE_CAPACITY must be between 1 and 255"
+#endif
 
 /**
  * @class SBK_BarMeterAnimations
@@ -48,22 +58,20 @@ template <typename BarMeterT>
 class SBK_BarMeterAnimations
 {
 public:
+    static constexpr uint8_t NO_QUEUE_INDEX = 0xFF;
+
     /**
      * @brief Construct an animation controller linked to a bar meter.
      * @param barMeter Reference to the associated SBK_BarMeter instance.
      */
-    explicit SBK_BarMeterAnimations(BarMeterT &barMeter) : _barMeter(barMeter) {}
+    explicit SBK_BarMeterAnimations(BarMeterT &barMeter) : _barMeter(barMeter)
+    {
+        _initializeStorage();
+    }
 
-    /**
-     * @brief Destructor. Frees block memory if allocated.
-     */
     ~SBK_BarMeterAnimations()
     {
-        if (_blocks)
-        {
-            delete[] _blocks;
-            _blocks = nullptr;
-        }
+        delete[] _animationWorkspace;
     }
 
     /**
@@ -73,8 +81,8 @@ public:
      */
     void setSegsNum(uint8_t n)
     {
-        _segsNum = n;
-        _maxTracker = n - 1;
+        _segsNum = min(n, _segmentCapacity);
+        _maxTracker = _segsNum > 0 ? _segsNum - 1 : 0;
     }
 
     /**
@@ -87,7 +95,7 @@ public:
         _currentTime = syncTime;
 
         if (!_isRunning || _isPaused || !_currentFunc)
-            return false;
+            return _queueActive;
 
         if ((this->*_currentFunc)())
         {
@@ -103,9 +111,16 @@ public:
             }
             else
             {
-                _isLoopingNow = false;
-                _isRunning = false;
-                _currentFunc = nullptr;
+                if (_queueActive && _queueCount > 0)
+                    _startNextQueuedAnimation();
+                else
+                {
+                    _isLoopingNow = false;
+                    _isRunning = false;
+                    _currentFunc = nullptr;
+                    _queueActive = false;
+                    _currentQueueIndex = NO_QUEUE_INDEX;
+                }
             }
         }
         return _isRunning;
@@ -132,16 +147,119 @@ public:
         return *this;
     }
 
-    /** @brief Stop animation and reset internal pointers. */
+    /** @brief Terminate the animation, loop, and queue, then clear mapped pixels. */
     SBK_BarMeterAnimations &stop()
     {
         _isPaused = false;
         _isRunning = false;
+        _loop = false;
+        _isLoopingNow = false;
         _skipPending = false;
         _currentFunc = nullptr;
         _animLogicSet = false;
+        _init = true;
+        clearQueue();
+        _barMeter.clear();
         return *this;
     }
+
+    /**
+     * @brief Add the currently configured animation to the fixed-capacity queue.
+     *
+     * Configure an animation with any starter and optional modifiers, then call
+     * enqueue(). The animation is captured but does not run until startQueue().
+     * If the queue is full, the command is discarded and queueOverflowed()
+     * becomes true.
+     */
+    SBK_BarMeterAnimations &enqueue()
+    {
+        if (!_currentFunc)
+            return *this;
+
+        if (_queueCount < QUEUE_CAPACITY)
+        {
+            _captureQueueEntry(_queue[_queueTail]);
+            _queueTail = (_queueTail + 1) % QUEUE_CAPACITY;
+            _queueCount++;
+        }
+        else
+        {
+            _queueOverflow = true;
+        }
+
+        _isRunning = false;
+        _currentFunc = nullptr;
+        return *this;
+    }
+
+    /** @brief Start the first queued animation, if any. */
+    SBK_BarMeterAnimations &startQueue()
+    {
+        if (_queueCount > 0)
+        {
+            _queueActive = true;
+            _startNextQueuedAnimation();
+        }
+        return *this;
+    }
+
+    /** @brief Discard all pending queued animations without stopping the current animation. */
+    SBK_BarMeterAnimations &clearQueue()
+    {
+        _queueHead = 0;
+        _queueTail = 0;
+        _queueCount = 0;
+        _currentQueueIndex = NO_QUEUE_INDEX;
+        _queueActive = false;
+        _queueOverflow = false;
+        return *this;
+    }
+
+    /**
+     * @brief Abandon the active animation and immediately start the next queue entry.
+     *
+     * Unlike stop(), this preserves pending queue entries. If no entry remains,
+     * the active animation and queue are stopped cleanly.
+     */
+    SBK_BarMeterAnimations &skipCurrent()
+    {
+        if (!_isRunning || !_currentFunc)
+            return *this;
+
+        _loop = false;
+        _isPaused = false;
+        _isLoopingNow = false;
+        _skipPending = false;
+
+        if (_queueActive && _queueCount > 0)
+            _startNextQueuedAnimation();
+        else
+        {
+            _isRunning = false;
+            _currentFunc = nullptr;
+            _queueActive = false;
+            _currentQueueIndex = NO_QUEUE_INDEX;
+        }
+        return *this;
+    }
+
+    /** @brief Return the number of animations waiting behind the active one. */
+    uint8_t queuedAnimations() const { return _queueCount; }
+
+    /** @brief Return true while an animation queue is being processed. */
+    bool isQueueRunning() const { return _queueActive; }
+
+    /** @brief Return the physical queue slot currently playing, or NO_QUEUE_INDEX. */
+    uint8_t currentQueueIndex() const { return _currentQueueIndex; }
+
+    /** @brief Return true when the requested physical queue slot is currently playing. */
+    bool isQueueIndexPlaying(uint8_t index) const
+    {
+        return _queueActive && _currentQueueIndex == index;
+    }
+
+    /** @brief Return true if an enqueue operation exceeded the configured capacity. */
+    bool queueOverflowed() const { return _queueOverflow; }
 
     /** @brief Set animation to automatically loop when complete. */
     SBK_BarMeterAnimations &loop()
@@ -205,7 +323,7 @@ public:
     /**
      * @brief Toggle rendering logic (inverted vs normal), example fill logic become empty logic.
      * Logic refer to behavior, example : fill/empty, exploding/colliding, etc.
-     * Some functions logic have no invertion, this function will have no effect on them.
+     * Some animations do not support logic inversion; this function has no effect on them.
      */
     SBK_BarMeterAnimations &toggleLogic()
     {
@@ -219,7 +337,7 @@ public:
     /**
      * @brief Reverse logic compared to initial state
      * Logic refer to behavior, example : fill/empty, exploding/colliding, etc.
-     * Some functions logic have no invertion, this function will have no effect on them.
+     * Some animations do not support logic inversion; this function has no effect on them.
      */
     SBK_BarMeterAnimations &invertLogic()
     {
@@ -233,7 +351,7 @@ public:
     /**
      * @brief Reset logic to initial (default) value.
      * Logic refer to behavior, example : fill/empty, exploding/colliding, etc.
-     * Some functions logic have no invertion, this function will have no effect on them.
+     * Some animations do not support logic inversion; this function has no effect on them.
      */
     SBK_BarMeterAnimations &resetLogic()
     {
@@ -267,6 +385,13 @@ public:
     /** @brief Query if animation loop is enabled. */
     bool isLoopEnabled() const { return _loop; }
 
+    /** @brief Change the primary update interval without restarting the animation. */
+    SBK_BarMeterAnimations &setUpdateInterval(uint16_t interval)
+    {
+        _updateIntv1 = max(static_cast<uint16_t>(1), interval);
+        return *this;
+    }
+
     /** @brief Detect whether animation has completed and is about to loop. */
     bool animPendingLoop()
     {
@@ -292,7 +417,7 @@ public:
             return false;
     }
 
-    /** @brief Returns true if the current animation hasen't a logic invertion aka logic can't be inverted. */
+    /** @brief Return true if the current animation does not support logic inversion. */
     bool isNonInvertingLogicAnim() { return _isNonInvertingLogicAnim; }
 
     /** @brief Returns true if direction is reversed compared to the original. */
@@ -310,7 +435,7 @@ public:
     // Animation starters
     /**
      * @brief Set all pixels to the specified state.
-     * @param onoff Pixels desired state true = ON, false = off.
+     * @param onff Desired pixel state: true = on, false = off.
      */
     SBK_BarMeterAnimations &setAll(bool onff) { return onff ? setAllOn() : setAllOff(); }
 
@@ -337,6 +462,51 @@ public:
     }
 
     /**
+     * @brief Wait without blocking or changing the current pixel states.
+     * @param duration Wait duration in milliseconds.
+     */
+    SBK_BarMeterAnimations &wait(uint16_t duration)
+    {
+        _updateIntv1 = duration;
+        _isRunning = true;
+        _currentFunc = &SBK_BarMeterAnimations::_wait;
+        _init = true;
+        return *this;
+    }
+
+    /**
+     * @brief Blink one pixel with equal ON and OFF intervals.
+     * @param index Zero-based logical pixel index.
+     * @param interval ON and OFF duration in milliseconds.
+     * @param blinkCount Number of complete blinks, or 0 to blink until stopped.
+     */
+    SBK_BarMeterAnimations &blinkPixel(uint8_t index, uint16_t interval = 500, uint8_t blinkCount = 0)
+    {
+        return blinkPixel(index, interval, interval, blinkCount);
+    }
+
+    /**
+     * @brief Blink one pixel with independent ON and OFF intervals.
+     * @param index Zero-based logical pixel index.
+     * @param onInterval ON duration in milliseconds.
+     * @param offInterval OFF duration in milliseconds.
+     * @param blinkCount Number of complete blinks, or 0 to blink until stopped.
+     */
+    SBK_BarMeterAnimations &blinkPixel(uint8_t index, uint16_t onInterval, uint16_t offInterval, uint8_t blinkCount)
+    {
+        _param1 = index;
+        _param2 = blinkCount;
+        _updateIntv1 = max(static_cast<uint16_t>(1), onInterval);
+        _updateIntv2 = max(static_cast<uint16_t>(1), offInterval);
+        _isNonInvertingLogicAnim = true;
+        _usePtr = false;
+        _currentFunc = &SBK_BarMeterAnimations::_blinkPixel;
+        _isRunning = true;
+        _init = true;
+        return *this;
+    }
+
+    /**
      * @brief Start animation that fills the bar upwards over a specified duration.
      * @param duration Total time in milliseconds.
      * @param maxPercent Top of the max fill range (0–100). Default is 100.
@@ -349,8 +519,8 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
@@ -372,9 +542,9 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = false;
         _usePtr = true;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
         _currentFunc = &SBK_BarMeterAnimations::_fillOrEmpty;
@@ -394,8 +564,8 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
@@ -416,8 +586,8 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
@@ -439,9 +609,9 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
         _usePtr = true;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _isRunning = true;
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
         _updateIntv1 = max(5, updateIntv);
@@ -462,8 +632,8 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
@@ -484,8 +654,8 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
@@ -505,9 +675,9 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = true;
         _usePtr = true;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
         _currentFunc = &SBK_BarMeterAnimations::_fillOrEmpty;
@@ -527,8 +697,8 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
@@ -538,9 +708,9 @@ public:
 
     /**
      * @brief Start animation that empties the bar from bottom to top over a duration.
-     * @param updateIntv Time between updates in milliseconds.
-     * @param maxPercentPtr Pointer to top max fill range percent value.
-     * @param minPercentPtr Pointer to bottom min fill range percent value (optional). Default is nullptr.
+     * @param duration Total animation duration in milliseconds.
+     * @param maxPercent Top of the fill range (0-100). Default is 100.
+     * @param minPercent Bottom of the fill range (0-100). Default is 0.
      * @return Reference to this animation instance.
      */
     SBK_BarMeterAnimations &emptyUpDur(uint16_t duration, uint8_t maxPercent = 100, uint8_t minPercent = 0)
@@ -549,8 +719,8 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
@@ -572,9 +742,9 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = true;
         _usePtr = true;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
         _currentFunc = &SBK_BarMeterAnimations::_fillOrEmpty;
@@ -594,8 +764,8 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _isRunning = true;
         _updateIntv1 = max(5, updateIntv);
@@ -616,19 +786,19 @@ public:
         _isNonInvertingLogicAnim = true;
         _animRenderDirIsReversed = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
         uint16_t emptyIntv = fillIntv;
         if (fillIntv == 0)
         {
-            fillIntv = round(max(5, duration) / (2 * steps));
+            fillIntv = max(5, duration) / (2 * steps);
             emptyIntv = fillIntv;
         }
         else
         {
-            emptyIntv = round(max(5, duration - fillIntv * steps) / (steps));
+            emptyIntv = max(5, duration - fillIntv * steps) / steps;
         }
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -651,10 +821,10 @@ public:
     {
         _isNonInvertingLogicAnim = true;
         _animRenderDirIsReversed = false;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
         _usePtr = true;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _updateIntv1 = max(5, fillIntv);  // Starting interval
         _updateIntv2 = _updateIntv1;      // Fill intv
         _updateIntv3 = max(5, emptyIntv); // Empty intv
@@ -678,8 +848,8 @@ public:
         _animRenderDirIsReversed = false;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _updateIntv1 = max(5, fillIntv);  // Starting interval
         _updateIntv2 = _updateIntv1;      // Fill intv
@@ -704,19 +874,19 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
         uint16_t emptyIntv = fillIntv;
         if (fillIntv == 0)
         {
-            fillIntv = round(max(5, duration) / (2 * steps));
+            fillIntv = max(5, duration) / (2 * steps);
             emptyIntv = fillIntv;
         }
         else
         {
-            emptyIntv = round(max(5, duration - fillIntv * steps) / (steps));
+            emptyIntv = max(5, duration - fillIntv * steps) / steps;
         }
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -740,10 +910,10 @@ public:
         _isNonInvertingLogicAnim = true;
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
         _usePtr = true;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
         _updateIntv1 = max(5, fillIntv);  // Starting interval
         _updateIntv2 = _updateIntv1;      // Fill intv
         _updateIntv3 = max(5, emptyIntv); // Empty intv
@@ -767,8 +937,8 @@ public:
         _animRenderDirIsReversed = true;
         _AnimInitLogicIsInverted = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, 0, _segsNum - 1);
         _updateIntv1 = max(5, fillIntv);  // Starting interval
         _updateIntv2 = _updateIntv1;      // Fill intv
@@ -794,19 +964,19 @@ public:
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, (_segsNum / 2) - 1, 0);
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
         uint16_t emptyIntv = fillIntv;
         if (fillIntv == 0)
         {
-            fillIntv = round(max(5, duration) / (2 * steps));
+            fillIntv = max(5, duration) / (2 * steps);
             emptyIntv = fillIntv;
         }
         else
         {
-            emptyIntv = round(max(5, duration - fillIntv * steps) / (steps));
+            emptyIntv = max(5, duration - fillIntv * steps) / steps;
         }
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -831,8 +1001,8 @@ public:
         _AnimInitLogicIsInverted = false;
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = false;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
         _usePtr = true;
         _mapMinMaxTrackerFromPtr(minPercentPtr, maxPercentPtr, (_segsNum / 2) - 1, 0);
         _updateIntv1 = fillIntv;     // Starting interval
@@ -859,8 +1029,8 @@ public:
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = false;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, (_segsNum / 2) - 1, 0);
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -886,19 +1056,19 @@ public:
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, (_segsNum / 2) - 1, 0);
         uint8_t steps = max(1, _maxTracker - _minTracker + 1);
         uint16_t emptyIntv = fillIntv;
         if (fillIntv == 0)
         {
-            fillIntv = round(max(5, duration) / (2 * steps));
+            fillIntv = max(5, duration) / (2 * steps);
             emptyIntv = fillIntv;
         }
         else
         {
-            emptyIntv = round(max(5, duration - fillIntv * steps) / (steps));
+            emptyIntv = max(5, duration - fillIntv * steps) / steps;
         }
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -910,7 +1080,7 @@ public:
     }
 
     /**
-     * @brief Bounce fill from both edges inward with live percent range tracking..
+     * @brief Bounce fill from both edges inward with live percent range tracking.
      * @param fillIntv Fill interval in ms.
      * @param emptyIntv Empty interval in ms.
      * @param maxPercentPtr Pointer to max percent fill range.
@@ -923,8 +1093,8 @@ public:
         _AnimInitLogicIsInverted = false;
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = true;
-        _sigPtr2 = maxPercentPtr;
-        _sigPtr1 = minPercentPtr;
+        _valuePtr1 = maxPercentPtr;
+        _valuePtr2 = minPercentPtr;
         _usePtr = true;
         _mapMinMaxTrackerFromPtr(minPercentPtr, maxPercentPtr, (_segsNum / 2) - 1, 0);
         _updateIntv1 = fillIntv;     // Starting interval
@@ -951,8 +1121,8 @@ public:
         _animRenderDirIsReversed = false;
         _mirrorHalfRangeDir = true;
         _usePtr = false;
-        _sigPtr2 = nullptr;
-        _sigPtr1 = nullptr;
+        _valuePtr2 = nullptr;
+        _valuePtr1 = nullptr;
         _mapMinMaxTracker(minPercent, maxPercent, (_segsNum / 2) - 1, 0);
         _updateIntv1 = fillIntv;     // Starting interval
         _updateIntv2 = _updateIntv1; // Fill intv
@@ -970,9 +1140,10 @@ public:
      */
     SBK_BarMeterAnimations &beatPulse(uint8_t *bpmPtr) // bouncing from bottom (maybe like a volume meter with the music)
     {
-        _sigPtr1 = bpmPtr;
+        _valuePtr1 = bpmPtr;
+        _updateIntv1 = 60000UL / (bpmPtr ? max(1, *bpmPtr) : 116);
         _param2 = min(35 * (_segsNum - 1) / 100, 255); // MIN_BASE_LEVEL
-        _param2 = min(67 * (_segsNum - 1) / 100, 255); // MIN_PEAK_LEVEL
+        _param3 = min(67 * (_segsNum - 1) / 100, 255); // MIN_PEAK_LEVEL
         _param4 = 150;                                 // PEAK_HOLD_TIME
         _usePtr = true;
         _isNonInvertingLogicAnim = true;
@@ -980,8 +1151,8 @@ public:
         _animRenderDirIsReversed = false;
 
         _isRunning = true;
-        _currentFunc = &SBK_BarMeterAnimations::_beatPulse;
-        _init - true;
+        _currentFunc = &SBK_BarMeterAnimations::_beatPulseLive;
+        _init = true;
         return *this;
     }
 
@@ -993,10 +1164,11 @@ public:
     SBK_BarMeterAnimations &beatPulse(uint8_t bpm = 116) // bouncing from bottom (maybe like a volume meter with the music)
     {
         _param1 = max(1, bpm);
+        _updateIntv1 = 60000UL / _param1;
         _param2 = min(35 * (_segsNum - 1) / 100, 255); // MIN_BASE_LEVEL
         _param3 = min(67 * (_segsNum - 1) / 100, 255); // MIN_PEAK_LEVEL
         _param4 = 150;                                 // PEAK_HOLD_TIME
-        _sigPtr1 = nullptr;
+        _valuePtr1 = nullptr;
         _usePtr = false;
         _isNonInvertingLogicAnim = true;
         _AnimInitLogicIsInverted = false;
@@ -1218,7 +1390,7 @@ public:
     SBK_BarMeterAnimations &followSignalSmooth(const uint16_t *sigPtr, uint16_t updateIntv = 100, uint16_t minMap = 0, uint16_t maxMap = 1023, uint8_t smoothingFactor = 30, uint16_t samplingIntv = 5)
     {
 
-        _sigPtr1 = sigPtr;
+        _valuePtr1 = sigPtr;
         _updateIntv1 = max(10, updateIntv);
         _minMap = max(0, minMap);
         _maxMap = max(0, maxMap);
@@ -1247,7 +1419,7 @@ public:
      */
     SBK_BarMeterAnimations &followSignalWithPointer(const uint16_t *sigPtr, uint16_t updateIntv = 100, uint16_t minMap = 0, uint16_t maxMap = 1023, uint8_t smoothingFactor = 30, uint16_t samplingIntv = 5)
     {
-        _sigPtr1 = sigPtr;
+        _valuePtr1 = sigPtr;
         _updateIntv1 = max(10, updateIntv);
         _minMap = max(0, minMap);
         _maxMap = max(0, maxMap);
@@ -1267,7 +1439,7 @@ public:
     /**
      * @brief Smoothly fills the lower half and upper half of the bar meter independently from center,
      * based on two signal levels.
-     * @param sigPtr1 Pointer to analog signal1 for bottom half (center to bottom)
+     * @param sig1Ptr Pointer to analog signal 1 for the bottom half (center to bottom).
      * @param updateIntv Update interval in milliseconds. Default is 100.
      * @param sig2Ptr          Pointer to signal2 for top half (center to top). Default nullptr, signal 1 will be mirrored.
      * @param minMap           Minimum raw value to map. Default 0.
@@ -1278,9 +1450,9 @@ public:
      */
     SBK_BarMeterAnimations &followDualSignalFromCenter(const uint16_t *sig1Ptr, uint16_t updateIntv = 100, const uint16_t *sig2Ptr = nullptr, uint16_t minMap = 0, uint16_t maxMap = 1023, uint8_t smoothingFactor = 30, uint16_t samplingIntv = 5)
     {
-        _sigPtr1 = sig1Ptr;
+        _valuePtr1 = sig1Ptr;
         _updateIntv1 = max(10, updateIntv);
-        _sigPtr2 = sig2Ptr ? sig2Ptr : sig1Ptr;
+        _valuePtr2 = sig2Ptr ? sig2Ptr : sig1Ptr;
         _minMap = max(0, minMap);
         _maxMap = max(0, maxMap);
         _correctSwapOrEqualMinMax(_minMap, _maxMap);
@@ -1300,12 +1472,9 @@ public:
     /**
      * @brief Smoothly fills the lower half and upper half of the bar meter independently from center,
      * based on two signal levels.
-     * @param sigPtr1 Pointer to analog signal1 for bottom half (bottom edge to center)
-     * @param updateIntv Update interval in milliseconds. Default is 100.
-     * @param sig2Ptr          Pointer to signal2 for top half (top edge to center). Default nullptr, signal 1 will be mirrored.
-     * @param updateIntv       Update interval in milliseconds.
-     * @param sig1Ptr          Pointer to signal level for bottom half (center to bottom).
-     * @param sig2Ptr          Pointer to signal level for top half (center to top). Default nullptr.
+     * @param sig1Ptr          Pointer to signal 1 for the bottom half (bottom edge to center).
+     * @param updateIntv       Update interval in milliseconds. Default is 100.
+     * @param sig2Ptr          Pointer to signal 2 for the top half (top edge to center). Default nullptr mirrors signal 1.
      * @param minMap           Minimum raw value to map. Default 0.
      * @param maxMap           Maximum raw value to map. Default 1023.
      * @param smoothingFactor Smoothing strength 0–100. Default is 30.
@@ -1314,9 +1483,9 @@ public:
      */
     SBK_BarMeterAnimations &followDualSignalFromEdges(const uint16_t *sig1Ptr, uint16_t updateIntv = 100, const uint16_t *sig2Ptr = nullptr, uint16_t minMap = 0, uint16_t maxMap = 1023, uint8_t smoothingFactor = 30, uint16_t samplingIntv = 5)
     {
-        _sigPtr1 = sig1Ptr;
+        _valuePtr1 = sig1Ptr;
         _updateIntv1 = max(10, updateIntv);
-        _sigPtr2 = sig2Ptr ? sig2Ptr : sig1Ptr;
+        _valuePtr2 = sig2Ptr ? sig2Ptr : sig1Ptr;
         _minMap = max(0, minMap);
         _maxMap = max(0, maxMap);
         _correctSwapOrEqualMinMax(_minMap, _maxMap);
@@ -1351,7 +1520,7 @@ public:
     SBK_BarMeterAnimations &followSignalFloatingPeak(const uint16_t *sigPtr, uint8_t peakHoldTime = 20, uint16_t updateIntv = 100, uint16_t minMap = 0, uint16_t maxMap = 1023, uint8_t smoothingFactor = 30, uint16_t samplingIntv = 5)
     {
 
-        _sigPtr1 = sigPtr;
+        _valuePtr1 = sigPtr;
         _updateIntv3 = max(20, peakHoldTime);
         _updateIntv1 = max(10, updateIntv);
         _minMap = max(0, minMap);
@@ -1413,6 +1582,36 @@ protected:
     using AnimUpdateFn = bool (SBK_BarMeterAnimations::*)();
     AnimUpdateFn _currentFunc = nullptr;
 
+    static constexpr uint8_t QUEUE_CAPACITY = SBK_BARDRIVE_QUEUE_CAPACITY;
+    struct QueueEntry
+    {
+        AnimUpdateFn function = nullptr;
+        uint16_t updateIntv1 = 10, updateIntv2 = 10, updateIntv3 = 10;
+        uint16_t minMap = 0, maxMap = 1023;
+        const void *valuePtr1 = nullptr;
+        const void *valuePtr2 = nullptr;
+        int8_t minTracker = 0, maxTracker = 1;
+        uint8_t param1 = 0, param2 = 0, param3 = 0, param4 = 0, param5 = 0;
+        bool loop = false;
+        bool animInitLogicIsInverted = false;
+        bool animRenderLogicIsInverted = false;
+        bool isNonInvertingLogicAnim = false;
+        bool mirrorHalfRangeDir = false;
+        bool animLogicSet = false;
+        bool animRenderDirIsReversed = false;
+        bool animInitDirIsReversed = false;
+        bool animDirSet = false;
+        bool usePtr = false;
+        bool emittingBlocksEnabled = true;
+    };
+    QueueEntry _queue[QUEUE_CAPACITY];
+    uint8_t _queueHead = 0;
+    uint8_t _queueTail = 0;
+    uint8_t _queueCount = 0;
+    uint8_t _currentQueueIndex = NO_QUEUE_INDEX;
+    bool _queueActive = false;
+    bool _queueOverflow = false;
+
     // Control flags
     bool _init = true; // true = init function
     bool _isRunning = false;
@@ -1447,8 +1646,8 @@ protected:
     uint16_t _smoothedValue1 = 0, _smoothedValue2 = 0;
     uint16_t _minMap = 0, _maxMap = 1023;
     uint8_t _counter1 = 0, _counter2 = 0;
-    // Live signals trackers
-    const uint16_t *_sigPtr1 = nullptr, *_sigPtr2 = nullptr;
+    // Generic live-value pointers. Their type is determined by the active animation.
+    const void *_valuePtr1 = nullptr, *_valuePtr2 = nullptr;
     // Blocks related helpers
     struct Block
     {
@@ -1456,7 +1655,133 @@ protected:
         int8_t position;
         bool active;
     };
-    Block *_blocks = nullptr;
+    static constexpr uint8_t MAX_BLOCK_CAPACITY = 64;
+    Block *_animationWorkspace = nullptr;
+    uint8_t _segmentCapacity = 0;
+    uint8_t _blockCapacity = 0;
+    uint8_t _randomCursor = 0;
+
+    void _captureQueueEntry(QueueEntry &entry)
+    {
+        entry.function = _currentFunc;
+        entry.updateIntv1 = _updateIntv1;
+        entry.updateIntv2 = _updateIntv2;
+        entry.updateIntv3 = _updateIntv3;
+        entry.minMap = _minMap;
+        entry.maxMap = _maxMap;
+        entry.valuePtr1 = _valuePtr1;
+        entry.valuePtr2 = _valuePtr2;
+        entry.minTracker = _minTracker;
+        entry.maxTracker = _maxTracker;
+        entry.param1 = _param1;
+        entry.param2 = _param2;
+        entry.param3 = _param3;
+        entry.param4 = _param4;
+        entry.param5 = _param5;
+        entry.loop = _loop;
+        entry.animInitLogicIsInverted = _AnimInitLogicIsInverted;
+        entry.animRenderLogicIsInverted = _animRenderLogicIsInverted;
+        entry.isNonInvertingLogicAnim = _isNonInvertingLogicAnim;
+        entry.mirrorHalfRangeDir = _mirrorHalfRangeDir;
+        entry.animLogicSet = _animLogicSet;
+        entry.animRenderDirIsReversed = _animRenderDirIsReversed;
+        entry.animInitDirIsReversed = _AnimInitDirIsReversed;
+        entry.animDirSet = _animDirSet;
+        entry.usePtr = _usePtr;
+        entry.emittingBlocksEnabled = _emittingBlocksEnabled;
+    }
+
+    void _loadQueueEntry(const QueueEntry &entry)
+    {
+        _currentFunc = entry.function;
+        _updateIntv1 = entry.updateIntv1;
+        _updateIntv2 = entry.updateIntv2;
+        _updateIntv3 = entry.updateIntv3;
+        _minMap = entry.minMap;
+        _maxMap = entry.maxMap;
+        _valuePtr1 = entry.valuePtr1;
+        _valuePtr2 = entry.valuePtr2;
+        _minTracker = entry.minTracker;
+        _maxTracker = entry.maxTracker;
+        _param1 = entry.param1;
+        _param2 = entry.param2;
+        _param3 = entry.param3;
+        _param4 = entry.param4;
+        _param5 = entry.param5;
+        _loop = entry.loop;
+        _AnimInitLogicIsInverted = entry.animInitLogicIsInverted;
+        _animRenderLogicIsInverted = entry.animRenderLogicIsInverted;
+        _prevAnimRenderLogic = entry.animRenderLogicIsInverted;
+        _isNonInvertingLogicAnim = entry.isNonInvertingLogicAnim;
+        _mirrorHalfRangeDir = entry.mirrorHalfRangeDir;
+        _animLogicSet = entry.animLogicSet;
+        _animRenderDirIsReversed = entry.animRenderDirIsReversed;
+        _AnimInitDirIsReversed = entry.animInitDirIsReversed;
+        _animDirSet = entry.animDirSet;
+        _usePtr = entry.usePtr;
+        _emittingBlocksEnabled = entry.emittingBlocksEnabled;
+
+        _init = true;
+        _isRunning = _currentFunc != nullptr;
+        _isPaused = false;
+        _isLoopingNow = false;
+        _skipPending = false;
+        _sequenceState = 0;
+        _ledTracker1 = _ledTracker2 = _ledTracker3 = 0;
+        _counter1 = _counter2 = 0;
+        _smoothedValue1 = _smoothedValue2 = 0;
+        _lastUpdate1 = _lastUpdate2 = _lastUpdate3 = _currentTime;
+    }
+
+    void _startNextQueuedAnimation()
+    {
+        if (_queueCount == 0)
+        {
+            _queueActive = false;
+            _isRunning = false;
+            _currentFunc = nullptr;
+            _currentQueueIndex = NO_QUEUE_INDEX;
+            return;
+        }
+
+        _currentQueueIndex = _queueHead;
+        _loadQueueEntry(_queue[_queueHead]);
+        _queueHead = (_queueHead + 1) % QUEUE_CAPACITY;
+        _queueCount--;
+    }
+
+    void _initializeStorage()
+    {
+        _segmentCapacity = _barMeter.getSegsNum();
+        _segsNum = _segmentCapacity;
+        _maxTracker = _segsNum > 0 ? _segsNum - 1 : 0;
+
+        const uint16_t requestedCapacity = static_cast<uint16_t>(_segmentCapacity) + 2U;
+        _blockCapacity = min(requestedCapacity,
+                             static_cast<uint16_t>(MAX_BLOCK_CAPACITY));
+        const uint8_t randomOrderBlocks =
+            (_segmentCapacity + sizeof(Block) - 1U) / sizeof(Block);
+        const uint8_t workspaceBlocks = max(_blockCapacity, randomOrderBlocks);
+        if (workspaceBlocks > 0)
+            _animationWorkspace = new Block[workspaceBlocks];
+    }
+
+    uint8_t *_randomOrder()
+    {
+        return reinterpret_cast<uint8_t *>(_animationWorkspace);
+    }
+
+    void _resetBlocks(uint8_t &blockCapacity)
+    {
+        if (!_animationWorkspace)
+        {
+            blockCapacity = 0;
+            return;
+        }
+        blockCapacity = min(blockCapacity, _blockCapacity);
+        for (uint8_t i = 0; i < blockCapacity; ++i)
+            _animationWorkspace[i] = Block();
+    }
 
     // Animation helpers
     static inline void _normalizePercentRange(uint8_t &minP, uint8_t &maxP)
@@ -1477,7 +1802,13 @@ protected:
                 minP--;
         }
     }
-    inline void _mapMinMaxTrackerFromPtr(const uint16_t *minPercPtr, const uint16_t *maxPercPtr, int8_t minR, uint8_t maxR)
+    const uint8_t *_percentMaxPtr() const { return static_cast<const uint8_t *>(_valuePtr1); }
+    const uint8_t *_percentMinPtr() const { return static_cast<const uint8_t *>(_valuePtr2); }
+    const uint8_t *_liveBpmPtr() const { return static_cast<const uint8_t *>(_valuePtr1); }
+    const uint16_t *_signalPtr1() const { return static_cast<const uint16_t *>(_valuePtr1); }
+    const uint16_t *_signalPtr2() const { return static_cast<const uint16_t *>(_valuePtr2); }
+
+    inline void _mapMinMaxTrackerFromPtr(const uint8_t *minPercPtr, const uint8_t *maxPercPtr, int8_t minR, uint8_t maxR)
     {
         if (!_usePtr)
             return;
@@ -1515,7 +1846,7 @@ protected:
         }
         if (minVal == maxVal) // avoid division by zero in map()
         {
-            if (maxVal < 65, 535)
+            if (maxVal < 65535)
             {
                 maxVal = minVal + 1;
             }
@@ -1547,9 +1878,55 @@ protected:
         return true;
     }
 
+    bool _wait()
+    {
+        if (_init)
+        {
+            _init = false;
+            _lastUpdate1 = _currentTime;
+        }
+        return _currentTime - _lastUpdate1 >= _updateIntv1;
+    }
+
+    bool _blinkPixel()
+    {
+        const uint8_t index = _param1;
+        const uint8_t blinkCount = _param2;
+
+        if (index >= _segsNum)
+            return true;
+
+        if (_init)
+        {
+            _init = false;
+            _sequenceState = 1; // ON phase
+            _counter1 = 0;
+            _lastUpdate1 = _currentTime;
+            _barMeter.setPixel(index, true);
+            return false;
+        }
+
+        const uint16_t interval = _sequenceState ? _updateIntv1 : _updateIntv2;
+        if (_currentTime - _lastUpdate1 < interval)
+            return false;
+
+        _lastUpdate1 = _currentTime;
+        if (_sequenceState)
+        {
+            _sequenceState = 0;
+            _barMeter.setPixel(index, false);
+            _counter1++;
+            return blinkCount > 0 && _counter1 >= blinkCount;
+        }
+
+        _sequenceState = 1;
+        _barMeter.setPixel(index, true);
+        return false;
+    }
+
     bool _fillOrEmpty()
     {
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, 0, _segsNum - 1);
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), 0, _segsNum - 1);
 
         if (_init)
         {
@@ -1603,7 +1980,7 @@ protected:
 
             if (_animRenderLogicIsInverted)
             {
-                if (_ledTracker1 >= _minTracker && _ledTracker1 >= _minTracker)
+                if (_ledTracker1 >= _minTracker && _ledTracker1 < _segsNum)
                 {
                     _barMeter.setPixel(_corrPixelToDir(_ledTracker1), false);
                     _ledTracker1--;
@@ -1659,7 +2036,7 @@ protected:
     bool _fillFromOrEmptyToCenter()
     {
         const uint8_t center = _segsNum / 2;
-        _mapMinMaxTrackerFromPtr(_sigPtr1, _sigPtr2, center - 1, 0);
+        _mapMinMaxTrackerFromPtr(_percentMinPtr(), _percentMaxPtr(), center - 1, 0);
 
         if (_init)
         {
@@ -1775,7 +2152,7 @@ protected:
 #define MIN_BASE_LEVEL _param2
 #define MIN_PEAK_LEVEL _param3
 #define PEAK_HOLD_TIME _param4
-#define bpmPtr _sigPtr1
+#define bpmPtr _liveBpmPtr()
 #define currentLevel _ledTracker1
 #define peakLevel _ledTracker2
 #define beat _updateIntv1
@@ -1798,13 +2175,6 @@ protected:
             currentLevel = MIN_BASE_LEVEL;
             peakLevel = MIN_PEAK_LEVEL;
         }
-
-        // Get bpm from pointer if needed
-        if (_usePtr)
-        {
-            bpm = bpmPtr ? max(1, *bpmPtr) : 116;
-        }
-        beat = 60000 / bpm;
 
         // Update at bpm pulse
         if (_currentTime - lastBeat >= beat)
@@ -1862,6 +2232,13 @@ protected:
         }
         return false; // Continuous pulse animation, never auto-terminates
     }
+
+    bool _beatPulseLive()
+    {
+        bpm = bpmPtr ? max(1, *bpmPtr) : 116;
+        beat = 60000UL / bpm;
+        return _beatPulse();
+    }
 #undef bpm
 #undef MIN_BASE_LEVEL
 #undef MIN_PEAK_LEVEL
@@ -1883,7 +2260,7 @@ protected:
 #define emitCooldown _counter2
     void _emitBlock(int8_t pos)
     {
-        if (!_blocks || maxBlocks < 1)
+        if (!_animationWorkspace || maxBlocks < 1)
             return;
 
         if (emitCooldown > 0)
@@ -1898,7 +2275,7 @@ protected:
         for (uint8_t i = 0; i < maxBlocks; ++i)
         {
             uint8_t idx = (emitIndex + i) % maxBlocks;
-            Block &b = _blocks[idx];
+            Block &b = _animationWorkspace[idx];
 
             if (!b.active)
             {
@@ -1913,10 +2290,10 @@ protected:
         }
     }
 
-    static inline int8_t _calculateSwtichPostion(int8_t pos, uint8_t bockL, uint8_t range)
+    static inline int8_t _calculateSwitchPosition(int8_t pos, uint8_t blockL, uint8_t range)
     {
         // Compute switched block head position
-        return (range - 1) - pos + (bockL - 1);
+        return (range - 1) - pos + (blockL - 1);
     }
 
     int8_t _calculateSwitchedEmitTickCounter(uint8_t range)
@@ -1927,7 +2304,7 @@ protected:
 
         for (uint8_t i = 0; i < maxBlocks; ++i)
         {
-            Block &b = _blocks[i];
+            Block &b = _animationWorkspace[i];
 
             if (!b.active)
                 continue;
@@ -1935,7 +2312,7 @@ protected:
             int8_t p = b.position; // head position before switching
 
             // Step 1: compute switched block head position
-            int8_t swp = _calculateSwtichPostion(p, blockLength, range);
+            int8_t swp = _calculateSwitchPosition(p, blockLength, range);
 
             b.position = swp;
 
@@ -1972,12 +2349,7 @@ protected:
             if (!_animLogicSet)
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
-            if (_blocks)
-            {
-                delete[] _blocks;
-                _blocks = nullptr;
-            }
-            _blocks = new Block[maxBlocks]{};
+            _resetBlocks(maxBlocks);
             return false;
         }
 
@@ -1995,11 +2367,11 @@ protected:
             _barMeter.clear();
 
             if ((requestedNumBlocks == 0 || emittedBlocksCount < requestedNumBlocks) && _emittingBlocksEnabled)
-                _emitBlock(-1); // Because the new block will move to 0 postion in first iteration
+                _emitBlock(-1); // The new block moves to position 0 on its first update.
 
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                Block &b = _blocks[i];
+                Block &b = _animationWorkspace[i];
                 if (!b.active)
                     continue;
 
@@ -2037,13 +2409,13 @@ protected:
                     b.active = false;
             }
         }
-        // animation as ended if emmit is disable and all blocks are cleared
+        // The animation ends after emission stops and all active blocks have cleared.
         if ((requestedNumBlocks > 0 && emittedBlocksCount >= requestedNumBlocks) || !_emittingBlocksEnabled)
         {
             bool anyActive = false;
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                if (_blocks[i].active)
+                if (_animationWorkspace[i].active)
                 {
                     anyActive = true;
                     break;
@@ -2069,12 +2441,7 @@ protected:
             if (!_animLogicSet)
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
-            if (_blocks)
-            {
-                delete[] _blocks;
-                _blocks = nullptr;
-            }
-            _blocks = new Block[maxBlocks]{};
+            _resetBlocks(maxBlocks);
             return false;
         }
 
@@ -2095,7 +2462,7 @@ protected:
 
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                Block &b = _blocks[i];
+                Block &b = _animationWorkspace[i];
                 if (!b.active)
                     continue;
 
@@ -2127,7 +2494,7 @@ protected:
         {
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                if (_blocks[i].active)
+                if (_animationWorkspace[i].active)
                     return false;
             }
             return true;
@@ -2150,12 +2517,7 @@ protected:
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
             maxBlocks = 1;
-            if (_blocks)
-            {
-                delete[] _blocks;
-                _blocks = nullptr;
-            }
-            _blocks = new Block[maxBlocks]{};
+            _resetBlocks(maxBlocks);
 
             emitIndex = 0;
             emitCooldown = 0;
@@ -2200,7 +2562,7 @@ protected:
             // Only clear pixels of active blocks, not the whole bar
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                Block &b = _blocks[i];
+                Block &b = _animationWorkspace[i];
                 if (!b.active)
                     continue;
 
@@ -2215,7 +2577,7 @@ protected:
             // Emit one block if none active
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                if (_blocks[i].active)
+                if (_animationWorkspace[i].active)
                 {
                     hasActive = true;
                     break;
@@ -2233,7 +2595,7 @@ protected:
             // Update and draw all active blocks
             for (uint8_t i = 0; i < maxBlocks; ++i)
             {
-                Block &b = _blocks[i];
+                Block &b = _animationWorkspace[i];
                 if (!b.active)
                     continue;
 
@@ -2323,7 +2685,7 @@ protected:
 #define smoothingFactor _param1
     bool _followSignalSmooth()
     {
-        if (!_sigPtr1)
+        if (!_signalPtr1())
         {
             _setAllOff();
             return true;
@@ -2336,7 +2698,7 @@ protected:
             if (!_animLogicSet)
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
-            _smoothedValue1 = *_sigPtr1;
+            _smoothedValue1 = *_signalPtr1();
             _lastUpdate1 = _currentTime;
             _setAllOff();
             return false;
@@ -2345,7 +2707,7 @@ protected:
         // Signal sampling
         if (_currentTime - _lastUpdate2 >= _updateIntv2)
         {
-            uint16_t raw = *_sigPtr1;
+            uint16_t raw = *_signalPtr1();
             _smoothedValue1 = (raw * smoothingFactor + _smoothedValue1 * (100 - smoothingFactor)) / 100;
             _lastUpdate2 = _currentTime;
         }
@@ -2365,7 +2727,7 @@ protected:
     }
     bool _followSignalWithPointer()
     {
-        if (!_sigPtr1)
+        if (!_signalPtr1())
         {
             _setAllOff();
             return true;
@@ -2378,7 +2740,7 @@ protected:
             if (!_animLogicSet)
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
-            _smoothedValue1 = *_sigPtr1;
+            _smoothedValue1 = *_signalPtr1();
             _lastUpdate1 = _currentTime;
             _setAllOff();
             return false;
@@ -2387,7 +2749,7 @@ protected:
         // Signal sampling
         if (_currentTime - _lastUpdate2 >= _updateIntv2)
         {
-            uint16_t raw = *_sigPtr1;
+            uint16_t raw = *_signalPtr1();
             _smoothedValue1 = (raw * smoothingFactor + _smoothedValue1 * (100 - smoothingFactor)) / 100;
             _lastUpdate2 = _currentTime;
         }
@@ -2397,7 +2759,7 @@ protected:
             _lastUpdate1 = _currentTime;
 
             uint8_t avg = _getMappedSignal(_smoothedValue1, _minMap, _maxMap, 0, _segsNum);
-            uint8_t pointer = _getMappedSignal(*_sigPtr1, _minMap, _maxMap, 0, _segsNum);
+            uint8_t pointer = _getMappedSignal(*_signalPtr1(), _minMap, _maxMap, 0, _segsNum);
 
             // First, fill up to moving average
             for (uint8_t i = 0; i < _segsNum; i++)
@@ -2419,7 +2781,7 @@ protected:
     }
     bool _followDualSignalCenterMirror()
     {
-        if (!_sigPtr1 && !_sigPtr2)
+        if (!_signalPtr1() && !_signalPtr2())
         {
             _setAllOff();
             return true;
@@ -2432,9 +2794,9 @@ protected:
             if (!_animLogicSet)
                 _mirrorHalfRangeDir = _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
-            _smoothedValue1 = *_sigPtr1;
-            if (_sigPtr2)
-                _smoothedValue2 = *_sigPtr2;
+            _smoothedValue1 = *_signalPtr1();
+            if (_signalPtr2())
+                _smoothedValue2 = *_signalPtr2();
             _lastUpdate1 = _currentTime;
             _setAllOff();
             return false;
@@ -2448,12 +2810,12 @@ protected:
         {
             _lastUpdate2 = _currentTime;
 
-            uint16_t raw1 = *_sigPtr1;
+            uint16_t raw1 = *_signalPtr1();
             _smoothedValue1 = (uint16_t)(((uint32_t)smoothingFactor * raw1 + (uint32_t)(100 - smoothingFactor) * _smoothedValue1) / 100);
 
-            if (_sigPtr2)
+            if (_signalPtr2())
             {
-                uint16_t raw2 = *_sigPtr2;
+                uint16_t raw2 = *_signalPtr2();
                 _smoothedValue2 = (uint16_t)(((uint32_t)smoothingFactor * raw2 + (uint32_t)(100 - smoothingFactor) * _smoothedValue2) / 100);
             }
         }
@@ -2462,12 +2824,12 @@ protected:
         {
             _lastUpdate1 = _currentTime;
 
-            uint16_t raw1 = *_sigPtr1;
+            uint16_t raw1 = *_signalPtr1();
             _smoothedValue1 = (uint16_t)(((uint32_t)smoothingFactor * raw1 + (uint32_t)(100 - smoothingFactor) * _smoothedValue1) / 100);
             uint8_t level1 = _getMappedSignal(_smoothedValue1, _minMap, _maxMap, 0, _segsNum / 2);
 
             uint8_t level2 = level1;
-            if (_sigPtr2)
+            if (_signalPtr2())
                 level2 = _getMappedSignal(_smoothedValue2, _minMap, _maxMap, 0, _segsNum / 2);
 
             for (uint8_t i = 0; i < _segsNum; i++)
@@ -2491,7 +2853,7 @@ protected:
     bool _followSignalFloatingPeak() // bouncing from bottom (maybe like a volume meter with the music)
     {
 
-        if (!_sigPtr1)
+        if (!_signalPtr1())
         {
             _setAllOff();
             return true;
@@ -2505,7 +2867,7 @@ protected:
                 _prevAnimRenderLogic = _animRenderLogicIsInverted = _AnimInitLogicIsInverted;
 
             _setAllOff();
-            _smoothedValue1 = *_sigPtr1;
+            _smoothedValue1 = *_signalPtr1();
             lastBaseUpdate = _currentTime;
             lastPeakUpdate = _currentTime;
             currentLevel = 0;
@@ -2518,7 +2880,7 @@ protected:
         {
             _lastUpdate2 = _currentTime;
 
-            uint16_t raw = *_sigPtr1;
+            uint16_t raw = *_signalPtr1();
             _smoothedValue1 = (raw * smoothingFactor + _smoothedValue1 * (100 - smoothingFactor)) / 100;
             currentLevel = _getMappedSignal(_smoothedValue1, _minMap, _maxMap, 0, _segsNum);
         }
@@ -2563,11 +2925,11 @@ protected:
 
 #undef smoothingFactor
 
-#define cursor _ledTracker1
     bool _randomPixelUpdater()
     {
-
-        static uint8_t *pixelOrder = nullptr;
+        uint8_t *pixelOrder = _randomOrder();
+        if (_segsNum == 0 || !pixelOrder)
+            return true;
 
         if (_init)
         {
@@ -2581,13 +2943,6 @@ protected:
             else
                 _setAllOff();
 
-            if (pixelOrder)
-            {
-                delete[] pixelOrder;
-                pixelOrder = nullptr;
-            }
-
-            pixelOrder = new uint8_t[_segsNum];
             for (uint8_t i = 0; i < _segsNum; ++i)
                 pixelOrder[i] = i;
 
@@ -2599,7 +2954,7 @@ protected:
                 pixelOrder[j] = tmp;
             }
 
-            cursor = 0;
+            _randomCursor = 0;
             _lastUpdate1 = _currentTime;
 
             return false;
@@ -2610,31 +2965,28 @@ protected:
             _lastUpdate1 = _currentTime;
 
             uint8_t retries = 0;
-            while (cursor < _segsNum && retries++ < _segsNum - 1)
+            while (_randomCursor < _segsNum && retries++ < _segsNum - 1)
             {
-                uint8_t seg = pixelOrder[cursor];
+                uint8_t seg = pixelOrder[_randomCursor];
                 bool currentState = _barMeter.getPixelState(seg);
                 bool shouldChange = (!_AnimInitLogicIsInverted && !currentState) || (_AnimInitLogicIsInverted && currentState);
 
                 if (shouldChange)
                 {
                     _barMeter.setPixel(seg, !_AnimInitLogicIsInverted);
-                    cursor++;
+                    _randomCursor++;
                     break; // Change only one pixel per interval
                 }
                 else
                 {
-                    cursor++; // Move on to next even if it doesn't need change
+                    _randomCursor++; // Move on to next even if it doesn't need change
                 }
             }
         }
-        if (cursor >= _segsNum)
+        if (_randomCursor >= _segsNum)
         {
-            delete[] pixelOrder;
-            pixelOrder = nullptr;
             return true;
         }
         return false;
     }
-#undef cursor
 };

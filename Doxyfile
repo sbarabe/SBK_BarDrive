@@ -1,0 +1,60 @@
+PROJECT_NAME           = "SBK_BarDrive Library"
+PROJECT_NUMBER         = 2.1.0
+PROJECT_BRIEF          = "LED bar meter control and queued animations for Arduino"
+
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = YES
+OUTPUT_LANGUAGE        = English
+
+FULL_PATH_NAMES        = NO
+STRIP_FROM_PATH        = .
+
+JAVADOC_AUTOBRIEF      = YES
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+
+OPTIMIZE_OUTPUT_FOR_C  = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+INPUT                  = README.md \
+                         CHANGELOG.md \
+                         ROADMAP.md \
+                         src \
+                         examples
+FILE_PATTERNS          = *.h *.ino *.md
+RECURSIVE              = YES
+EXCLUDE                = docs docs-preview
+EXAMPLE_PATH           = examples
+EXAMPLE_RECURSIVE      = YES
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+PREDEFINED             = SBK_BARDRIVE_WITH_ANIM=1
+ALIASES                += license="\par License"
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+
+HAVE_DOT               = NO
+
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_IF_DOC_ERROR      = YES
+WARN_LOGFILE           =

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🆕_20what_20s_20new_20in_20v2_200_200_0',['🆕 What&apos;s New in v2.0.4',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]]
+  ['x_3a_20stabilization_0',['2.1.x: stabilization',['../md__r_o_a_d_m_a_p.html#autotoc_md47',1,'']]]
 ];

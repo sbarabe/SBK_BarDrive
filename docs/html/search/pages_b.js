@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['mapping_20_3a_0',['Using a custom mapping :',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md13',1,'']]],
-  ['max7219_3a_1',['Using MAX7219:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md11',1,'']]]
+  ['hardware_20combinations_0',['⚙️ Supported Hardware Combinations',['../index.html#autotoc_md6',1,'']]],
+  ['helpers_20chainable_1',['🧰 Animation Helpers (Chainable)',['../index.html#autotoc_md26',1,'']]],
+  ['highlights_3a_2',['Highlights:',['../_s_b_k___bar_meter_animations_8h.html#autotoc_md57',1,'']]],
+  ['ht16k33_3a_3',['Using HT16K33:',['../index.html#autotoc_md15',1,'']]]
 ];

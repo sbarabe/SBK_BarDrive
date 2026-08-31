@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['using_20a_20custom_20mapping_20_3a_0',['Using a custom mapping :',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md13',1,'']]],
-  ['using_20ht16k33_3a_1',['Using HT16K33:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md12',1,'']]],
-  ['using_20max7219_3a_2',['Using MAX7219:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md11',1,'']]]
+  ['possible_20internal_20architecture_0',['3.0.0: possible internal architecture',['../md__r_o_a_d_m_a_p.html#autotoc_md48',1,'']]],
+  ['progress_1',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md50',1,'']]]
 ];

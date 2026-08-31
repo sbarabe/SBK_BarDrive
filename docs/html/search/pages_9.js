@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['in_20animations_0',['🎞️ Built-In Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md15',1,'']]],
-  ['in_20v2_200_200_1',['🆕 What&apos;s New in v2.0.4',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md2',1,'']]],
-  ['installation_2',['⬇️ Installation',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md8',1,'']]]
+  ['effects_0',['Bounce Effects',['../index.html#autotoc_md20',1,'']]],
+  ['empty_1',['Fill / Empty',['../index.html#autotoc_md19',1,'']]],
+  ['evaluation_20requirements_20for_203_200_200_2',['Evaluation requirements for 3.0.0',['../md__r_o_a_d_m_a_p.html#autotoc_md56',1,'']]],
+  ['examples_3',['🔊 Quick Start Examples',['../index.html#autotoc_md13',1,'']]],
+  ['explicit_20animation_20types_20and_20dispatch_4',['Explicit animation types and dispatch',['../md__r_o_a_d_m_a_p.html#autotoc_md52',1,'']]]
 ];

@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['a_20custom_20mapping_20_3a_0',['Using a custom mapping :',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md13',1,'']]],
-  ['animation_20helpers_20chainable_1',['🧰 Animation Helpers (Chainable)',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md23',1,'']]],
-  ['animations_2',['Animations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md15',1,'🎞️ Built-In Animations'],['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md18',1,'Block-Based Animations']]],
-  ['animinit_3',['animInit',['../class_s_b_k___bar_meter_animations.html#a78a5ebfebc15f3303692d289e56378b0',1,'SBK_BarMeterAnimations']]],
-  ['animpendingloop_4',['animPendingLoop',['../class_s_b_k___bar_meter_animations.html#a87f9a992a5bcf9620b1338e9fa656727',1,'SBK_BarMeterAnimations']]],
-  ['api_20overview_5',['📘 API Overview',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md25',1,'']]]
+  ['2_201_200_0',['What&apos;s New in 2.1.0',['../index.html#autotoc_md2',1,'']]],
+  ['2_201_200_202026_2008_2031_1',['[2.1.0] - 2026-08-31',['../md__c_h_a_n_g_e_l_o_g.html#autotoc_md41',1,'']]],
+  ['2_201_20x_3a_20stabilization_2',['2.1.x: stabilization',['../md__r_o_a_d_m_a_p.html#autotoc_md47',1,'']]],
+  ['2026_2008_2031_3',['[2.1.0] - 2026-08-31',['../md__c_h_a_n_g_e_l_o_g.html#autotoc_md41',1,'']]]
 ];

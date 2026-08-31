@@ -25,20 +25,76 @@
 var NAVTREE =
 [
   [ "SBK_BarDrive Library", "index.html", [
-    [ "LICENSE", "md__c_1_2_users_2sbara_2_one_drive_2_documents_2_git_hub_2_s_b_k___bar_drive_2_l_i_c_e_n_s_e.html", null ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+    [ "What's New in 2.1.0", "index.html#autotoc_md2", null ],
+    [ "✨ Features", "index.html#autotoc_md4", null ],
+    [ "⚙️ Supported Hardware Combinations", "index.html#autotoc_md6", [
+      [ "🧩 SBK Bar Meter Boards &amp; Accessories", "index.html#autotoc_md7", null ]
+    ] ],
+    [ "📦 Dependencies", "index.html#autotoc_md9", null ],
+    [ "⬇️ Installation", "index.html#autotoc_md10", [
+      [ "Animation working memory", "index.html#autotoc_md11", null ]
+    ] ],
+    [ "🔊 Quick Start Examples", "index.html#autotoc_md13", [
+      [ "Using MAX7219:", "index.html#autotoc_md14", null ],
+      [ "Using HT16K33:", "index.html#autotoc_md15", null ],
+      [ "Using a custom mapping :", "index.html#autotoc_md16", null ]
+    ] ],
+    [ "🎞️ Built-In Animations", "index.html#autotoc_md18", [
+      [ "Fill / Empty", "index.html#autotoc_md19", null ],
+      [ "Bounce Effects", "index.html#autotoc_md20", null ],
+      [ "Block-Based Animations", "index.html#autotoc_md21", null ],
+      [ "Signal-Driven", "index.html#autotoc_md22", null ],
+      [ "Random &amp; Beat", "index.html#autotoc_md23", null ],
+      [ "Static Setters", "index.html#autotoc_md24", null ]
+    ] ],
+    [ "🧰 Animation Helpers (Chainable)", "index.html#autotoc_md26", [
+      [ "Animation queue", "index.html#autotoc_md27", null ]
+    ] ],
+    [ "📘 API Overview", "index.html#autotoc_md29", null ],
+    [ "🪪 License", "index.html#autotoc_md31", [
+      [ "Code", "index.html#autotoc_md32", null ],
+      [ "Documentation", "index.html#autotoc_md33", null ]
+    ] ],
+    [ "🧠 Credits", "index.html#autotoc_md35", null ],
+    [ "🛠️ Support", "index.html#autotoc_md37", null ],
+    [ "Changelog", "md__c_h_a_n_g_e_l_o_g.html", [
+      [ "[Unreleased]", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md40", null ],
+      [ "[2.1.0] - 2026-08-31", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md41", [
+        [ "Added", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md42", null ],
+        [ "Changed", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md43", null ],
+        [ "Fixed", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md44", null ]
+      ] ],
+      [ "Older versions", "md__c_h_a_n_g_e_l_o_g.html#autotoc_md45", null ]
+    ] ],
+    [ "SBK_BarDrive Roadmap", "md__r_o_a_d_m_a_p.html", [
+      [ "2.1.x: stabilization", "md__r_o_a_d_m_a_p.html#autotoc_md47", null ],
+      [ "3.0.0: possible internal architecture", "md__r_o_a_d_m_a_p.html#autotoc_md48", [
+        [ "Typed active animation state", "md__r_o_a_d_m_a_p.html#autotoc_md49", null ],
+        [ "Separate configuration, runtime, and progress", "md__r_o_a_d_m_a_p.html#autotoc_md50", null ],
+        [ "Compact queue descriptors", "md__r_o_a_d_m_a_p.html#autotoc_md51", null ],
+        [ "Explicit animation types and dispatch", "md__r_o_a_d_m_a_p.html#autotoc_md52", null ],
+        [ "Compact flag storage", "md__r_o_a_d_m_a_p.html#autotoc_md53", null ],
+        [ "Internal file organization", "md__r_o_a_d_m_a_p.html#autotoc_md54", null ],
+        [ "Workspace ownership options", "md__r_o_a_d_m_a_p.html#autotoc_md55", null ]
+      ] ],
+      [ "Evaluation requirements for 3.0.0", "md__r_o_a_d_m_a_p.html#autotoc_md56", null ]
+    ] ],
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Structure Index", "classes.html", null ],
+      [ "Data Fields", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
+      [ "Globals", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Enumerations", "globals_enum.html", null ]
+        [ "Enumerations", "globals_enum.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
@@ -47,9 +103,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_s_b_k___bar_drive_8h.html"
+"_s_b_k___bar_drive_8h.html",
+"class_s_b_k___bar_meter_animations.html#ae668eb7e252b9d72ad7059fac08cb631"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+const SYNCONMSG = 'click to disable panel synchronization';
+const SYNCOFFMSG = 'click to enable panel synchronization';
+const LISTOFALLMEMBERS = 'List of all members';

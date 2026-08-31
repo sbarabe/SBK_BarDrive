@@ -4,6 +4,7 @@ var class_s_b_k___bar_meter =
     [ "SBK_BarMeter", "class_s_b_k___bar_meter.html#a3b648ad43882150b9f971d2b7917493a", null ],
     [ "SBK_BarMeter", "class_s_b_k___bar_meter.html#ad98b1463b32850752125f1f3f932726c", null ],
     [ "SBK_BarMeter", "class_s_b_k___bar_meter.html#a46021f106f15d1865c08e6660a859460", null ],
+    [ "~SBK_BarMeter", "class_s_b_k___bar_meter.html#a71d3812f7f7f78be24fb5687826dbb6a", null ],
     [ "clear", "class_s_b_k___bar_meter.html#a31b15ae15388332de25d3a1beb340c6e", null ],
     [ "debugSegmentMapping", "class_s_b_k___bar_meter.html#a2dee0c8fc0cdb54d82460c65e9350c5a", null ],
     [ "getDirection", "class_s_b_k___bar_meter.html#a9972af5c996ea629c3e581f0de7c9234", null ],

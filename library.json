@@ -1,7 +1,7 @@
 {
   "name": "SBK_BarDrive",
-  "version": "2.0.5",
-  "description": "Unified LED bar meter control for MAX7219, MAX7221 and HT16K33.",
+  "version": "2.1.0",
+  "description": "Unified LED bar meter control and queued animations for MAX7219, MAX7221 and HT16K33.",
   "keywords": [
     "bar meter",
     "barmeter",
@@ -14,6 +14,7 @@
     "leds",
     "animation",
     "animations",
+    "queue",
     "MAX7219",
     "MAX7221",
     "HT16K33",
@@ -44,11 +45,11 @@
   "dependencies": [
     {
       "name": "SBK_HT16K33",
-      "version": ">=2.0.0"
+      "version": ">=2.0.1"
     },
     {
       "name": "SBK_MAX72xx",
-      "version": ">=2.0.4"
+      "version": ">=2.0.5"
     }
   ]
 }

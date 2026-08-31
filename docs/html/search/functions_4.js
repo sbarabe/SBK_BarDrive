@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['emptydowndur_0',['emptyDownDur',['../class_s_b_k___bar_meter_animations.html#a692e93217e9a528fa5bac82e1ed394af',1,'SBK_BarMeterAnimations']]],
-  ['emptydownintv_1',['emptyDownIntv',['../class_s_b_k___bar_meter_animations.html#a8eb7ae89e1a452b3ce9edd980a0bdd79',1,'SBK_BarMeterAnimations::emptyDownIntv(uint16_t updateIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#a392414b47c2381b6866616cbe6b8fe54',1,'SBK_BarMeterAnimations::emptyDownIntv(uint16_t updateIntv, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
-  ['emptyupdur_2',['emptyUpDur',['../class_s_b_k___bar_meter_animations.html#aacaaaba678960226e13d2731a9e648cf',1,'SBK_BarMeterAnimations']]],
-  ['emptyupintv_3',['emptyUpIntv',['../class_s_b_k___bar_meter_animations.html#a16bb122ea2ce7ae1fd77be37fa4b477c',1,'SBK_BarMeterAnimations::emptyUpIntv(uint16_t updateIntv, const uint8_t *maxPercentPtr, const uint8_t *minPercentPtr=nullptr)'],['../class_s_b_k___bar_meter_animations.html#acaa6bc654633c31a0de72328bbe5ab65',1,'SBK_BarMeterAnimations::emptyUpIntv(uint16_t updateIntv, uint8_t maxPercent=100, uint8_t minPercent=0)']]],
-  ['explodingblocks_4',['explodingBlocks',['../class_s_b_k___bar_meter_animations.html#a859efc3fd373ab8f504bd104a1254ca3',1,'SBK_BarMeterAnimations']]]
+  ['debugsegmentmapping_0',['debugSegmentMapping',['../class_s_b_k___bar_meter.html#a2dee0c8fc0cdb54d82460c65e9350c5a',1,'SBK_BarMeter::debugSegmentMapping()'],['../class_s_b_k___bar_drive.html#ab831c47f5240d89dd93c14e7bf2e4823',1,'SBK_BarDrive::debugSegmentMapping()']]],
+  ['downstackingblocks_1',['downStackingBlocks',['../class_s_b_k___bar_meter_animations.html#a61e88089b76bc8114fa15d12b882cbf8',1,'SBK_BarMeterAnimations']]],
+  ['downunstackingblocks_2',['downUnstackingBlocks',['../class_s_b_k___bar_meter_animations.html#a6fbee5734807b9c13ff59cea1a204904',1,'SBK_BarMeterAnimations']]]
 ];

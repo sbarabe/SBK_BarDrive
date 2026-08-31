@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🔊_20quick_20start_20examples_0',['🔊 Quick Start Examples',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md10',1,'']]]
+  ['✨_20features_0',['✨ Features',['../index.html#autotoc_md4',1,'']]]
 ];

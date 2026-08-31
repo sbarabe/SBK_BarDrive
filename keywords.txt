@@ -17,6 +17,16 @@ animations             		KEYWORD2
 barmeter               		KEYWORD2
 
 # Animation control helpers
+enqueue	KEYWORD2
+startQueue	KEYWORD2
+clearQueue	KEYWORD2
+skipCurrent	KEYWORD2
+queuedAnimations	KEYWORD2
+isQueueRunning	KEYWORD2
+queueOverflowed	KEYWORD2
+currentQueueIndex	KEYWORD2
+isQueueIndexPlaying	KEYWORD2
+setUpdateInterval	KEYWORD2
 animInit                 	KEYWORD2
 update                   	KEYWORD2
 pause                    	KEYWORD2
@@ -39,6 +49,8 @@ isDirectionReversed      	KEYWORD2
 isBlockEmissionEnabled   	KEYWORD2
 
 # Animation starters
+wait	KEYWORD2
+blinkPixel	KEYWORD2
 fillUpIntv             		KEYWORD2
 fillDownIntv           		KEYWORD2
 emptyUpIntv            		KEYWORD2
@@ -78,6 +90,7 @@ BL28_3005SK            		LITERAL1
 BL28_3005SA            		LITERAL1
 
 # Compile-time macros
+SBK_BARDRIVE_QUEUE_CAPACITY	KEYWORD3
 SBK_BARDRIVE_WITH_ANIM     	KEYWORD3
 SBK_MAX72xx_IS_DEFINED     	KEYWORD3
 SBK_HT16K33_IS_DEFINED     	KEYWORD3

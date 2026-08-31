@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['effects_0',['Bounce Effects',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md17',1,'']]],
-  ['empty_1',['Fill / Empty',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md16',1,'']]],
-  ['examples_2',['🔊 Quick Start Examples',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md10',1,'']]]
+  ['bar_20meter_20boards_20accessories_0',['🧩 SBK Bar Meter Boards &amp;amp; Accessories',['../index.html#autotoc_md7',1,'']]],
+  ['based_20animations_1',['Block-Based Animations',['../index.html#autotoc_md21',1,'']]],
+  ['beat_2',['Random &amp;amp; Beat',['../index.html#autotoc_md23',1,'']]],
+  ['block_20based_20animations_3',['Block-Based Animations',['../index.html#autotoc_md21',1,'']]],
+  ['boards_20accessories_4',['🧩 SBK Bar Meter Boards &amp;amp; Accessories',['../index.html#autotoc_md7',1,'']]],
+  ['bounce_20effects_5',['Bounce Effects',['../index.html#autotoc_md20',1,'']]],
+  ['built_20in_20animations_6',['🎞️ Built-In Animations',['../index.html#autotoc_md18',1,'']]]
 ];

@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['update_0',['update',['../class_s_b_k___bar_meter_animations.html#aa294223d55a2cd4550a47b627dbfb3f6',1,'SBK_BarMeterAnimations']]],
-  ['upstackingblocks_1',['upStackingBlocks',['../class_s_b_k___bar_meter_animations.html#a80ec69b103c2058c8e4947245e95f541',1,'SBK_BarMeterAnimations']]],
-  ['upunstackingblocks_2',['upUnstackingBlocks',['../class_s_b_k___bar_meter_animations.html#a92fc8e9bb7987bb9ecf2fb63b6665ea2',1,'SBK_BarMeterAnimations']]],
-  ['using_20a_20custom_20mapping_20_3a_3',['Using a custom mapping :',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md13',1,'']]],
-  ['using_20ht16k33_3a_4',['Using HT16K33:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md12',1,'']]],
-  ['using_20max7219_3a_5',['Using MAX7219:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md11',1,'']]]
+  ['queue_0',['Animation queue',['../index.html#autotoc_md27',1,'']]],
+  ['queue_20descriptors_1',['Compact queue descriptors',['../md__r_o_a_d_m_a_p.html#autotoc_md51',1,'']]],
+  ['queue_5fcapacity_2',['QUEUE_CAPACITY',['../class_s_b_k___bar_meter_animations.html#a6dfa98a8f9f5b269bff88e25c41cab4b',1,'SBK_BarMeterAnimations']]],
+  ['queuedanimations_3',['queuedAnimations',['../class_s_b_k___bar_meter_animations.html#ae028d1edc29ce483822dde2c08bf4824',1,'SBK_BarMeterAnimations']]],
+  ['queueentry_4',['QueueEntry',['../struct_s_b_k___bar_meter_animations_1_1_queue_entry.html',1,'SBK_BarMeterAnimations']]],
+  ['queueoverflowed_5',['queueOverflowed',['../class_s_b_k___bar_meter_animations.html#a6d93789a42a81d33392c3fb3d216a541',1,'SBK_BarMeterAnimations']]],
+  ['quick_20start_20examples_6',['🔊 Quick Start Examples',['../index.html#autotoc_md13',1,'']]]
 ];

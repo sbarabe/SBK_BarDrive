@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['hardware_20combinations_0',['⚙️ Supported Hardware Combinations',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md5',1,'']]],
-  ['helpers_20chainable_1',['🧰 Animation Helpers (Chainable)',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md23',1,'']]],
-  ['highlights_3a_2',['Highlights:',['../_s_b_k___bar_meter_animations_8h.html#autotoc_md35',1,'']]],
-  ['ht16k33_3a_3',['Using HT16K33:',['../C:/Users/sbara/OneDrive/Documents/GitHub/SBK_BarDrive/README.md#autotoc_md12',1,'']]]
+  ['dependencies_0',['📦 Dependencies',['../index.html#autotoc_md9',1,'']]],
+  ['descriptors_1',['Compact queue descriptors',['../md__r_o_a_d_m_a_p.html#autotoc_md51',1,'']]],
+  ['dispatch_2',['Explicit animation types and dispatch',['../md__r_o_a_d_m_a_p.html#autotoc_md52',1,'']]],
+  ['documentation_3',['Documentation',['../index.html#autotoc_md33',1,'']]],
+  ['driven_4',['Signal-Driven',['../index.html#autotoc_md22',1,'']]]
 ];

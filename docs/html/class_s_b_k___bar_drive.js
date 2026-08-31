@@ -4,6 +4,8 @@ var class_s_b_k___bar_drive =
     [ "SBK_BarDrive", "class_s_b_k___bar_drive.html#ac4f6b17dffa71e95a4d90d8783ca4372", null ],
     [ "SBK_BarDrive", "class_s_b_k___bar_drive.html#aaf6231088b9a7a17260db4fc21a42ba6", null ],
     [ "SBK_BarDrive", "class_s_b_k___bar_drive.html#a14611d702ad70843a7ea152649978fea", null ],
+    [ "~SBK_BarDrive", "class_s_b_k___bar_drive.html#a2245be90bea57a7cb5e50ea7934d6413", null ],
+    [ "animations", "class_s_b_k___bar_drive.html#add37cc6b6e20fb084f5d2b6e3044c25b", null ],
     [ "barmeter", "class_s_b_k___bar_drive.html#ae43e16026e53f1de4a7e233135e96711", null ],
     [ "clear", "class_s_b_k___bar_drive.html#a498e2cf55780a4a348eb7b76ce07e445", null ],
     [ "debugSegmentMapping", "class_s_b_k___bar_drive.html#ab831c47f5240d89dd93c14e7bf2e4823", null ],

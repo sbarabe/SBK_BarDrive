@@ -1,6 +1,6 @@
 /**
  * @file presetTypeDemo.ino
- * @brief Demonstrates using SBK_BarDrive with a preset BarMeterType mapping.
+ * @brief Demonstrates using SBK_BarDrive with a preset MatrixPreset mapping.
  *
  * Requirements:
  *      - Supported driver with complatible library (SBK_MAX72xx or SBK_HT16K33 libraries)
@@ -9,7 +9,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.0.4
+ * @version 2.1.0
  * @license MIT
  */
 
@@ -25,9 +25,9 @@
 // ──────────────────────────────────────────────
 /**
  * More preset could be add upon time or on request.
- * Preset MatrixPreset values currtently available:
- *      - SBK_BarMeter_SK28 : Alias for **SBK BarMeter SK28** PCB using BL28_3005SK BarMeterType.
- *      - SBK_BarMeter_SA28 : Alias for **SBK BarMeter SA28** PCB using BL28_3005SA BarMeterType.
+ * Preset MatrixPreset values currently available:
+ *      - SBK_BarMeter_SK28 : Alias for **SBK BarMeter SK28** PCB using the BL28_3005SK preset.
+ *      - SBK_BarMeter_SA28 : Alias for **SBK BarMeter SA28** PCB using the BL28_3005SA preset.
  *      - BL28_3005SK       : Native mapping for BL28-3005SK bar meter (7×4 layout, common cathode).
  *      - BL28_3005SA       : Native mapping for BL28-3005SA bar meter (4×7 layout, common anode).
  */
