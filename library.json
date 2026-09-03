@@ -1,6 +1,6 @@
 {
   "name": "SBK_BarDrive",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Unified LED bar meter control and queued animations for MAX7219, MAX7221 and HT16K33.",
   "keywords": [
     "bar meter",

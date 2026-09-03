@@ -1,7 +1,7 @@
 /**
  * @file genericMatrixDemo.ino
  * @brief Demonstrates a generic rows-by-columns matrix bar meter.
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  */
 

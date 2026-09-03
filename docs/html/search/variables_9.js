@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queue_5fcapacity_0',['QUEUE_CAPACITY',['../class_s_b_k___bar_meter_animations.html#a6dfa98a8f9f5b269bff88e25c41cab4b',1,'SBK_BarMeterAnimations']]]
+  ['no_5fqueue_5findex_0',['NO_QUEUE_INDEX',['../class_s_b_k___bar_meter_animations.html#ae83548293ff673374672ee9c1a382a1e',1,'SBK_BarMeterAnimations']]]
 ];

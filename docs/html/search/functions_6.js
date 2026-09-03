@@ -8,5 +8,6 @@ var searchData=
   ['followdualsignalfromedges_5',['followDualSignalFromEdges',['../class_s_b_k___bar_meter_animations.html#af14b33da59eaa9ce8064f16b9df95ccd',1,'SBK_BarMeterAnimations']]],
   ['followsignalfloatingpeak_6',['followSignalFloatingPeak',['../class_s_b_k___bar_meter_animations.html#a5641d5b58fc8374a46e497f694f29cf0',1,'SBK_BarMeterAnimations']]],
   ['followsignalsmooth_7',['followSignalSmooth',['../class_s_b_k___bar_meter_animations.html#a4ddfa473269e6ed499ddd80303cea89e',1,'SBK_BarMeterAnimations']]],
-  ['followsignalwithpointer_8',['followSignalWithPointer',['../class_s_b_k___bar_meter_animations.html#a36e0cd41d3a30042ff711f4bd57803c2',1,'SBK_BarMeterAnimations']]]
+  ['followsignalwithpointer_8',['followSignalWithPointer',['../class_s_b_k___bar_meter_animations.html#a36e0cd41d3a30042ff711f4bd57803c2',1,'SBK_BarMeterAnimations']]],
+  ['fortime_9',['forTime',['../class_s_b_k___bar_meter_animations.html#acc460a943fe19f92d4d04b759e02ca9b',1,'SBK_BarMeterAnimations']]]
 ];

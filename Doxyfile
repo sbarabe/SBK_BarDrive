@@ -1,5 +1,5 @@
 PROJECT_NAME           = "SBK_BarDrive Library"
-PROJECT_NUMBER         = 2.1.0
+PROJECT_NUMBER         = 2.1.2
 PROJECT_BRIEF          = "LED bar meter control and queued animations for Arduino"
 
 OUTPUT_DIRECTORY       = docs

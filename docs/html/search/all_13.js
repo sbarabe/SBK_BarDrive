@@ -10,8 +10,8 @@ var searchData=
   ['peakholdtime_7',['peakHoldTime',['../_s_b_k___bar_meter_animations_8h.html#a11956fb277e13660101fb134025ab70d',1,'SBK_BarMeterAnimations.h']]],
   ['peaklevel_8',['peakLevel',['../_s_b_k___bar_meter_animations_8h.html#a273096c4e11fb0637f056a831d7875b8',1,'peakLevel:&#160;SBK_BarMeterAnimations.h'],['../_s_b_k___bar_meter_animations_8h.html#a072d9a96ae8f2c856d2ed95dc3d8f104',1,'peakLevel:&#160;SBK_BarMeterAnimations.h']]],
   ['position_9',['position',['../struct_s_b_k___bar_meter_animations_1_1_block.html#a8df99e89874fbb2da6fc5d207ffb6139',1,'SBK_BarMeterAnimations::Block']]],
-  ['possible_20internal_20architecture_10',['3.0.0: possible internal architecture',['../md__r_o_a_d_m_a_p.html#autotoc_md48',1,'']]],
+  ['possible_20internal_20architecture_10',['3.0.0: possible internal architecture',['../md__r_o_a_d_m_a_p.html#autotoc_md56',1,'']]],
   ['presettypedemo_2eino_11',['presetTypeDemo.ino',['../preset_type_demo_8ino.html',1,'']]],
   ['prevpeakupdate_12',['prevPeakUpdate',['../_s_b_k___bar_meter_animations_8h.html#adb392ae2d07bcd5712f91367779ba285',1,'SBK_BarMeterAnimations.h']]],
-  ['progress_13',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md50',1,'']]]
+  ['progress_13',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md58',1,'']]]
 ];

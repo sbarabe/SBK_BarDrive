@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.0</span>
+   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.2</span>
    </div>
    <div id="projectbrief">LED bar meter control and queued animations for Arduino</div>
   </td>
@@ -113,9 +113,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_o_a_d_m_
   <div class="headertitle"><div class="title">SBK_BarDrive Roadmap </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md46"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md54"></a></p>
 <p>This document records possible future directions. Items listed here are ideas, not commitments, and may change after profiling and hardware testing.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
 2.1.x: stabilization</h1>
 <p>The 2.1.x series should favor compatibility and predictable embedded behavior:</p>
 <ul>
@@ -126,10 +126,10 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_o_a_d_m_
 <li>Correct defects and documentation without redesigning the public API.</li>
 <li>Regenerate the Doxygen HTML documentation from the current source before a published release.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
 3.0.0: possible internal architecture</h1>
 <p>Version 3.0.0 may reorganize the animation engine while preserving the useful chainable API where practical.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
 Typed active animation state</h2>
 <p>Replace generic active fields such as <span class="tt">_param1</span>, <span class="tt">_counter1</span>, and <span class="tt">_ledTracker1</span> with clearly named state structures:</p>
 <div class="fragment"><div class="line"><span class="keyword">struct </span>BlockState;</div>
@@ -137,7 +137,7 @@ Typed active animation state</h2>
 <div class="line"><span class="keyword">struct </span>BlinkState;</div>
 <div class="line"><span class="keyword">struct </span>SignalState;</div>
 </div><!-- fragment --><p>Only one animation runs at a time, so these structures could share storage in a union. This should improve readability without automatically increasing SRAM.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 Separate configuration, runtime, and progress</h2>
 <p>Clearly distinguish:</p>
 <ul>
@@ -147,17 +147,17 @@ Separate configuration, runtime, and progress</h2>
 </ul>
 <p>Every animation should follow one lifecycle:</p>
 <div class="fragment"><div class="line">configure -&gt; enqueue or start -&gt; initialize -&gt; update -&gt; finish</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
 Compact queue descriptors</h2>
 <p>Queue entries could store only the information required to initialize an animation instead of snapshotting most of the controller state. The active typed state would be initialized when the entry starts.</p>
 <p>The queue must remain fixed-storage and compile-time configurable by default. No allocation should occur while animations are running.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md60"></a>
 Explicit animation types and dispatch</h2>
 <p>Introduce an <span class="tt">AnimationType</span> enum for queue descriptors and active-state selection. Compare a <span class="tt">switch</span> dispatcher with the current member-function pointer dispatcher on AVR, retaining whichever produces the better flash and runtime result.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md61"></a>
 Compact flag storage</h2>
 <p>Evaluate explicit bit-mask flags for loop, logic, direction, and pointer modes. Do not use C++ bitfields without measurement: the 2.1.0 experiment reduced SRAM but increased AVR flash enough to be rejected.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md62"></a>
 Internal file organization</h2>
 <p>Consider separating the animation implementation into focused template headers:</p>
 <div class="fragment"><div class="line">SBK_BarMeterAnimations.h</div>
@@ -168,7 +168,7 @@ Internal file organization</h2>
 <div class="line">internal/SBK_FillAnimations.h</div>
 <div class="line">internal/SBK_SignalAnimations.h</div>
 </div><!-- fragment --><p>This is an organizational change, not a reason to duplicate state or force all animation code into every firmware image.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md63"></a>
 Workspace ownership options</h2>
 <p>Investigate alternatives to the construction-time heap allocation used by the shared block/random workspace:</p>
 <ul>
@@ -177,7 +177,7 @@ Workspace ownership options</h2>
 <li>A capacity template parameter or build macro.</li>
 </ul>
 <p>Any alternative should preserve universal display sizes and avoid heap activity during operation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md64"></a>
 Fading effects</h2>
 <p>Explore brightness-based transitions and animations, including fade-in, fade-out, cross-fade, and pulsing effects. The public API should remain non-blocking and compatible with animation queues.</p>
 <p>Driver capabilities differ, so fading should be designed around an explicit brightness capability rather than assuming that every output supports PWM:</p>
@@ -188,7 +188,7 @@ Fading effects</h2>
 <li>Determine how logic inversion, direction changes, looping, <span class="tt">pause()</span>, <span class="tt">stop()</span>, and queued transitions affect an active fade.</li>
 <li>Measure the additional queue-entry, runtime-state, flash, and SRAM costs before adopting the feature.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md65"></a>
 IS31FL3733 driver compatibility</h2>
 <p>Add and validate a BarDrive adapter for the IS31FL3733 LED matrix driver. The integration should preserve the existing mapping constructors and animation API while taking advantage of the driver's per-LED brightness support where appropriate.</p>
 <p>The work should include:</p>
@@ -200,7 +200,7 @@ IS31FL3733 driver compatibility</h2>
 <li>Examples and Doxygen documentation for a representative IS31FL3733 setup.</li>
 <li>Flash, SRAM, bus-traffic, and refresh-rate measurements on constrained targets.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md66"></a>
 SoloDrive individual indicators</h2>
 <p>Explore a <span class="tt">SoloDrive</span> class for treating one driver pixel as an independent indicator instead of as part of a bar meter. It should reuse the same driver and pixel-addressing abstractions without requiring a one-segment <span class="tt"><a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a></span> object.</p>
 <p>Candidate indicator controls and animations include:</p>
@@ -216,7 +216,7 @@ SoloDrive individual indicators</h2>
 <p>Multiple indicators should be able to share a compact scheduler. Indicators assigned to the same synchronization group should start together and remain phase-aligned even when their physical pixels, drivers, logic polarity, or brightness ranges differ. The design should define predictable behavior when an indicator joins, leaves, pauses, or resumes a running group, and should support an explicit phase reset for restarting a group in synchronization.</p>
 <p>Independent indicators should remain possible without requiring separate hardware timers. The design should also evaluate an optional fixed-storage queue without forcing queue memory on simple indicators that only need on/off or synchronized blinking behavior.</p>
 <p>On binary-only drivers, unsupported brightness effects should have an explicit and predictable policy. Software PWM should only be considered when its CPU, bus-traffic, and flicker costs are acceptable for the target platform.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md67"></a>
 Evaluation requirements for 3.0.0</h1>
 <p>Architectural changes should be accepted only after comparison with 2.1.x:</p>
 <ul>

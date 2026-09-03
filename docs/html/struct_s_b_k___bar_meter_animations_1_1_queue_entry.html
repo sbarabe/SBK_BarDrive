@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.0</span>
+   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.2</span>
    </div>
    <div id="projectbrief">LED bar meter control and queued animations for Arduino</div>
   </td>
@@ -144,11 +144,14 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a7c9cf4f964b2c30508ec60c57d1bd441" id="r_a7c9cf4f964b2c30508ec60c57d1bd441"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7c9cf4f964b2c30508ec60c57d1bd441">animDirSet</a> = false</td></tr>
 <tr class="memitem:aa5fce9cd6876c6c533e9c58665e96744" id="r_aa5fce9cd6876c6c533e9c58665e96744"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa5fce9cd6876c6c533e9c58665e96744">usePtr</a> = false</td></tr>
 <tr class="memitem:af164a0569e234e632937165b164ab402" id="r_af164a0569e234e632937165b164ab402"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af164a0569e234e632937165b164ab402">emittingBlocksEnabled</a> = true</td></tr>
+<tr class="memitem:a02c92d580a13914fc014f57c6caaec59" id="r_a02c92d580a13914fc014f57c6caaec59"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a02c92d580a13914fc014f57c6caaec59">resetRuntimeState</a> = true</td></tr>
+<tr class="memitem:a85ed31e2b1e1e458eaf85166410b340f" id="r_a85ed31e2b1e1e458eaf85166410b340f"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a85ed31e2b1e1e458eaf85166410b340f">duration</a> = 0</td></tr>
+<tr class="memitem:a3ba6f15c7097b04be1a04531fc216452" id="r_a3ba6f15c7097b04be1a04531fc216452"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a3ba6f15c7097b04be1a04531fc216452">blockEmissionStopAfter</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename BarMeterT&gt;<br />
 struct SBK_BarMeterAnimations&lt; BarMeterT &gt;::QueueEntry</div>
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01586">1586</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01753">1753</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
 <a id="a7c9cf4f964b2c30508ec60c57d1bd441" name="a7c9cf4f964b2c30508ec60c57d1bd441"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7c9cf4f964b2c30508ec60c57d1bd441">&#9670;&#160;</a></span>animDirSet</h2>
@@ -164,9 +167,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01603">1603</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01770">1770</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -184,9 +187,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01602">1602</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01769">1769</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -204,9 +207,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01596">1596</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01763">1763</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>.</p>
 
 </div>
 </div>
@@ -224,9 +227,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01600">1600</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01767">1767</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -244,9 +247,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01601">1601</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01768">1768</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -264,9 +267,49 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01597">1597</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01764">1764</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>.</p>
+
+</div>
+</div>
+<a id="a3ba6f15c7097b04be1a04531fc216452" name="a3ba6f15c7097b04be1a04531fc216452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba6f15c7097b04be1a04531fc216452">&#9670;&#160;</a></span>blockEmissionStopAfter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BarMeterT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="class_s_b_k___bar_meter_animations.html">SBK_BarMeterAnimations</a>&lt; BarMeterT &gt;::QueueEntry::blockEmissionStopAfter = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01775">1775</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00528">SBK_BarMeterAnimations&lt; BarMeterT &gt;::stopBlockEmissionAfter()</a>.</p>
+
+</div>
+</div>
+<a id="a85ed31e2b1e1e458eaf85166410b340f" name="a85ed31e2b1e1e458eaf85166410b340f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85ed31e2b1e1e458eaf85166410b340f">&#9670;&#160;</a></span>duration</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BarMeterT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t <a class="el" href="class_s_b_k___bar_meter_animations.html">SBK_BarMeterAnimations</a>&lt; BarMeterT &gt;::QueueEntry::duration = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01774">1774</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00280">SBK_BarMeterAnimations&lt; BarMeterT &gt;::forTime()</a>.</p>
 
 </div>
 </div>
@@ -284,9 +327,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01605">1605</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01772">1772</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -304,9 +347,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01588">1588</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01755">1755</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -324,9 +367,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01598">1598</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01765">1765</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -344,9 +387,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01595">1595</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01762">1762</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>.</p>
 
 </div>
 </div>
@@ -364,9 +407,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01590">1590</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01757">1757</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -384,9 +427,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01593">1593</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01760">1760</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -404,9 +447,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01590">1590</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01757">1757</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -424,9 +467,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01593">1593</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01760">1760</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -444,9 +487,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01599">1599</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01766">1766</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -464,9 +507,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01594">1594</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01761">1761</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -484,9 +527,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01594">1594</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01761">1761</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -504,9 +547,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01594">1594</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01761">1761</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -524,9 +567,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01594">1594</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01761">1761</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -544,9 +587,29 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01594">1594</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01761">1761</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+
+</div>
+</div>
+<a id="a02c92d580a13914fc014f57c6caaec59" name="a02c92d580a13914fc014f57c6caaec59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c92d580a13914fc014f57c6caaec59">&#9670;&#160;</a></span>resetRuntimeState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename BarMeterT&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_s_b_k___bar_meter_animations.html">SBK_BarMeterAnimations</a>&lt; BarMeterT &gt;::QueueEntry::resetRuntimeState = true</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01773">1773</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l00305">SBK_BarMeterAnimations&lt; BarMeterT &gt;::enqueueReverseAnim()</a>.</p>
 
 </div>
 </div>
@@ -564,9 +627,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01589">1589</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01756">1756</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -584,9 +647,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01589">1589</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01756">1756</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -604,9 +667,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01589">1589</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01756">1756</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -624,9 +687,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01604">1604</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01771">1771</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -644,9 +707,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01591">1591</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01758">1758</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>
@@ -664,9 +727,9 @@ template&lt;typename BarMeterT&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01592">1592</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01759">1759</a> of file <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html">SBK_BarMeterAnimations.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01664">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01694">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01840">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_captureQueueEntry()</a>, and <a class="el" href="_s_b_k___bar_meter_animations_8h_source.html#l01874">SBK_BarMeterAnimations&lt; BarMeterT &gt;::_loadQueueEntry()</a>.</p>
 
 </div>
 </div>

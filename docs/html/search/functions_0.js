@@ -7,7 +7,7 @@ var searchData=
   ['_5fbouncefillhalfrangemirrorcenter_4',['_bounceFillHalfRangeMirrorCenter',['../class_s_b_k___bar_meter_animations.html#ac6084471cb3ab161624b9e8c6817e6dd',1,'SBK_BarMeterAnimations']]],
   ['_5fcalculateswitchedemittickcounter_5',['_calculateSwitchedEmitTickCounter',['../class_s_b_k___bar_meter_animations.html#a8fc7b26e73c01fea859f701375bd4371',1,'SBK_BarMeterAnimations']]],
   ['_5fcalculateswitchposition_6',['_calculateSwitchPosition',['../class_s_b_k___bar_meter_animations.html#a236cb4fd3952d8ea89a40c3d0fbb1f56',1,'SBK_BarMeterAnimations']]],
-  ['_5fcapturequeueentry_7',['_captureQueueEntry',['../class_s_b_k___bar_meter_animations.html#ac6c246786d63b616b8ca879f499d1402',1,'SBK_BarMeterAnimations']]],
+  ['_5fcapturequeueentry_7',['_captureQueueEntry',['../class_s_b_k___bar_meter_animations.html#a88fb5225bc9f4f496355f044ca7420be',1,'SBK_BarMeterAnimations']]],
   ['_5fcorrectswaporequalminmax_8',['_correctSwapOrEqualMinMax',['../class_s_b_k___bar_meter_animations.html#a8a03cd863fc2cdfa23582e615e379423',1,'SBK_BarMeterAnimations']]],
   ['_5fcorrpixeltodir_9',['_corrPixelToDir',['../class_s_b_k___bar_meter_animations.html#a93bbfe4334631016b7499766a0668ea6',1,'SBK_BarMeterAnimations']]],
   ['_5fcorrpixeltodirforhalfrange_10',['_corrPixelToDirForHalfRange',['../class_s_b_k___bar_meter_animations.html#a66ab15bda0b1b2455a3ce12aa12ceddf',1,'SBK_BarMeterAnimations']]],
@@ -21,7 +21,7 @@ var searchData=
   ['_5fgetmappedsignal_18',['_getMappedSignal',['../class_s_b_k___bar_meter_animations.html#ad9caac572f7cc79a5edf0d43db5a6ae6',1,'SBK_BarMeterAnimations']]],
   ['_5finitializestorage_19',['_initializeStorage',['../class_s_b_k___bar_meter_animations.html#a2acd7a18a8c0583c4c854faada690bde',1,'SBK_BarMeterAnimations']]],
   ['_5flivebpmptr_20',['_liveBpmPtr',['../class_s_b_k___bar_meter_animations.html#a55711d1d47dbf27734f5ea0dc558b763',1,'SBK_BarMeterAnimations']]],
-  ['_5floadqueueentry_21',['_loadQueueEntry',['../class_s_b_k___bar_meter_animations.html#aa0d523cce08a46c28c9ee04fe484fbb2',1,'SBK_BarMeterAnimations']]],
+  ['_5floadqueueentry_21',['_loadQueueEntry',['../class_s_b_k___bar_meter_animations.html#a392fe22728ad4f79b3a86c3060eaaa07',1,'SBK_BarMeterAnimations']]],
   ['_5fmapminmaxtracker_22',['_mapMinMaxTracker',['../class_s_b_k___bar_meter_animations.html#a4688a62e419a7bdbf2140c2f7241dd7b',1,'SBK_BarMeterAnimations']]],
   ['_5fmapminmaxtrackerfromptr_23',['_mapMinMaxTrackerFromPtr',['../class_s_b_k___bar_meter_animations.html#a4c7dc7de40d19f4834756b0ef6fd790b',1,'SBK_BarMeterAnimations']]],
   ['_5fmirrorblocks_24',['_mirrorBlocks',['../class_s_b_k___bar_meter_animations.html#adffca37a2762af7ca1c243ab6144b2a7',1,'SBK_BarMeterAnimations']]],
@@ -37,6 +37,6 @@ var searchData=
   ['_5fsignalptr1_34',['_signalPtr1',['../class_s_b_k___bar_meter_animations.html#a3fffa2072f139666399f9a1d738a8f7b',1,'SBK_BarMeterAnimations']]],
   ['_5fsignalptr2_35',['_signalPtr2',['../class_s_b_k___bar_meter_animations.html#a5ddc6e6d2d311eb6ebca91e135ec3004',1,'SBK_BarMeterAnimations']]],
   ['_5fstackingblocks_36',['_stackingBlocks',['../class_s_b_k___bar_meter_animations.html#ae3b2530dd0aae2e37d0932326cdd1b16',1,'SBK_BarMeterAnimations']]],
-  ['_5fstartnextqueuedanimation_37',['_startNextQueuedAnimation',['../class_s_b_k___bar_meter_animations.html#a372bcc93e6f004edc35631fcc31a707e',1,'SBK_BarMeterAnimations']]],
+  ['_5fstartnextqueuedanimation_37',['_startNextQueuedAnimation',['../class_s_b_k___bar_meter_animations.html#a7427cad210bab10589928290363f7970',1,'SBK_BarMeterAnimations']]],
   ['_5fwait_38',['_wait',['../class_s_b_k___bar_meter_animations.html#a38940752cf4f9ba2a01454108b898e3f',1,'SBK_BarMeterAnimations']]]
 ];

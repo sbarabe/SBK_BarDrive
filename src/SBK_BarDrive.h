@@ -11,7 +11,7 @@
  * Part of the SBK BarDrive Arduino Library
  * https://github.com/smartbuilds/SBK_BarDrive
  *
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy

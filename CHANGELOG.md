@@ -7,8 +7,30 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-Use this section for changes made after the 2.1.1 release.
+Use this section for changes made after the 2.1.2 release.
 Future architectural ideas are tracked separately in [ROADMAP.md](ROADMAP.md).
+
+## [2.1.2] - 2026-09-03
+
+### Added
+
+- Universal `forTime()` modifier for setting a hard maximum duration on direct
+  animations or queued entries. It may be placed immediately before or after
+  `enqueue()`.
+- `enqueueFor()` convenience API for time-limited queued animations.
+- Parameterless `enqueueReverseAnim()` for a state-preserving logic reversal of
+  the preceding queued animation. Standard `loop()`/`noLoop()`, `forTime()`, and
+  `stopBlockEmissionAfter()` modifiers configure the reversed entry.
+- `stopBlockEmissionAfter()` for direct or queued mirrored and scrolling block
+  animations. New emissions stop at the deadline while active blocks drain
+  naturally before queue advancement.
+
+### Changed
+
+- `wait()` is always non-looping, preventing an inherited loop setting from
+  indefinitely blocking subsequent queue entries.
+- `animationQueueDemo` now documents hard deadlines, state-preserving reversal,
+  graceful block draining, modifier ordering, and automatic queue replay.
 
 ## [2.1.1] - 2026-08-31
 

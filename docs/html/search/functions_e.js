@@ -20,5 +20,6 @@ var searchData=
   ['skipcurrent_17',['skipCurrent',['../class_s_b_k___bar_meter_animations.html#ad2bae308483a97918d0f218ef09ec925',1,'SBK_BarMeterAnimations']]],
   ['startqueue_18',['startQueue',['../class_s_b_k___bar_meter_animations.html#ab47ce6b16e62da97371624249873b872',1,'SBK_BarMeterAnimations']]],
   ['stop_19',['stop',['../class_s_b_k___bar_meter_animations.html#a8ebca6aa3d9cff356de5ec1cb429d550',1,'SBK_BarMeterAnimations']]],
-  ['stopblockemission_20',['stopBlockEmission',['../class_s_b_k___bar_meter_animations.html#a7d9a45bde5d0722eda3f6b63583c0745',1,'SBK_BarMeterAnimations']]]
+  ['stopblockemission_20',['stopBlockEmission',['../class_s_b_k___bar_meter_animations.html#a7d9a45bde5d0722eda3f6b63583c0745',1,'SBK_BarMeterAnimations']]],
+  ['stopblockemissionafter_21',['stopBlockEmissionAfter',['../class_s_b_k___bar_meter_animations.html#abb3302e6587398fab05e61b7ba7ad824',1,'SBK_BarMeterAnimations']]]
 ];

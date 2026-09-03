@@ -4,6 +4,14 @@ High-level Arduino library for controlling animated LED bar meters using MAX7219
 
 ---
 
+## What's New in 2.1.2
+
+Version 2.1.2 expands animation scheduling with universal `forTime()` limits,
+state-preserving `enqueueReverseAnim()` transitions, and timed graceful block
+shutdown through `stopBlockEmissionAfter()`. Queue waits are now always
+non-looping, and the timing modifiers work with direct animations as well as
+queued entries.
+
 ## What's New in 2.1.1
 
 Version 2.1.1 fixes the generic rows-by-columns matrix constructor so it
@@ -126,8 +134,8 @@ the existing maximum of 64 simultaneous blocks.
 ## 🔊 Quick Start Examples
 
 See [`animationQueueDemo`](examples/animationQueueDemo/animationQueueDemo.ino)
-for a four-entry queue, live logic inversion without restarting the active
-animation, graceful block-emission shutdown, and a non-blocking `wait()` entry.
+for a four-entry queue demonstrating a hard time limit, state-preserving logic
+reversal, graceful block-emission shutdown, and a non-blocking `wait()` entry.
 
 ### Using MAX7219:
 
@@ -298,7 +306,9 @@ bar.animations().toggleLogic();
 bar.animations().invertLogic();
 bar.animations().resetLogic();
 bar.animations().stopBlockEmission();
+bar.animations().stopBlockEmissionAfter(3000);
 bar.animations().resumeBlockEmission();
+bar.animations().forTime(3000);
 ````
 
 `pause()` freezes the current animation and preserves both its state and the
@@ -345,6 +355,50 @@ direct test, for example:
 ```cpp
 if (animations.isQueueIndexPlaying(2))
     animations.skipCurrent();
+```
+
+Use the universal `forTime(duration)` modifier when a direct, looping, or
+continuous animation needs a hard deadline. It can be applied before or after
+`enqueue()`; `enqueueFor(duration)` remains an equivalent convenience API.
+`enqueueReverseAnim()` copies the preceding entry, reverses its supported logic,
+and preserves its runtime state at the handoff. Configure looping before the
+command and timing after it with the standard modifiers:
+
+```cpp
+bar.animations()
+    .collidingBlocks(45, 4, 2, 3).loop().enqueue().forTime(3000)
+    .loop().enqueueReverseAnim().stopBlockEmissionAfter(3000)
+    .wait(1000).enqueue()
+    .startQueue();
+```
+
+Here the colliding animation loops for three seconds. The reversed entry then
+turns its in-flight blocks into exploding blocks and may loop until its
+three-second emission deadline. It then advances after the remaining blocks
+have left the display.
+
+For an ordinary queued emitting-block animation, use the specialized modifier
+to stop new emissions after a deadline and let active blocks drain naturally:
+
+```cpp
+bar.animations()
+    .scrollingUpBlocks(45, 4, 2)
+    .loop()
+    .stopBlockEmissionAfter(3000)
+    .enqueue();
+```
+
+After a direct animation starter, `stopBlockEmissionAfter()` schedules that
+active animation. Before `enqueue()`, it is captured by the new entry; after an
+enqueue operation, it modifies the most recently queued entry. It has no effect
+on animation types that do not emit blocks and, unlike `enqueueFor()`, does not
+force an immediate transition at the deadline.
+
+```cpp
+bar.animations()
+    .collidingBlocks(45, 4, 2).loop().enqueue().forTime(3000)
+    .loop().enqueueReverseAnim().stopBlockEmissionAfter(3000)
+    .wait(1000).enqueue();
 ```
 
 Use `wait(duration)` to add a non-blocking delay that preserves the current

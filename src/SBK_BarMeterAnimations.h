@@ -23,7 +23,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.1.1
+ * @version 2.1.2
  * @license MIT
  *
  * @copyright
@@ -94,6 +94,44 @@ public:
     {
         _currentTime = syncTime;
 
+        if (_queueEntryTimingPending)
+        {
+            _queueEntryStartedAt = _currentTime;
+            _queueEntryTimingPending = false;
+        }
+
+        if (_isRunning && _currentFunc && _activeBlockEmissionStopAfter > 0 &&
+            _currentTime - _queueEntryStartedAt >= _activeBlockEmissionStopAfter)
+        {
+            if (_currentFunc == &SBK_BarMeterAnimations::_mirrorBlocks ||
+                _currentFunc == &SBK_BarMeterAnimations::_scrollingBlocks)
+            {
+                // Stop producing blocks at the deadline, but keep updating until
+                // every block already in flight has naturally left the display.
+                _emittingBlocksEnabled = false;
+                _loop = false;
+            }
+            _activeBlockEmissionStopAfter = 0;
+        }
+
+        if (_isRunning && _currentFunc && _queueEntryDuration > 0 &&
+            _currentTime - _queueEntryStartedAt >= _queueEntryDuration)
+        {
+            if (_queueActive)
+                _startNextQueuedAnimation();
+            else
+            {
+                _isRunning = false;
+                _isPaused = false;
+                _loop = false;
+                _isLoopingNow = false;
+                _currentFunc = nullptr;
+                _init = true;
+                _queueEntryDuration = 0;
+            }
+            return _isRunning;
+        }
+
         if (!_isRunning || _isPaused || !_currentFunc)
             return _queueActive;
 
@@ -120,6 +158,8 @@ public:
                     _currentFunc = nullptr;
                     _queueActive = false;
                     _currentQueueIndex = NO_QUEUE_INDEX;
+                    _queueEntryDuration = 0;
+                    _activeBlockEmissionStopAfter = 0;
                 }
             }
         }
@@ -158,6 +198,10 @@ public:
         _currentFunc = nullptr;
         _animLogicSet = false;
         _init = true;
+        _blockEmissionStopAfter = 0;
+        _animationDuration = 0;
+        _queueEntryDuration = 0;
+        _activeBlockEmissionStopAfter = 0;
         clearQueue();
         _barMeter.clear();
         return *this;
@@ -178,7 +222,7 @@ public:
 
         if (_queueCount < QUEUE_CAPACITY)
         {
-            _captureQueueEntry(_queue[_queueTail]);
+            _captureQueueEntry(_queue[_queueTail], true, _animationDuration);
             _queueTail = (_queueTail + 1) % QUEUE_CAPACITY;
             _queueCount++;
         }
@@ -189,6 +233,99 @@ public:
 
         _isRunning = false;
         _currentFunc = nullptr;
+        _blockEmissionStopAfter = 0;
+        _animationDuration = 0;
+        return *this;
+    }
+
+    /**
+     * @brief Queue the configured animation for a fixed amount of time.
+     *
+     * The queue advances immediately after duration milliseconds even if the
+     * animation loops or is intrinsically continuous.
+     * @param duration Maximum time this queue entry remains active, in milliseconds.
+     */
+    SBK_BarMeterAnimations &enqueueFor(uint32_t duration)
+    {
+        if (!_currentFunc)
+            return *this;
+
+        if (_queueCount < QUEUE_CAPACITY)
+        {
+            _captureQueueEntry(_queue[_queueTail], true, duration);
+            _queueTail = (_queueTail + 1) % QUEUE_CAPACITY;
+            _queueCount++;
+        }
+        else
+        {
+            _queueOverflow = true;
+        }
+
+        _isRunning = false;
+        _currentFunc = nullptr;
+        _blockEmissionStopAfter = 0;
+        _animationDuration = 0;
+        return *this;
+    }
+
+    /**
+     * @brief Limit a direct or queued animation to a maximum run time.
+     *
+     * After a direct animation starter, this schedules the active animation. When
+     * called after an enqueue operation, it modifies the most recently queued
+     * entry. A queued animation advances immediately when the deadline expires;
+     * a direct animation stops while preserving its displayed pixels.
+     * @param duration Maximum animation run time in milliseconds; zero disables it.
+     */
+    SBK_BarMeterAnimations &forTime(uint32_t duration)
+    {
+        if (_currentFunc)
+        {
+            _animationDuration = duration;
+            _queueEntryDuration = duration;
+            _queueEntryTimingPending = true;
+        }
+        else if (_queueCount > 0)
+        {
+            const uint8_t previousIndex =
+                (_queueTail + QUEUE_CAPACITY - 1) % QUEUE_CAPACITY;
+            _queue[previousIndex].duration = duration;
+        }
+        return *this;
+    }
+
+    /**
+     * @brief Queue a state-preserving logic reversal of the preceding entry.
+     *
+     * The preceding queued animation is copied, its supported logic is reversed,
+     * and its runtime trackers and workspace are preserved at the handoff.
+     * Configure looping with loop() or noLoop() before calling this command.
+     * Apply forTime() or stopBlockEmissionAfter() separately when timing is needed.
+     */
+    SBK_BarMeterAnimations &enqueueReverseAnim()
+    {
+        if (_queueCount == 0)
+            return *this;
+
+        if (_queueCount >= QUEUE_CAPACITY)
+        {
+            _queueOverflow = true;
+            return *this;
+        }
+
+        const uint8_t previousIndex =
+            (_queueTail + QUEUE_CAPACITY - 1) % QUEUE_CAPACITY;
+        QueueEntry &entry = _queue[_queueTail];
+        entry = _queue[previousIndex];
+        entry.loop = _loop;
+        entry.animInitLogicIsInverted = !entry.animInitLogicIsInverted;
+        entry.animRenderLogicIsInverted = !entry.animRenderLogicIsInverted;
+        entry.resetRuntimeState = false;
+        entry.duration = 0;
+        entry.blockEmissionStopAfter = 0;
+
+        _queueTail = (_queueTail + 1) % QUEUE_CAPACITY;
+        _queueCount++;
         return *this;
     }
 
@@ -198,7 +335,7 @@ public:
         if (_queueCount > 0)
         {
             _queueActive = true;
-            _startNextQueuedAnimation();
+            _startNextQueuedAnimation(true);
         }
         return *this;
     }
@@ -264,6 +401,8 @@ public:
     /** @brief Set animation to automatically loop when complete. */
     SBK_BarMeterAnimations &loop()
     {
+        if (_currentFunc == &SBK_BarMeterAnimations::_wait)
+            return *this;
         _loop = true;
         return *this;
     }
@@ -376,6 +515,33 @@ public:
         return *this;
     }
 
+    /**
+     * @brief Stop new block emission after an animation has run for a duration.
+     *
+     * After a direct animation starter, this schedules the active animation. When
+     * called after an enqueue operation, it modifies the most recently queued
+     * entry. Compatible mirrored and scrolling block animations keep updating
+     * until their active blocks leave the display. This has no effect on other
+     * animation types.
+     * @param duration Time in milliseconds before new block emission stops.
+     */
+    SBK_BarMeterAnimations &stopBlockEmissionAfter(uint32_t duration)
+    {
+        if (_currentFunc)
+        {
+            _blockEmissionStopAfter = duration;
+            _activeBlockEmissionStopAfter = duration;
+            _queueEntryTimingPending = true;
+        }
+        else if (_queueCount > 0)
+        {
+            const uint8_t previousIndex =
+                (_queueTail + QUEUE_CAPACITY - 1) % QUEUE_CAPACITY;
+            _queue[previousIndex].blockEmissionStopAfter = duration;
+        }
+        return *this;
+    }
+
     /** @brief Query if animation is currently active. */
     bool isRunning() const { return _isRunning; }
 
@@ -462,12 +628,13 @@ public:
     }
 
     /**
-     * @brief Wait without blocking or changing the current pixel states.
+     * @brief Wait without blocking or changing pixel states; waits never loop.
      * @param duration Wait duration in milliseconds.
      */
     SBK_BarMeterAnimations &wait(uint16_t duration)
     {
         _updateIntv1 = duration;
+        _loop = false;
         _isRunning = true;
         _currentFunc = &SBK_BarMeterAnimations::_wait;
         _init = true;
@@ -1603,6 +1770,9 @@ protected:
         bool animDirSet = false;
         bool usePtr = false;
         bool emittingBlocksEnabled = true;
+        bool resetRuntimeState = true;
+        uint32_t duration = 0;
+        uint32_t blockEmissionStopAfter = 0;
     };
     QueueEntry _queue[QUEUE_CAPACITY];
     uint8_t _queueHead = 0;
@@ -1611,6 +1781,10 @@ protected:
     uint8_t _currentQueueIndex = NO_QUEUE_INDEX;
     bool _queueActive = false;
     bool _queueOverflow = false;
+    uint32_t _queueEntryDuration = 0;
+    uint32_t _queueEntryStartedAt = 0;
+    uint32_t _activeBlockEmissionStopAfter = 0;
+    bool _queueEntryTimingPending = false;
 
     // Control flags
     bool _init = true; // true = init function
@@ -1630,6 +1804,8 @@ protected:
     bool _animDirSet = false;
     bool _usePtr = false;
     bool _emittingBlocksEnabled = true;
+    uint32_t _animationDuration = 0;
+    uint32_t _blockEmissionStopAfter = 0;
 
     // Time trackings
     uint32_t _currentTime = 0;
@@ -1661,7 +1837,8 @@ protected:
     uint8_t _blockCapacity = 0;
     uint8_t _randomCursor = 0;
 
-    void _captureQueueEntry(QueueEntry &entry)
+    void _captureQueueEntry(QueueEntry &entry, bool resetRuntimeState,
+                            uint32_t duration)
     {
         entry.function = _currentFunc;
         entry.updateIntv1 = _updateIntv1;
@@ -1689,10 +1866,16 @@ protected:
         entry.animDirSet = _animDirSet;
         entry.usePtr = _usePtr;
         entry.emittingBlocksEnabled = _emittingBlocksEnabled;
+        entry.resetRuntimeState = resetRuntimeState;
+        entry.duration = duration;
+        entry.blockEmissionStopAfter = _blockEmissionStopAfter;
     }
 
-    void _loadQueueEntry(const QueueEntry &entry)
+    void _loadQueueEntry(const QueueEntry &entry, bool forceReset = false)
     {
+        const bool resetRuntimeState = forceReset || entry.resetRuntimeState;
+        const bool previousRenderLogic = _animRenderLogicIsInverted;
+
         _currentFunc = entry.function;
         _updateIntv1 = entry.updateIntv1;
         _updateIntv2 = entry.updateIntv2;
@@ -1707,11 +1890,17 @@ protected:
         _param2 = entry.param2;
         _param3 = entry.param3;
         _param4 = entry.param4;
-        _param5 = entry.param5;
+        if (resetRuntimeState)
+            _param5 = entry.param5;
         _loop = entry.loop;
         _AnimInitLogicIsInverted = entry.animInitLogicIsInverted;
-        _animRenderLogicIsInverted = entry.animRenderLogicIsInverted;
-        _prevAnimRenderLogic = entry.animRenderLogicIsInverted;
+        _animRenderLogicIsInverted =
+            (!resetRuntimeState && !entry.animLogicSet)
+                ? entry.animInitLogicIsInverted
+                : entry.animRenderLogicIsInverted;
+        _prevAnimRenderLogic = resetRuntimeState
+                                   ? entry.animRenderLogicIsInverted
+                                   : previousRenderLogic;
         _isNonInvertingLogicAnim = entry.isNonInvertingLogicAnim;
         _mirrorHalfRangeDir = entry.mirrorHalfRangeDir;
         _animLogicSet = entry.animLogicSet;
@@ -1720,20 +1909,30 @@ protected:
         _animDirSet = entry.animDirSet;
         _usePtr = entry.usePtr;
         _emittingBlocksEnabled = entry.emittingBlocksEnabled;
+        _queueEntryDuration = entry.duration;
+        _activeBlockEmissionStopAfter = entry.blockEmissionStopAfter;
+        _queueEntryTimingPending = true;
 
-        _init = true;
         _isRunning = _currentFunc != nullptr;
         _isPaused = false;
         _isLoopingNow = false;
         _skipPending = false;
-        _sequenceState = 0;
-        _ledTracker1 = _ledTracker2 = _ledTracker3 = 0;
-        _counter1 = _counter2 = 0;
-        _smoothedValue1 = _smoothedValue2 = 0;
-        _lastUpdate1 = _lastUpdate2 = _lastUpdate3 = _currentTime;
+        if (resetRuntimeState)
+        {
+            _init = true;
+            _sequenceState = 0;
+            _ledTracker1 = _ledTracker2 = _ledTracker3 = 0;
+            _counter1 = _counter2 = 0;
+            _smoothedValue1 = _smoothedValue2 = 0;
+            _lastUpdate1 = _lastUpdate2 = _lastUpdate3 = _currentTime;
+        }
+        else
+        {
+            _init = false;
+        }
     }
 
-    void _startNextQueuedAnimation()
+    void _startNextQueuedAnimation(bool forceReset = false)
     {
         if (_queueCount == 0)
         {
@@ -1741,11 +1940,12 @@ protected:
             _isRunning = false;
             _currentFunc = nullptr;
             _currentQueueIndex = NO_QUEUE_INDEX;
+            _activeBlockEmissionStopAfter = 0;
             return;
         }
 
         _currentQueueIndex = _queueHead;
-        _loadQueueEntry(_queue[_queueHead]);
+        _loadQueueEntry(_queue[_queueHead], forceReset);
         _queueHead = (_queueHead + 1) % QUEUE_CAPACITY;
         _queueCount--;
     }

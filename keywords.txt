@@ -18,6 +18,9 @@ barmeter               		KEYWORD2
 
 # Animation control helpers
 enqueue	KEYWORD2
+enqueueFor	KEYWORD2
+forTime	KEYWORD2
+enqueueReverseAnim	KEYWORD2
 startQueue	KEYWORD2
 clearQueue	KEYWORD2
 skipCurrent	KEYWORD2
@@ -38,6 +41,7 @@ toggleLogic              	KEYWORD2
 invertLogic              	KEYWORD2
 resetLogic               	KEYWORD2
 stopBlockEmission        	KEYWORD2
+stopBlockEmissionAfter   	KEYWORD2
 resumeBlockEmission      	KEYWORD2
 isRunning                	KEYWORD2
 isPaused                 	KEYWORD2

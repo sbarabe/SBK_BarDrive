@@ -1,12 +1,12 @@
 /**
  * @file animationQueueDemo.ino
- * @brief Demonstrates queued animations, live logic inversion, and wait().
+ * @brief Demonstrates queued animations, seamless state handoff, and wait().
  *
  * This example demonstrates:
  *      - Capturing four animations in a fixed-storage queue
- *      - Inspecting the active queue index
- *      - Modifying a running animation without losing its block positions
- *      - Stopping block emission and allowing active blocks to flow out
+ *      - Applying a hard time limit to a queued animation
+ *      - Switching compatible animations without resetting their block positions
+ *      - Stopping block emission on a timer and draining active blocks
  *      - Adding a non-blocking pause with wait()
  *
  * Requirements:
@@ -16,7 +16,7 @@
  * @author
  * Samuel Barabé (Smart Builds & Kits)
  *
- * @version 2.1.0
+ * @version 2.1.2
  * @license MIT
  */
 
@@ -70,28 +70,36 @@ SBK_BarDrive<SBK_MAX72xxSoft> bar(
  * Change the MatrixPreset or constructor to match your display and wiring.
  */
 
-uint8_t previousQueueIndex = 0xFF; // Same value as NO_QUEUE_INDEX.
-uint32_t queueStepStartedAt = 0;
-bool blockLogicInverted = false;
-
 void startAnimationQueue()
 {
     /*
      * enqueue() captures the animation and its modifiers in the next queue slot.
      * The captured animations do not start until startQueue() is called.
      *
-     * Queue index 0: fill the display.
-     * Queue index 1: empty the display.
-     * Queue index 2: emit colliding blocks indefinitely (numBlocks defaults to 0).
+     * Queue index 0: run one complete fill-up/fill-down bounce.
+     * Queue index 1: emit colliding blocks for a maximum of three seconds.
+     * Queue index 2: reverse the in-flight blocks, emit outward for three
+     *                seconds, then drain all remaining blocks naturally.
      * Queue index 3: preserve the empty display for 1000 ms without blocking.
+     *
+     * Modifier ordering:
+     * - loop()/noLoop() configure an animation before it is captured.
+     * - forTime() may be used before enqueue(), or immediately afterward to
+     *   modify the most recently queued entry, as shown for queue index 1.
+     * - enqueueReverseAnim() captures a reversed copy of the preceding entry
+     *   while preserving its trackers and active block positions.
+     * - stopBlockEmissionAfter() may also follow an enqueue operation. It stops
+     *   new blocks at the deadline, disables looping, and allows active blocks
+     *   to leave before advancing the queue.
+     * - wait() is always non-looping, so noLoop() is unnecessary for waits.
      *
      * wait() is different from Arduino delay(): loop() and animations.update()
      * continue to run, so the rest of the application remains responsive.
      */
     bar.animations().stop()
-        .fillUpIntv(35).noLoop().enqueue()
-        .emptyDownIntv(35).noLoop().enqueue()
-        .collidingBlocks(45, 4, 2).enqueue()
+        .bounceFillUpIntv(35, 35).noLoop().enqueue()
+        .collidingBlocks(45, 4, 2, 0).enqueue().forTime(3000)
+        .enqueueReverseAnim().stopBlockEmissionAfter(3000)
         .wait(1000).enqueue()
         .startQueue();
 }
@@ -115,48 +123,6 @@ void loop()
     // update() advances timing and queue transitions; show() sends pixels to the driver.
     bar.animations().update();
     bar.show();
-
-    /*
-     * Detect entry into a new queue slot so each timed action is measured from
-     * the start of that animation, rather than from the start of the sketch.
-     */
-    const uint8_t currentQueueIndex = bar.animations().currentQueueIndex();
-    if (currentQueueIndex != previousQueueIndex)
-    {
-        previousQueueIndex = currentQueueIndex;
-        queueStepStartedAt = millis();
-        blockLogicInverted = false;
-    }
-
-    const uint32_t queueStepElapsed = millis() - queueStepStartedAt;
-
-    /*
-     * invertLogic() is intentionally called outside the queue. Loading another
-     * queued animation would reinitialize the animation and lose all current
-     * block positions. Modifying the active index-2 animation in place keeps
-     * the same blocks moving while changing how they are rendered.
-     *
-     * The boolean prevents invertLogic() from being called on every loop pass.
-     */
-    if (bar.animations().isQueueIndexPlaying(2) &&
-        queueStepElapsed >= 3000 &&
-        !blockLogicInverted)
-    {
-        bar.animations().invertLogic();
-        blockLogicInverted = true;
-    }
-
-    /*
-     * After three more seconds, stop creating blocks. Active blocks continue
-     * moving until they leave the display. The animation then completes
-     * naturally and the queue advances to wait(1000).
-     */
-    if (bar.animations().isQueueIndexPlaying(2) &&
-        queueStepElapsed >= 6000 &&
-        bar.animations().isBlockEmissionEnabled())
-    {
-        bar.animations().stopBlockEmission();
-    }
 
     // After the final wait entry completes, rebuild and replay the demonstration.
     if (!bar.animations().isRunning())

@@ -26,7 +26,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.0</span>
+   <div id="projectname">SBK_BarDrive Library<span id="projectnumber">&#160;2.1.2</span>
    </div>
    <div id="projectbrief">LED bar meter control and queued animations for Arduino</div>
   </td>
@@ -113,15 +113,43 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__c_h_a_n_g_
   <div class="headertitle"><div class="title">Changelog </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md39"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md41"></a></p>
 <p>All notable changes to <a class="el" href="class_s_b_k___bar_drive.html" title="Unified interface combining SBK_BarMeter logic with optional built-in animation support.">SBK_BarDrive</a> will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>, and this project follows <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 [Unreleased]</h1>
-<p>Use this section for changes made after the 2.1.0 development baseline. Future architectural ideas are tracked separately in <a class="el" href="md__r_o_a_d_m_a_p.html" title="SBK_BarDrive Roadmap">ROADMAP.md</a>.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
+<p>Use this section for changes made after the 2.1.2 release. Future architectural ideas are tracked separately in <a class="el" href="md__r_o_a_d_m_a_p.html" title="SBK_BarDrive Roadmap">ROADMAP.md</a>.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+[2.1.2] - 2026-09-03</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+Added</h2>
+<ul>
+<li>Universal <span class="tt">forTime()</span> modifier for setting a hard maximum duration on direct animations or queued entries. It may be placed immediately before or after <span class="tt">enqueue()</span>.</li>
+<li><span class="tt">enqueueFor()</span> convenience API for time-limited queued animations.</li>
+<li>Parameterless <span class="tt">enqueueReverseAnim()</span> for a state-preserving logic reversal of the preceding queued animation. Standard <span class="tt">loop()</span>/<span class="tt">noLoop()</span>, <span class="tt">forTime()</span>, and <span class="tt">stopBlockEmissionAfter()</span> modifiers configure the reversed entry.</li>
+<li><span class="tt">stopBlockEmissionAfter()</span> for direct or queued mirrored and scrolling block animations. New emissions stop at the deadline while active blocks drain naturally before queue advancement.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+Changed</h2>
+<ul>
+<li><span class="tt">wait()</span> is always non-looping, preventing an inherited loop setting from indefinitely blocking subsequent queue entries.</li>
+<li><span class="tt">animationQueueDemo</span> now documents hard deadlines, state-preserving reversal, graceful block draining, modifier ordering, and automatic queue replay.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
+[2.1.1] - 2026-08-31</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+Fixed</h2>
+<ul>
+<li>Initialize the logical segment count in the generic rows-by-columns matrix constructor. Generic matrix bars now accept pixel updates and animations instead of behaving as zero-segment displays.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
+Added</h2>
+<ul>
+<li><span class="tt">genericMatrixDemo</span> example covering the generic rows-by-columns constructor.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 [2.1.0] - 2026-08-31</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
 Added</h2>
 <ul>
 <li>Fixed-storage animation queue with <span class="tt">enqueue()</span>, <span class="tt">startQueue()</span>, <span class="tt">clearQueue()</span>, and <span class="tt">skipCurrent()</span>.</li>
@@ -134,7 +162,7 @@ Added</h2>
 <li><span class="tt">animationQueueDemo</span> example for queue construction, live logic inversion, graceful block-emission shutdown, and <span class="tt">wait()</span>.</li>
 <li>Root-level <span class="tt">Doxyfile</span> for reproducible API documentation generation.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
 Changed</h2>
 <ul>
 <li><span class="tt">stop()</span> now terminates looping and queued work and clears mapped pixels; <span class="tt">pause()</span> remains the non-destructive way to freeze an animation.</li>
@@ -147,7 +175,7 @@ Changed</h2>
 <li>Doxygen HTML documentation regenerated from the 2.1.0 API and examples.</li>
 <li>Minimum driver releases updated to SBK_HT16K33 2.0.1 and SBK_MAX72xx 2.0.5.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
 Fixed</h2>
 <ul>
 <li>Corrected a duplicated lower-bound test in block tracking.</li>
@@ -155,7 +183,7 @@ Fixed</h2>
 <li>Corrected block-switch helper names and related comments.</li>
 <li>Queue index state is cleared consistently when a queue stops, finishes, or is cleared.</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
 Older versions</h1>
 <p>Detailed release notes were not maintained in this format before 2.1.0. Refer to the repository history and release tags for earlier changes. </p>
 </div></div><!-- contents -->

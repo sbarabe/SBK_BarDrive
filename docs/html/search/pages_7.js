@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['chainable_0',['🧰 Animation Helpers (Chainable)',['../index.html#autotoc_md26',1,'']]],
-  ['changed_1',['Changed',['../md__c_h_a_n_g_e_l_o_g.html#autotoc_md43',1,'']]],
+  ['chainable_0',['🧰 Animation Helpers (Chainable)',['../index.html#autotoc_md28',1,'']]],
+  ['changed_1',['Changed',['../md__c_h_a_n_g_e_l_o_g.html#autotoc_md45',1,'Changed'],['../md__c_h_a_n_g_e_l_o_g.html#autotoc_md51',1,'Changed']]],
   ['changelog_2',['Changelog',['../md__c_h_a_n_g_e_l_o_g.html',1,'']]],
-  ['code_3',['Code',['../index.html#autotoc_md32',1,'']]],
-  ['combinations_4',['⚙️ Supported Hardware Combinations',['../index.html#autotoc_md6',1,'']]],
-  ['compact_20flag_20storage_5',['Compact flag storage',['../md__r_o_a_d_m_a_p.html#autotoc_md53',1,'']]],
-  ['compact_20queue_20descriptors_6',['Compact queue descriptors',['../md__r_o_a_d_m_a_p.html#autotoc_md51',1,'']]],
-  ['compatibility_7',['IS31FL3733 driver compatibility',['../md__r_o_a_d_m_a_p.html#autotoc_md57',1,'']]],
-  ['configuration_20runtime_20and_20progress_8',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md50',1,'']]],
-  ['credits_9',['🧠 Credits',['../index.html#autotoc_md35',1,'']]],
-  ['custom_20mapping_20_3a_10',['Using a custom mapping :',['../index.html#autotoc_md16',1,'']]]
+  ['code_3',['Code',['../index.html#autotoc_md34',1,'']]],
+  ['combinations_4',['⚙️ Supported Hardware Combinations',['../index.html#autotoc_md8',1,'']]],
+  ['compact_20flag_20storage_5',['Compact flag storage',['../md__r_o_a_d_m_a_p.html#autotoc_md61',1,'']]],
+  ['compact_20queue_20descriptors_6',['Compact queue descriptors',['../md__r_o_a_d_m_a_p.html#autotoc_md59',1,'']]],
+  ['compatibility_7',['IS31FL3733 driver compatibility',['../md__r_o_a_d_m_a_p.html#autotoc_md65',1,'']]],
+  ['configuration_20runtime_20and_20progress_8',['Separate configuration, runtime, and progress',['../md__r_o_a_d_m_a_p.html#autotoc_md58',1,'']]],
+  ['credits_9',['🧠 Credits',['../index.html#autotoc_md37',1,'']]],
+  ['custom_20mapping_20_3a_10',['Using a custom mapping :',['../index.html#autotoc_md18',1,'']]]
 ];
