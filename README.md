@@ -45,7 +45,7 @@ offset handling and multi-device support.
 * Designed for **SBK BarMeter** and **SBK BarDrive** PCBs
 * Reverse display modes and flexible mapping
 * Internal buffer with batch `.show()` updates
-* **Software SPI (MAX72xx)** — works on any 3 digital pins: `DATA`, `CLK`, and `CS`
+* **Hardware or software SPI (MAX72xx)** — use the MCU's dedicated SPI bus or any 3 digital pins (`DATA`, `CLK`, and `CS`)
 * **I2C (HT16K33)** — uses `SDA` and `SCL` pins (standard I2C bus)
 
 ---
@@ -86,7 +86,7 @@ The `SBK_BarDrive` library **depends on one of the following display driver libr
 
 | Dependency         | Description                                                              | Required For                     |
 |--------------------|---------------------------------------------------------------------------|----------------------------------|
-| [`SBK_MAX72xx`](https://github.com/sbarabe/SBK_MAX72xx) | Software SPI driver for MAX7219/MAX7221 LED drivers               | MAX72xx-based displays           |
+| [`SBK_MAX72xx`](https://github.com/sbarabe/SBK_MAX72xx) | Hardware and software SPI drivers for MAX7219/MAX7221 LED drivers | MAX72xx-based displays           |
 | [`SBK_HT16K33`](https://github.com/sbarabe/SBK_HT16K33) | I²C driver for HT16K33 LED driver (8x16 matrices or bar displays) | HT16K33-based displays           |
 
 You **must install at least one** of these drivers depending on your hardware.
@@ -421,7 +421,7 @@ does not clear pending entries.
 | `SBK_BarMeter`           | Handles segment mapping and direction logic |
 | `SBK_BarDrive`           | Wrapper that adds animation support         |
 | `SBK_BarMeterAnimations` | Provides animation control interface        |
-| `SBK_MAX72xx`            | Software SPI driver for MAX7219/MAX7221     |
+| `SBK_MAX72xx`            | Hardware/software SPI drivers for MAX7219/MAX7221 |
 | `SBK_HT16K33`            | I2C driver for HT16K33 8x16 LED matrices    |
 
 ---

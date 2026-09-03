@@ -142,7 +142,7 @@ What's New in 2.1.0</h1>
 <li>Designed for <b>SBK BarMeter</b> and <b>SBK BarDrive</b> PCBs</li>
 <li>Reverse display modes and flexible mapping</li>
 <li>Internal buffer with batch <span class="tt">.show()</span> updates</li>
-<li><b>Software SPI (MAX72xx)</b> — works on any 3 digital pins: <span class="tt">DATA</span>, <span class="tt">CLK</span>, and <span class="tt">CS</span></li>
+<li><b>Hardware or software SPI (MAX72xx)</b> — use the MCU's dedicated SPI bus or any 3 digital pins (<span class="tt">DATA</span>, <span class="tt">CLK</span>, and <span class="tt">CS</span>)</li>
 <li><b>I2C (HT16K33)</b> — uses <span class="tt">SDA</span> and <span class="tt">SCL</span> pins (standard I2C bus)</li>
 </ul>
 <hr  />
@@ -177,7 +177,7 @@ What's New in 2.1.0</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Dependency  </th><th class="markdownTableHeadNone">Description  </th><th class="markdownTableHeadNone">Required For  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a href="https://github.com/sbarabe/SBK_MAX72xx"><span class="tt">SBK_MAX72xx</span></a>  </td><td class="markdownTableBodyNone">Software SPI driver for MAX7219/MAX7221 LED drivers  </td><td class="markdownTableBodyNone">MAX72xx-based displays  </td></tr>
+<td class="markdownTableBodyNone"><a href="https://github.com/sbarabe/SBK_MAX72xx"><span class="tt">SBK_MAX72xx</span></a>  </td><td class="markdownTableBodyNone">Hardware and software SPI drivers for MAX7219/MAX7221 LED drivers  </td><td class="markdownTableBodyNone">MAX72xx-based displays  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a href="https://github.com/sbarabe/SBK_HT16K33"><span class="tt">SBK_HT16K33</span></a>  </td><td class="markdownTableBodyNone">I²C driver for HT16K33 LED driver (8x16 matrices or bar displays)  </td><td class="markdownTableBodyNone">HT16K33-based displays  </td></tr>
 </table>
@@ -412,7 +412,7 @@ Animation queue</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt"><a class="el" href="class_s_b_k___bar_meter_animations.html" title="Templated animation controller for SBK_BarMeter&lt;T&gt;.">SBK_BarMeterAnimations</a></span>  </td><td class="markdownTableBodyNone">Provides animation control interface  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">SBK_MAX72xx</span>  </td><td class="markdownTableBodyNone">Software SPI driver for MAX7219/MAX7221  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">SBK_MAX72xx</span>  </td><td class="markdownTableBodyNone">Hardware/software SPI drivers for MAX7219/MAX7221  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">SBK_HT16K33</span>  </td><td class="markdownTableBodyNone">I2C driver for HT16K33 8x16 LED matrices  </td></tr>
 </table>
